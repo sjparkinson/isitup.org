@@ -144,7 +144,7 @@ $domain["cookie"] = get_cookie_array("custom");
 </div>
 
 <div id="footer">
-	by <a href="http://samp.im/" title="Sam Parkinson">Sam Parkinson</a> <a href="<?php echo $setting["static"]; ?>/dl/isitup-source.zip" title="Download the source code">Source</a> <?php if( test_clear() ): ?><a href="http://isitup.org/clear" title="Reset to the default settings">Clear</a><?php endif; ?>
+	by <a href="http://samp.im/" title="Sam Parkinson">Sam Parkinson</a> <a href="http://github.com/r3morse/isitup" title="Download the source code">Source</a> <?php if( test_clear() ): ?><a href="http://isitup.org/clear" title="Reset to the default settings">Clear</a><?php endif; ?>
 </div>
 </body>
 </html>
