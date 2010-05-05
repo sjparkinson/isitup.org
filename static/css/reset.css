@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+html { color:#000; background: #FFF }
+
+body,div,h1,h2,h3,h4,h5,h6,form,input,p { margin:0; padding: 0 }
+
+img { border: 0 }
+
+h1,h2,h3,h4,h5,h6 { font-size:100%; font-weight: normal }
+
+input {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit }
+
+input { *font-size: 100% }
+
+body { *font-size: small; *font: x-smallfont: 13px/1.231 arial, helvetica, clean, sans-serif }
+
+input { font: 99% arial, helvetica, clean, sans-serif }
+
+body { margin: 10px }
+
+h1 { font-size: 138.5% }
+
+h2 { font-size: 123.1% }
+
+h3 { font-size: 108% }
+
+h1,h2,h3 { margin: 1em 0 }
+
+h1,h2,h3,h4,h5,h6,strong { font-weight: bold }
+
+p { margin-bottom: 1em }

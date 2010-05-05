@@ -1,0 +1,10 @@
+[2009-11-14 12:16:36] (2) Connection Error: Unable to select the database
+[2009-11-14 12:17:13] (2) SQL Error: The following query was not successful 'INSERT INTO error VALUES (null, "2009-11-14 12:17:13", "134.83.1.233", "example.com", "192.0.32.10", 200, 1, 0.109);'
+[2010-02-08 01:19:03] (2) Connection Error: Access denied for user 'isitu'@'localhost' (using password: YES)
+[2010-02-13 17:04:21] (2) Connection Error: Unable to select the database
+[2010-02-13 17:05:08] (2) SQL Error: The following query was not successful 'INSERT INTO records VALUES (null, "2010-02-13 17:05:08", "::ffff:134.83.1.243", "samp.im", "93.127.228.80", 200, 1, 0.001);'
+[2010-02-13 17:05:33] (2) SQL Error: The following query was not successful 'INSERT INTO records VALUES (null, "2010-02-13 17:05:33", "::ffff:134.83.1.243", "google.com", "74.125.79.147", 301, 1, 0.228);'
+[2010-02-13 17:06:37] (2) SQL Error: The following query was not successful 'INSERT INTO records VALUES (null, "2010-02-13 17:06:37", "::ffff:134.83.1.243", "example.com", "192.0.32.10", 200, 1, 0.678);'
+[2010-02-13 17:09:09] (2) SQL Error: The following query was not successful 'INSERT INTO check VALUES (null, "2010-02-13 17:09:09", "::ffff:134.83.1.243", "example.com", "192.0.32.10", 200, 1, 0.579);'
+[2010-02-13 17:11:13] (2) SQL Error: The following query was not successful 'INSERT INTO check VALUES (null, "2010-02-13 17:11:13", "::ffff:134.83.1.243", "example.com", "192.0.32.10", 200, 1, 0.606);'
+[2010-02-13 17:12:20] (2) SQL Error: The following query was not successful 'INSERT INTO check VALUES (null, "2010-02-13 17:12:20", "::ffff:134.83.1.243", "example.com", "192.0.32.10", 200, 1, 0.584);'

@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+body {
+	color: #36393D;
+	font-family: Arial, Helvetica, Verdana, clean, sans-serif;
+	font-size: 100%;
+	margin: 15px }
+
+a,a:visited,a:active { color: #369; text-decoration: none }
+
+a:hover { color: #4096EE }
+
+#container {
+	font-size: 220%;
+	margin-top: 15%;
+	min-width: 600px;
+	text-align: center }
+
+	#container p {
+		font-size: 100%;
+		line-height: 1.2em;
+		margin-bottom: 15px }
+
+	#container img { border: 0 }
+
+	#container code {
+		bottom: 1px;
+		font-size: 110%;
+		position: relative }
+
+	#container abbr,#container acronym { border-bottom: none; cursor: help }
+
+	#container .warning img,#container .save img { margin: 3px; vertical-align: middle }
+
+	#container #ad { font-size: 80%; margin-top: 2em }
+
+		#container #ad a { color: #1DA237 }
+
+			#container #ad a:hover { color: #0AC92B }
+
+	#container .warning { color:#B02B2C; font-size: 40% }
+
+	#container .save { color: #008C00; font-size: 40% }
+
+	#container .accepting { font-size: 16px }
+
+	#container .domain { font-weight: bold }
+
+	#container .smaller { font-size: 65% }
+
+	#container #input {
+		*vertical-align: middle;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		_vertical-align: middle;
+		background-color: #FFF;
+		border-radius: 5px;
+		border: 1px solid #CCC;
+		color: #36393D;
+		padding: 5px;
+		width: 12em }
+
+	#container #input[disabled] { background-color: #EEE }
+
+	#container #submit {
+		background-color: transparent;
+		border: none;
+		color: #369;
+		cursor: pointer;
+		text-decoration: none }
+
+	#container #submit[disabled] { color: #AAA }
+
+		#container #submit[disabled]:hover { color: #AAA }
+
+	#container #submit:hover { color: #4096EE }
+
+	#container #version {
+		border-bottom: 0.1em dotted #555;
+		bottom: 40px;
+		color: #555;
+		font-size: 25%;
+		left: 10px;
+		position: relative }
+
+		#container #version:hover { border-bottom: 1px dotted #999; color: #999 }
+
+	#container .info {
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		background-color: #FF9;
+		border-radius: 5px;
+		border: 1px solid #FC9;
+		color: #666;
+		font-size: 43%;
+		line-height: 1.5em;
+		margin: 5px auto;
+		padding: 5px;
+		text-align: center;
+		width: 500px }
+
+	#container #help { cursor: pointer; display: none }
+
+#footer {
+	bottom: 15px;
+	color: #555;
+	font-size: 75%;
+	margin-right: 40px;
+	position: absolute }
+
+	#footer a { font-size: 125%; margin-right: 50px }

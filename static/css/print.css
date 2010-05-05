@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+#container { font-size: 1.5pc }
+
+#container p { margin-bottom: 1pc }
+
+#container .smaller { font-size: 1pc }
+
+#container .domain { font-weight: bold }
+
+#footer,#print { display: none }
