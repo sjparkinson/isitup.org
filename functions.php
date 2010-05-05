@@ -270,6 +270,9 @@ function display_ad($ad = 0) {
 	$link[] = '1';
 	$link[] = '2';
 
+	$seed = microtiming();
+	mt_srand($seed);
+
 	if ($ad != 0) {
 		return $link[$ad];
 	} else {
