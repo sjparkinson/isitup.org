@@ -267,12 +267,13 @@ return false; }
  * @return	bool|string
  */
 function display_ad($ad = 0) {
-	$link[1] = 'Looking for a host? Try <a href="http://www.mediatemple.net/go/order/?refdom=xseria.com" title="(mt) Media Temple Web Hosting">Media Temple</a>.';
+	$link[] = '1';
+	$link[] = '2';
 
 	if ($ad != 0) {
 		return $link[$ad];
 	} else {
-		$adnum = mt_rand(1,count($link));
+		$adnum = mt_rand(0,count($link)-1);
 		return $link[$adnum]; };
 return false; }
 
