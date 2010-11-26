@@ -38,7 +38,7 @@
 		"thepiratebay.org",
 		"twitter.com",
 		"wikileaks.org",
-		"wikiepdia.com",
+		"wikipedia.com",
 		"youtube.com");
 
 	// The max time to check if a site is working for.
@@ -55,7 +55,7 @@
 # Don't edit, this processes the settings
 
 // ?admin will always work
-if ($_COOKIE["admin"] == true) { $setting["live"] = true; }
+if ( isset($_COOKIE["admin"]) ) { $setting["live"] = true; }
 
 // sets the error level
 if ($setting["errors"] == true) {
