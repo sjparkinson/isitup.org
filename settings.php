@@ -55,7 +55,11 @@
 # Don't edit, this processes the settings
 
 // ?admin will always work
+<<<<<<< HEAD
 if (isset($_COOKIE["admin"])) { $setting["live"] = true; }
+=======
+if ( isset($_COOKIE["admin"]) ) { $setting["live"] = true; }
+>>>>>>> ab467170c6d144314985b1c3c4fbf1ce7a55bf8c
 
 // sets the error level
 if ($setting["errors"] == true) {
