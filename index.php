@@ -51,9 +51,6 @@ $domain["cookie"] = get_cookie_array("custom");
 	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $setting["static"]; ?>/css/jquery.autocomplete.css" />
 	<link rel="search" type="application/opensearchdescription+xml" title="Is it up?" href="<?php echo $setting["static"]; ?>/xml/search.xml" />
 
-	<meta name="verify-v1" content="gWyO4AB16phqe5xqY1/pHNQSToSMaHesQvXjRGsv2zI=" />
-	<meta name="y_key" content="1d78ef4509dca441" />
-
 	<!--[if lt IE 8]>
 	<style type="text/css">
 	#submit {
