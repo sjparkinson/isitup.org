@@ -1,6 +1,14 @@
 
+ <3 Reddit :)
+
  Is it up? Change Log // isitup.org
  ==================================
+
+ v2.03.6 ------------------------------
+
+ + fixed minor javascript error in
+   index.php
+ + updated jQuery to 1.4.4
  
  v2.03.5 ------------------------------
  

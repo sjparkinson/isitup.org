@@ -1,6 +1,6 @@
 <?php
 
-	$setting["version"]		= "2.03.5";
+	$setting["version"]		= "2.03.6";
 
 ############# Configuration #############
 
@@ -11,43 +11,18 @@
 	$setting["errors"]		= false;
 
 	// Server time zone, for database records. (use: http://www.php.net/manual/en/timezones.php)
-	//$setting["time_zone"]	= "Europe/London";
+	$setting["time_zone"]	= "Europe/London";
 
 	// The default input value.
 	$setting["input"]		= "example.com";
-
-	// The domains to be use by autocomplete.
-	$setting["auto_domains"] = array(
-		"4chan.org",
-		"12chan.org",
-		"anontalk.com",
-		"bbc.co.uk",
-		"ebay.com",
-		"example.com",
-		"facebook.com",
-		"flickr.com",
-		"fmylife.com",
-		"gmail.com",
-		"google.com",
-		"imgur.com",
-		"isitup.org",
-		"mylifeisaverage.com",
-		"paypal.com",
-		"reddit.com",
-		"slashdot.org",
-		"thepiratebay.org",
-		"twitter.com",
-		"wikileaks.org",
-		"wikipedia.com",
-		"youtube.com");
 
 	// The max time to check if a site is working for.
 	$setting["timeout"]		= 3;
 
 	// Static content override. No trailing slash.
-	//$setting["static"]		= "http://static.im/isitup";
+	$setting["static"]		= "";
 
-	// Folder of script, no trailing slash.
+	// Folder of script. No trailing slash.
 	$setting["folder"]		= "";
 
 #########################################
@@ -55,11 +30,7 @@
 # Don't edit, this processes the settings
 
 // ?admin will always work
-<<<<<<< HEAD
-if (isset($_COOKIE["admin"])) { $setting["live"] = true; }
-=======
-if ( isset($_COOKIE["admin"]) ) { $setting["live"] = true; }
->>>>>>> ab467170c6d144314985b1c3c4fbf1ce7a55bf8c
+if ($_COOKIE["admin"] == true) { $setting["live"] = true; }
 
 // sets the error level
 if ($setting["errors"] == true) {

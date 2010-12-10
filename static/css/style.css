@@ -101,11 +101,14 @@ a:hover { color: #4096EE }
 
 	#container #help { cursor: pointer; display: none }
 
+	#container #form {
+		position: relative;
+		left: 25px; }
+
 #footer {
 	bottom: 15px;
 	color: #555;
 	font-size: 75%;
-	margin-right: 40px;
 	position: absolute }
 
 	#footer a { font-size: 125%; margin-right: 50px }

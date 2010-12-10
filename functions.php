@@ -97,7 +97,7 @@ if ($time < 1) { $time = $time * 1000; }
 	if ($id == 1) {
 		$html  = "<p><a href=\"http://" . gen_domain($domain, $port) . "\" class=\"domain\" title=\"Visit " . $domain . "\">" . $domain . "</a> is working :)</p>\n\n";
 		$html .= "\t<p class=\"smaller\">It took " . $time . " " . $units . " for a <a href=\"http://en.wikipedia.org/wiki/List_of_HTTP_status_codes\" title=\"Wikipedia - HTTP Status Codes\">" . $code . "</a> response" . show_ip($domain) . ".</p>\n\n";
-		$html .= "\t<p class=\"smaller\"><a href=\"/\" id=\"print\">Check another</a>" . gen_save($domain, $setting["input"]) . ".</p>\n";
+		$html .= "\t<p class=\"smaller\">Check <a href=\"/\" id=\"print\">something else</a>" . gen_save($domain) . ".</p>\n";
 	} else if ($id == 2) {
 		if (!empty($code) && is_numeric($code)) {
 			$text = "We got a <a href=\"http://en.wikipedia.org/wiki/List_of_HTTP_status_codes\" title=\"Wikipedia - HTTP Status Codes\">" . $code . "</a> http status code" . show_ip($domain) . ".";
@@ -186,22 +186,22 @@ function set_auto_domains($custom = null, $port = null, $default = array(), $coo
 		$array[] = $custom;
 		$string = gen_cookie_string($array);
 		if ($string != false) { setcookie($cookie, $string, time() + 60 * 60 * 24 * 7); }; };
+
 return false; }
 
 /**
  * Generates the autocomplete list.
- * @param	string	$custom
+ * @param	array	$custom
  * @param	array	$default
  * @return	string
  */
-function gen_auto_domains($custom = null, $default = array()) {
+function gen_auto_domains($custom = null) {
 	if (is_array($custom) && !empty($custom) && !isset($_GET["clear"])) {
-		$domains = array_merge($custom, $default);
-		sort($domains);
+		sort($custom);
+		$string = implode("\",\"", $custom);
 	} else {
-		$domains = $default; };
+		$string = ""; };
 
-	$string = implode('","', $domains);
 return $string; }
 
 /**
@@ -249,16 +249,17 @@ function test_clear() {
  * @param	array	$default
  * @return	bool|string
  */
-function gen_save($domain, $default) {
-	$array = array($default);
+function gen_save($domain) {
+	global $setting;
+	$array = array();
 
 	if (isset($_COOKIE["input"])) {
-		$custom = explode(",", $_COOKIE["input"]);
-		foreach ($custom as $value) {
-			$array[] = $value; }; };
+		$array[] = preg_replace("/[^A-Za-z0-9-\/\.\: ]/", "", trim($_COOKIE["input"])); };
+
+	$array[] = $setting["input"];
 
 	if (!in_array($domain, $array)) {
-		return " or <a href=\"http://isitup.org/save/" . $domain . "\" title=\"Use " . $domain . " as the default site to check\">save</a>"; };
+		return " or use as the <a href=\"http://isitup.org/save/" . $domain . "\" title=\"Use " . $domain . " as the default site to check\">default</a>"; };
 return false; }
 
 /**
@@ -267,8 +268,9 @@ return false; }
  * @return	bool|string
  */
 function display_ad($ad = 0) {
-	$link[] = '1';
-	$link[] = '2';
+	$link[] = '<a href="https://secure.eveonline.com/ft/?aid=105433"><img src="http://static.im/isitup/img/eve_ad.jpg"></a>';
+	$link[] = '<a href="https://secure.eveonline.com/ft/?aid=105433"><img src="http://static.im/isitup/img/eve_ad2.jpg"></a>';
+	$link[] = '<a href="http://codecanyon.net?ref=r3morse"><img src="http://static.im/isitup/img/cc_ad.gif"></a>';
 
 	$seed = microtiming();
 	mt_srand($seed);

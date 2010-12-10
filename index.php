@@ -30,8 +30,8 @@ if (isset($_GET["d"])) {
 
 $domain["cookie"] = get_cookie_array("custom");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -51,6 +51,9 @@ $domain["cookie"] = get_cookie_array("custom");
 	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $setting["static"]; ?>/css/jquery.autocomplete.css" />
 	<link rel="search" type="application/opensearchdescription+xml" title="Is it up?" href="<?php echo $setting["static"]; ?>/xml/search.xml" />
 
+	<meta name="verify-v1" content="gWyO4AB16phqe5xqY1/pHNQSToSMaHesQvXjRGsv2zI=" />
+	<meta name="y_key" content="1d78ef4509dca441" />
+
 	<!--[if lt IE 8]>
 	<style type="text/css">
 	#submit {
@@ -66,8 +69,9 @@ $domain["cookie"] = get_cookie_array("custom");
 		min-width: 600px; }
 	</style>
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo $setting["static"]; ?>/js/compressed.js"></script>
+	<script type="text/javascript" src="<?php echo $setting["static"]; ?>/js/data.js"></script>
 	<script type="text/javascript">
 	/* <![CDATA[ */
 	$(document).ready(function () {
@@ -75,9 +79,18 @@ $domain["cookie"] = get_cookie_array("custom");
 		$("#submit").attr("disabled", false);
 		$("#input").attr("disabled", false).css("color", "#AAA");
 
-		var data	= ["<?php echo gen_auto_domains($domain["cookie"], $setting["auto_domains"]) ?>"];
 		var input	= "<?php echo get_clear($domain["remote"], $setting["input"]); ?>";
 		var select	= false;
+		var custom	= ["<?php echo gen_auto_domains($domain["cookie"]); ?>"];
+
+		Array.prototype.unique = function() {
+			var o = {}, i, l = this.length, r = [];
+			for(i=0; i<l;i++) o[this[i]] = this[i];
+			for(i in o) r.push(o[i]);
+			return r;
+		};
+
+		var data	= standard.concat(custom).unique();
 
 		// browser back cache fix...
 		$("body").attr("onunload", "");
@@ -93,7 +106,8 @@ $domain["cookie"] = get_cookie_array("custom");
 
 		// add autocomplete to the form
 		$("#input").autocomplete(data, {
-			highlight: false
+			highlight: false,
+			max: 4
 		}).result(function () {
 			$("#form").submit();
 		});
