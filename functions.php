@@ -93,7 +93,7 @@ return $code; }
  */
 function gen_html($id, $domain, $port, $time, $code) {
 $units = gen_units($time);
-if ($time < 1) { $time = $time * 1000; }
+if ($time < 1) { $time = $time * 1000; } else { $time = round($time, 2); }
 	if ($id == 1) {
 		$html  = "<p><a href=\"http://" . gen_domain($domain, $port) . "\" class=\"domain\" title=\"Visit " . $domain . "\">" . $domain . "</a> is working :)</p>\n\n";
 		$html .= "\t<p class=\"smaller\">It took " . $time . " " . $units . " for a <a href=\"http://en.wikipedia.org/wiki/List_of_HTTP_status_codes\" title=\"Wikipedia - HTTP Status Codes\">" . $code . "</a> response" . show_ip($domain) . ".</p>\n\n";
