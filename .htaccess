@@ -1,0 +1,10 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,NC,L]
+
+RewriteRule ^offline offline.php [NC,L]
+RewriteRule ^error error.php [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^[^/.]+\.[^/]+$ check.php?domain=$0 [L]
