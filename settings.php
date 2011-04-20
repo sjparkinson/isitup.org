@@ -20,7 +20,7 @@
 	$setting["timeout"]		= 3;
 
 	// Static content override. No trailing slash.
-	$setting["static"]		= "";
+	$setting["static"]		= "/static";
 
 	// Folder of script. No trailing slash.
 	$setting["folder"]		= "";
