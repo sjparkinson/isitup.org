@@ -1,20 +1,48 @@
 
- <3 Reddit :)
+ Is it up? Changelog // isitup.org
+ =================================
 
- Is it up? Change Log // isitup.org
- ==================================
+ v2.05.3 ------------------------------
 
+ - removed the jquery autocomplete feature
+
+ v2.05.2 ------------------------------
+
+ + modified homepage js to clear example.com
+   when right clicking, for easier pasting
+
+ v2.05.1 ------------------------------
+
+ + changed get_response() timing method
+ + added json and text api, add .txt
+   or .json to a request
+
+
+ v2.05.0 ------------------------------
+
+ + fixed get_response() to handle new
+   array output
+
+ 
+ v2.04.0 ------------------------------
+ 
+ + added html_head() to get_response()
+ - removed get_headers() from
+   get_response()
+
+ 
  v2.03.6 ------------------------------
+ 
+ + fixed minor js error in index.php
+ + updated jQuery
 
- + fixed minor javascript error in
-   index.php
- + updated jQuery to 1.4.4
  
  v2.03.5 ------------------------------
  
  + improved settings throughout the script
  + added settings.php
  - removed config.php
+
  
  v2.03.4 ------------------------------
  
@@ -110,22 +138,9 @@
    a proper integer.
  
  
- v2.01.7 ------- { API } --------------
- 
- + added json output for api, append
-   ?output={plain or json} to end of url
- 
- 
  v2.01.6 ------------------------------
  
  + edited .htaccess to fix favicon.ico bug
- 
- 
- v2.01.5 ------------------------------
- 
- + added api, append "&plain" to end of url
-   format: id:statuscode:time
-       id: 0 = invalid, 1 = up, 2 = down
  
  
  v2.01.4 ------------------------------

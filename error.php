@@ -5,19 +5,18 @@ if ($setting["live"] != true) {
 	header('Location: http://' . $setting["host"] . '/offline');
 	exit(); }
 
-header('HTTP/1.1 404 Not found');
+header('HTTP/1.1 404 Not Found');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<title>Oh noes, an error!</title>
+	<title>Oh noes, an error! // isitup.org</title>
 
 	<link rel="icon" type="image/png" href="<?php echo $setting["static"]; ?>/img/icon.png" />
 	<link rel="stylesheet" type="text/css" media="screen, print" href="<?php echo $setting["static"]; ?>/css/reset.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $setting["static"]; ?>/css/style.css" />
-	<link rel="stylesheet" type="text/css" media="print" href="<?php echo $setting["static"]; ?>/css/print.css" />
+	<link rel="stylesheet" type="text/css" media="screen, print" href="<?php echo $setting["static"]; ?>/css/style.css" />
 	<meta name="robots" content="noindex" />
 </head>
 <body>

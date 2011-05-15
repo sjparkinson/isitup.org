@@ -1,24 +1,32 @@
 <?php
 // if the site is offline
 require_once("settings.php");
+
+if (in_array($_SERVER["REMOTE_ADDR"], $setting["banned_ips"]) || in_array($_SERVER["HTTP_USER_AGENT"], $setting["banned_ua"]) || empty($_SERVER["HTTP_USER_AGENT"])) {
+	header('HTTP/1.1 403 Forbidden');
+	exit(); };
+
 if ($setting["live"] != true) {
 	header('Location: http://' . $setting["host"] . '/offline');
-	exit(); }
+	exit(); };
 
 require_once("functions.php");
 
 // data variable;
 $domain = array();
 
+if (isset($_GET["admin"])) {
+	setcookie("admin", true, time() + 60 * 60 * 2, "/"); };
+
 // set cookie, ?save
 if (isset($_GET["save"]) && isset($_GET["d"])) {
 	setcookie("input", $_GET["d"], time() + 60 * 60 * 24 * 365, "/"); };
 
 // destroy cookie, ?clear
-if (isset($_GET["clear"])) { remove_cookies(array("input", "custom")); };
-
-if (isset($_GET["admin"])) {
-	setcookie("admin", true, time() + 60 * 60 * 2, "/"); };
+if (isset($_GET["clear"])) {
+	remove_cookies(array("input", "custom"));
+	header('Location: http://' . $setting["host"]);
+	exit(); };
 
 // set $remote_domain
 if (isset($_GET["d"])) {
@@ -43,13 +51,14 @@ $domain["cookie"] = get_cookie_array("custom");
 	-->
 
 	<meta name="description" content="A simple tool to check if a website or ip address is up or down." />
-	<meta name="keywords" content="is it up, isitup, is it up?, is it up website monitor, is it up website, is it down, is it just me, is it up yet" />
+	<meta name="keywords" content="is it up, isitup, is it up?, it is up, website down, site down, is site down, is it down, is it just me" />
 
 	<link rel="icon" type="image/png" href="<?php echo $setting["static"]; ?>/img/icon.png" />
 	<link rel="stylesheet" type="text/css" media="screen, print" href="<?php echo $setting["static"]; ?>/css/reset.css" />
 	<link rel="stylesheet" type="text/css" media="screen, print" href="<?php echo $setting["static"]; ?>/css/style.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="<?php echo $setting["static"]; ?>/css/jquery.autocomplete.css" />
-	<link rel="search" type="application/opensearchdescription+xml" title="Is it up?" href="<?php echo $setting["static"]; ?>/xml/search.xml" />
+	<link rel="search" type="application/opensearchdescription+xml" title="Is it up?" href="/search.php" />
+	
+	<meta name="google-site-verification" content="MA2tkG9xZKSTYcSrShL-hBHN4m3Zct3mA4Yk8NMuwQU" />
 
 	<!--[if lt IE 8]>
 	<style type="text/css">
@@ -58,17 +67,8 @@ $domain["cookie"] = get_cookie_array("custom");
 		top: 8px; }
 	</style>
 	<![endif]-->
-
-	<style type="text/css">
-	#footer {
-		position: static;
-		text-align: center;
-		min-width: 600px; }
-	</style>
-
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript" src="<?php echo $setting["static"]; ?>/js/compressed.js"></script>
-	<script type="text/javascript" src="<?php echo $setting["static"]; ?>/js/data.js"></script>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script type="text/javascript">
 	/* <![CDATA[ */
 	$(document).ready(function () {
@@ -76,48 +76,18 @@ $domain["cookie"] = get_cookie_array("custom");
 		$("#submit").attr("disabled", false);
 		$("#input").attr("disabled", false).css("color", "#AAA");
 
-		var input	= "<?php echo get_clear($domain["remote"], $setting["input"]); ?>";
-		var select	= false;
-		var custom	= ["<?php echo gen_auto_domains($domain["cookie"]); ?>"];
+		var input = "<?php echo get_clear($domain["remote"], $setting["input"]); ?>";
 
-		Array.prototype.unique = function() {
-			var o = {}, i, l = this.length, r = [];
-			for(i=0; i<l;i++) o[this[i]] = this[i];
-			for(i in o) r.push(o[i]);
-			return r;
-		};
-
-		var data	= standard.concat(custom).unique();
-
-		// browser back cache fix...
-		$("body").attr("onunload", "");
-
-		// gets rid of dotted outline around links
-		$("a").click(function() {
-			this.blur();
-		});
-
-		$("#input").blur(function () {
-			select = false;
-		});
-
-		// add autocomplete to the form
-		$("#input").autocomplete(data, {
-			highlight: false,
-			max: 4
-		}).result(function () {
-			$("#form").submit();
-		});
-
-		// sort out the default input value
-		$("#input").click(function () {
+		// clears the default input value on click
+		$("#input").mousedown(function () {
 			if ($(this).val() == input) {
-				$(this).val("").css("color", "#36393D");
+				$(this).val("");
 			}
-			if (!select) {
-				$(this).css("color", "#36393D").select();
-				select = true;
-			}
+		});
+		
+		// changes the colour of text input
+		$("#input").focus(function () {
+			$(this).css("color", "#36393D");
 		});
 
 		// we're submitting...
@@ -126,13 +96,26 @@ $domain["cookie"] = get_cookie_array("custom");
 			if (url != "") {
 				$("#input").attr("disabled", true).css("color", "#AAA");
 				$("#submit").attr("disabled", true);
-				$("#submit").blur();
 				window.location = '/' + url.replace(/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/g, "");
 			} else {
 				$("#input").focus();
 			}
 			return false;
 		});
+		
+		// json API link update
+		$("#json").mouseover({api:"json"}, api_value);
+		
+		// txt API link update
+		$("#txt").mouseover({api:"txt"}, api_value);
+		
+		function api_value(val) {
+			val = val.data.api
+			var domain = $("#input").val().trim();
+			var regex  = /^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/i;
+			if (!domain.match(regex)) { domain = input; };
+			$("#" + val).attr("href", domain + "." + val);
+		};
 	});
 	/* ]]> */
 	</script>
@@ -150,12 +133,12 @@ $domain["cookie"] = get_cookie_array("custom");
 <?php endif; ?>
 
 	<form method="get" action="check.php" id="form">
-		<p>is <input type="text" name="domain" id="input" value="<?php echo get_domain($domain["remote"], $setting["input"]); ?>" accesskey="4" /> <input type="submit" id="submit" value="up?" accesskey="s" /><a href="changelog.txt" id="version" title="Is it up? Changelog"><?php echo "v. " . $setting["version"]; ?></a></p>
+		<p>is <input type="text" name="domain" id="input" value="<?php echo get_domain($domain["remote"], $setting["input"]); ?>" accesskey="4" /> <input type="submit" id="submit" value="up?" accesskey="s" /></p>
 	</form>
 </div>
 
 <div id="footer">
-	by <a href="http://samp.im/" title="Sam Parkinson">Sam Parkinson</a> <a href="http://github.com/r3morse/isitup" title="Download the source code">Source</a> <?php if( test_clear() ): ?><a href="http://isitup.org/clear" title="Reset to the default settings">Clear</a><?php endif; ?>
+	<a href="http://github.com/r3morse/isitup" title="Is it up? on Github">Source</a> <span id="api">API: (<a href="/example.com.json" id="json" title="JSON API" rel="nofollow">.json</a>or<a href="/example.com.txt" id="txt" title="Text API" rel="nofollow">.txt</a>)</span> <?php if( test_clear() ): ?><a href="http://isitup.org/clear" title="Reset to the default settings">Clear</a> <?php endif; ?><a href="<?php echo $setting["static"]; ?>/txt/changelog.txt" id="version" title="Is it up? v<?php echo $setting["version"]; ?> Changelog">Changelog</a>
 </div>
 </body>
 </html>

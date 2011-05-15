@@ -1,13 +1,5 @@
 <?php
 /**
- * Generate the current time.
- * @return	string
- */
-function microtiming() {
-	list($usec, $sec) = explode(" ", microtime());
-return ((float)$usec + (float)$sec); }
-
-/**
  * Generates a domain, with or without a port.
  * @param	string	$domain
  * @param	int		$port
@@ -30,7 +22,7 @@ function show_ip($domain) {
 	$ip = gethostbyname($domain);
 
 	if (preg_match($domexprcheck, $domain) == true) {
-		$text = " with an ip of <a href=\"http://" . $ip . "\" title=\"Visit " . $ip . "\">" . $ip . "</a>";
+		$text = " with an ip of <a href=\"http://" . $ip . "\" title=\"" . $ip . "\">" . $ip . "</a>";
 	} else {
 		$text = null; }
 return $text; }
@@ -45,7 +37,7 @@ function test_domain($domain) {
 	$domexprcheck	= "/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/i";
 	$ipexpcheck		= "/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/i";
 
-return (preg_match($domexprcheck, $domain) == true || preg_match($ipexpcheck, $domain) == true) ? true : false; }
+return (preg_match($domexprcheck, $domain) || preg_match($ipexpcheck, $domain)) ? true : false; }
 
 /**
  * Generates the units for the response time.
@@ -65,21 +57,21 @@ return $units; }
  * @return	mixed
  */
 function get_response($domain, $port) {
+	global $setting;
 	if (test_domain($domain)) {
 		// retrieves just the http header response
-		$headers = @get_headers("http://" . $domain . ":" . $port);
+		/// old code: $headers = @get_headers("http://" . $domain . ":" . $port);
+		$start = microtime(true);
+		$r = @http_head("http://" . $domain . ":" . $port, array('timeout' => $setting["timeout"]), $headers);
+		$end = microtime(true);
 
-		// extract the response code
-		preg_match("/[0-9]{3}/", $headers[0], $matches);
-
-		if (!empty($matches)) {
-
-			// get the first thing from the matches array, it should be the response code
-			$code = (int)$matches[0];
-		} else {
+		$code = array("code" => $headers["response_code"],
+					  "time" => $end - $start);
+		if ($headers["response_code"] == 0) {
 			return false; }
 	} else {
-		$code = "invalid"; }
+		$code = array("code" => "invalid",
+					  "time" => 0); }
 return $code; }
 
 /**
@@ -94,23 +86,26 @@ return $code; }
 function gen_html($id, $domain, $port, $time, $code) {
 $units = gen_units($time);
 if ($time < 1) { $time = $time * 1000; } else { $time = round($time, 2); }
+if ($time <= 0) { $time = "< 1"; }
 	if ($id == 1) {
-		$html  = "<p><a href=\"http://" . gen_domain($domain, $port) . "\" class=\"domain\" title=\"Visit " . $domain . "\">" . $domain . "</a> is working :)</p>\n\n";
+		$html  = "<p><a href=\"http://" . gen_domain($domain, $port) . "\" class=\"domain\" title=\"" . $domain . "\" rel=\"nofollow\">" . $domain . "</a> is working <span class=\"smile\">:)</span></p>\n\n";
 		$html .= "\t<p class=\"smaller\">It took " . $time . " " . $units . " for a <a href=\"http://en.wikipedia.org/wiki/List_of_HTTP_status_codes\" title=\"Wikipedia - HTTP Status Codes\">" . $code . "</a> response" . show_ip($domain) . ".</p>\n\n";
-		$html .= "\t<p class=\"smaller\">Check <a href=\"/\" id=\"print\">something else</a>" . gen_save($domain) . ".</p>\n";
+		$html .= "\t<p class=\"smaller\">Check <a href=\"/\" title=\"Home\">another site</a>" . gen_save($domain) . ".</p>\n";
 	} else if ($id == 2) {
 		if (!empty($code) && is_numeric($code)) {
 			$text = "We got a <a href=\"http://en.wikipedia.org/wiki/List_of_HTTP_status_codes\" title=\"Wikipedia - HTTP Status Codes\">" . $code . "</a> http status code" . show_ip($domain) . ".";
-		} else {
-			$text = "Check it's the right domain"; };
+		};
 
-		$html  = "<p><a href=\"http://" . gen_domain($domain, $port) . "\" class=\"domain\" title=\"Visit " . $domain . "\">" . $domain . "</a> seems to be down :(</p>\n\n";
-		$html .= "\t<p class=\"smaller\">" . $text . " or <a href=\"/\" id=\"print\">check another?</a></p>\n";
+		$html  = "<p><a href=\"http://" . gen_domain($domain, $port) . "\" class=\"domain\" title=\"" . $domain . "\" rel=\"nofollow\">" . $domain . "</a> seems to be down <span class=\"smile\">:(</span></p>\n\n";
+		if (isset($text)) {
+			$html .= "\t<p class=\"smaller\">" . $text . "</p>\n";
+		};
+		$html .= "\t<p class=\"smaller\">Check <a href=\"/\" title=\"Home\">another site</a>" . gen_save($domain) . ".</p>\n";
 	} else if ($id == 0) {
 		$html  = "<p>We need a valid domain to check! <a href=\"/d/" . gen_domain($domain, $port) . "\">Try again.</a></p>\n"; };
 
 	if ($domain == "isitup.org" || $domain == "127.0.0.1") {
-		$html  = "<p>Have a think about what you've just done. <a href=\"/\">Try again.</a></p>\n"; };
+		$html  = "<p>Have a think about what you've just done. <a href=\"/\" title=\"Better luck next time.\">Try again.</a></p>\n"; };
 return $html; }
 
 /**
@@ -134,7 +129,7 @@ return $title; }
  * @return	int
  */
 function gen_id($code) {
-	$good = array(200, 301, 302, 303, 304, 307);
+	$good = array(200, 301, 302, 303, 304, 307, 400, 401, 403, 405);
 
 	if ($code == "invalid") {
 		$id = 0;
@@ -166,43 +161,6 @@ function gen_cookie_string($array) {
 		$cookie = implode(",", $array);
 		return $cookie;	};
 return false; }
-
-/**
- * Sets the cookie for autocomplete.
- * @param	string	$custom
- * @param	int		$port
- * @param	array	$default
- * @param	string	$cookie
- * @return	bool
- */
-function set_auto_domains($custom = null, $port = null, $default = array(), $cookie = "custom") {
-	$array = get_cookie_array($cookie);
-
-	if (!is_array($array)) { $array = array(); };
-
-	if ($port != 80 && is_numeric($port)) { $custom = $custom .":". $port; };
-
-	if (!empty($custom) && !in_array($custom, $default) && !in_array($custom, $array)) {
-		$array[] = $custom;
-		$string = gen_cookie_string($array);
-		if ($string != false) { setcookie($cookie, $string, time() + 60 * 60 * 24 * 7); }; };
-
-return false; }
-
-/**
- * Generates the autocomplete list.
- * @param	array	$custom
- * @param	array	$default
- * @return	string
- */
-function gen_auto_domains($custom = null) {
-	if (is_array($custom) && !empty($custom) && !isset($_GET["clear"])) {
-		sort($custom);
-		$string = implode("\",\"", $custom);
-	} else {
-		$string = ""; };
-
-return $string; }
 
 /**
  * Gets the correct input value for the homepage.
@@ -259,7 +217,7 @@ function gen_save($domain) {
 	$array[] = $setting["input"];
 
 	if (!in_array($domain, $array)) {
-		return " or use as the <a href=\"http://isitup.org/save/" . $domain . "\" title=\"Use " . $domain . " as the default site to check\">default</a>"; };
+		return " or save as your <a href=\"http://isitup.org/save/" . $domain . "\" title=\"Use " . $domain . " as the default site to check\">default</a>"; };
 return false; }
 
 /**
@@ -268,18 +226,18 @@ return false; }
  * @return	bool|string
  */
 function display_ad($ad = 0) {
-	$link[] = '<a href="https://secure.eveonline.com/ft/?aid=105433"><img src="http://static.im/isitup/img/eve_ad.jpg"></a>';
-	$link[] = '<a href="https://secure.eveonline.com/ft/?aid=105433"><img src="http://static.im/isitup/img/eve_ad2.jpg"></a>';
-	$link[] = '<a href="http://codecanyon.net?ref=r3morse"><img src="http://static.im/isitup/img/cc_ad.gif"></a>';
+	$link[] = 'Free online storage with <a href="https://www.dropbox.com/referrals/NTQwNTI2ODk" target="_blank" title="Get Dropbox!">Dropbox</a>!';
+	$link[] = 'Sync to the cloud with <a href="https://www.dropbox.com/referrals/NTQwNTI2ODk" target="_blank" title="Get Dropbox!">Dropbox</a>!';
+	$link[] = 'Share files online with <a href="https://www.dropbox.com/referrals/NTQwNTI2ODk" target="_blank" title="Get Dropbox!">Dropbox</a>!';
 
-	$seed = microtiming();
+	$seed = microtime(true);
 	mt_srand($seed);
 
 	if ($ad != 0) {
-		return $link[$ad];
+		return $link[$ad]."\n";
 	} else {
-		$adnum = mt_rand(0,count($link)-1);
-		return $link[$adnum]; };
+		$adnum = mt_rand(0, count($link) - 1);
+		return "<p id=\"ad\">" . $link[$adnum]."</p>\n"; };
 return false; }
 
 /**

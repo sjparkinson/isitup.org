@@ -1,6 +1,6 @@
 <?php
-require_once("settings.php");
 header('HTTP/1.1 503 Service Unavailable');
+require_once("settings.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,16 +13,30 @@ header('HTTP/1.1 503 Service Unavailable');
 	<meta name="keywords" content="is it up, isitup, is it up?, is it up website monitor, is it up website, is it down, is it just me" />
 	<meta name="robots" content="noindex" />
 	<meta http-equiv="refresh" content="30;url=http://<?php echo $setting["host"]; ?>/" />
+	
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css' />
+	
+	<?php mint_js(); ?>
 
 	<link rel="icon" type="image/png" href="<?php echo $setting["static"]; ?>/img/icon.png" />
-	<link rel="stylesheet" type="text/css" media="screen, print" href="<?php echo $setting["static"]; ?>/css/reset.css" />
-
 	<style type="text/css">
+		/* Reset */
+		html { color:#000; background: #FFF }
+		body,div,h1,h2,h3,h4,h5,h6,form,input,p { margin:0; padding: 0 }
+		img { border: 0 }
+		h1 { font-size:100%; font-weight: normal }
+		body { *font-size: small; *font: x-smallfont: 13px/1.231 arial, helvetica, clean, sans-serif }
+		body { margin: 10px }
+		h1 { font-size: 138.5% }
+		h1 { margin: 1em 0 }
+		h1,strong { font-weight: bold }
+		p { margin-bottom: 1em }
 		body {
 			color: #36393D;
-			font-family: Helvetica, "Helvetica LT Std", Arial, Verdana, sans-serif;
+			font-family: 'PT Sans', Helvetica, Arial, Verdana, sans-serif;
 			font-size: 100%; }
 
+		/* Styles */
 		#container {
 			width: 500px;
 			margin: 0 auto;
