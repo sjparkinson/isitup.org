@@ -7,6 +7,7 @@ Inspired by http://downforeveryoneorjustme.com
 
 
 To Install:
+-----------
 
 1. Copy the files to your webserver.
 
