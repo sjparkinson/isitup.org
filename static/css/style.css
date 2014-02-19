@@ -1,53 +1,61 @@
-@charset "utf-8";
+/*** Google Font Import ***/
+
+@import url(//fonts.googleapis.com/css?family=PT+Sans);
+
+/*** General Styles ***/
 
 body {
 	color: #36393D;
-	font-family: Arial, Helvetica, Verdana, clean, sans-serif;
-	font-size: 100%;
-	margin: 15px }
+	font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
+	min-width: 320px; }
+ 
+a, a:visited, a:active {
+	color: #369;
+	text-decoration: none; }
+ 
+a:hover { color: #4096EE; }
 
-a,a:visited,a:active { color: #369; text-decoration: none }
 
-a:hover { color: #4096EE }
+/*** Main Styles ***/
+
+#share {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 100001;
+}
 
 #container {
 	font-size: 220%;
-	margin-top: 15%;
-	min-width: 600px;
-	text-align: center }
-
+	margin-top: 20%;
+	text-align: center; }
+ 
 	#container p {
-		font-size: 100%;
 		line-height: 1.2em;
-		margin-bottom: 15px }
-
-	#container img { border: 0 }
-
-	#container code {
-		bottom: 1px;
-		font-size: 110%;
-		position: relative }
-
-	#container abbr,#container acronym { border-bottom: none; cursor: help }
-
-	#container .warning img,#container .save img { margin: 3px; vertical-align: middle }
-
-	#container #ad { font-size: 80%; margin-top: 2em }
-
-		#container #ad a { color: #1DA237 }
-
-			#container #ad a:hover { color: #0AC92B }
-
-	#container .warning { color:#B02B2C; font-size: 40% }
-
-	#container .save { color: #008C00; font-size: 40% }
-
-	#container .accepting { font-size: 16px }
-
-	#container .domain { font-weight: bold }
-
-	#container .smaller { font-size: 65% }
-
+		margin: 0.6em; }
+ 
+	#container img { border: 0; }
+ 
+	#container code { font-size: 110%; }
+ 
+	#container .warning img, #container .save img {
+		margin: 0 5px 5px 0;
+		vertical-align: middle; }
+		
+	#container .warning, #container .save {
+		font-size: 40%; }
+ 
+	#container .warning { color: #B02B2C; }
+ 
+	#container .save { color: #008C00; }
+ 
+	#container .domain {
+		font-weight: bold;
+		word-wrap: break-word;
+		hyphens: none; }
+ 
+	#container .smaller { font-size: 65%; }
+ 
 	#container #input {
 		*vertical-align: middle;
 		-moz-border-radius: 5px;
@@ -57,58 +65,110 @@ a:hover { color: #4096EE }
 		border-radius: 5px;
 		border: 1px solid #CCC;
 		color: #36393D;
+		font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
 		padding: 5px;
-		width: 12em }
-
-	#container #input[disabled] { background-color: #EEE }
-
+		width: 4em; }
+ 
+	#container #input[disabled] { background-color: #EEE; }
+ 
 	#container #submit {
 		background-color: transparent;
 		border: none;
 		color: #369;
 		cursor: pointer;
-		text-decoration: none }
+		font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
+		text-decoration: none; }
+ 
+	#container #submit[disabled] { color: #AAA; }
+ 
+	#container #submit:hover { color: #4096EE; }
 
-	#container #submit[disabled] { color: #AAA }
-
-		#container #submit[disabled]:hover { color: #AAA }
-
-	#container #submit:hover { color: #4096EE }
-
-	#container #version {
-		border-bottom: 0.1em dotted #555;
-		bottom: 40px;
-		color: #555;
-		font-size: 25%;
-		left: 10px;
-		position: relative }
-
-		#container #version:hover { border-bottom: 1px dotted #999; color: #999 }
-
-	#container .info {
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-		background-color: #FF9;
-		border-radius: 5px;
-		border: 1px solid #FC9;
-		color: #666;
-		font-size: 43%;
-		line-height: 1.5em;
-		margin: 5px auto;
-		padding: 5px;
-		text-align: center;
-		width: 500px }
-
-	#container #help { cursor: pointer; display: none }
-
-	#container #form {
-		position: relative;
-		left: 25px; }
-
+/*** Footer ***/
+ 
 #footer {
-	bottom: 15px;
 	color: #555;
-	font-size: 75%;
-	position: absolute }
+	font-size: 95%;
+	line-height: 2em;
+	text-align: center; }
+	
+	#footer li {
+		display: inline;
+		list-style-type: none;
+		margin: 0 20px; }
+ 
+	#footer #api a {
+		font-size: 100%;
+		margin: 5px; }
+		
 
-	#footer a { font-size: 125%; margin-right: 50px }
+/*** Buy Sell Ads ***/
+
+#buysellads {
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 8%;
+}
+
+body .one .bsa_it_ad {
+	border: 1px solid #CCC;
+	background: none;
+	color: #36393D;
+	padding: 10px 10px 0 10px;
+	margin: 0;
+	font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
+}
+
+body .one .bsa_it_ad .bsa_it_i {  margin: 0 10px 0 0; }
+
+body .one .bsa_it_ad .bsa_it_i img {
+	padding: 0;
+	margin-bottom: 10px;
+	border: none; }
+
+body .one .bsa_it_ad .bsa_it_t { font-size: 15px; }
+
+body .one .bsa_it_ad .bsa_it_d { margin-bottom: 10px; font-size: 80%; }
+
+body .one .bsa_it_p { display: none; }
+
+body #bsa_link {
+	display: block;
+	font-size: 80%;
+	margin: 5px 0;
+	padding: 0 10px;
+}
+
+	body #bsa_link span {
+		float: right;
+	}
+
+
+/*** Media Queries ***/
+
+@media screen and (min-width: 320px) {
+	#container #input{ width: 4em; }
+}
+
+@media screen and (min-width: 400px) {
+	#container #input{ width: 6em; }
+}
+
+@media screen and (min-width: 480px) {
+	#container #input{ width: 8em; }
+	#buysellads{ width: 340px; }
+}
+
+@media screen and (min-width: 560px) {
+	#container #input{ width: 10em; }
+}
+
+@media screen and (min-width: 640px) {
+	#container #input{ width: 12em; }
+}
+
+@media screen and (min-width: 720px) {
+	#container #input{ width: 14em; }
+	#container { margin-top: 14%; }
+}
+
+@-ms-viewport { width: device-width; }

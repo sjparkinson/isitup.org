@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Is it up? Widget</title>
+
+    <!-- Meta Info -->
+    <meta name="description" content="A simple Javascript widget for Is it up? that can be included on any website." />
+    <meta name="msapplication-TileImage" content="/static/img/icon.png">
+    <meta name="msapplication-TileColor" content="#ECECEC">
+
+    <!-- Author -->
+    <meta name="author" content="Samuel Parkinson" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/img/small-icon.png" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css' />
+
+    <!-- Mobile Browser Stuff -->
+    <meta name="viewport" content="width=520" />
+
+    <style type="text/css">
+        body {
+            color: #36393D;
+            font-family: 'PT Sans', Helvetica, Arial, Verdana, sans-serif;
+            font-size: 100%;
+            min-width: 870px; }
+
+        #container {
+            width: 500px;
+            margin: 10px auto;
+            text-align: left; }
+
+            a,
+            a:visited,
+            a:active {
+                color: #369;
+                text-decoration: none; }
+
+            a:hover { color: #4096EE; }
+
+            h1 {
+                font-size: 140%;
+                color: #369;
+                margin-top: 2em; }
+
+            h2 {
+                font-size: 120%;
+                color: #36393D;
+                margin-top: 2em;
+                margin-bottom: 0.5em; }
+
+            p {
+                color: #36393D;
+                text-align: justify;
+                line-height: 1.5em; }
+
+            ul {
+                margin-left: 30px;
+            }
+
+            pre {
+                overflow: auto;
+                font-size: 1em;
+                border: 1px solid #369;
+                color: #000;
+                padding: 5px;
+            }
+
+            .isitup-widget {
+                line-height: 1.5em;
+                margin: 0 0.6em;
+                display: inline;
+                float: left;
+            }
+
+            .isitup-domain, .isitup-icon {
+                display: inline;
+            }
+
+            .isitup-icon {
+                margin: 5px;
+            }
+    </style>
+
+    <!-- Is it up? Widget -->
+    <script>
+    (function(d, s) {
+        // Start a new script tag, get position to insert.
+        var t = d.createElement(s),
+            e = d.getElementsByTagName(s)[0];
+
+        // Set the attributes of the script tag.
+        t.src  = "widget.js";
+
+        // Insert the script tag.
+        e.parentNode.insertBefore(t, e);
+    }(document, "script"));
+    </script>
+</head>
+<body>
+<div id="container">
+    <h1><a href="/">Is it up?</a> Widget</h1>
+
+    <p>As a note, this is still currently under development. If you have any suggestions please contact me (<a href="http://twitter.com/r3morse">@r3morse</a>).</p>
+
+    <p>You can view the source code on <a href="http://jsfiddle.net/tspPU/" title="jsFiddle - Is it up? Widget">jsFiddle</a>, and <a href="https://github.com/sjparkinson/isitup-widget">GitHub</a>.</p>
+
+    <h2>To-Do</h2>
+
+    <p>
+        <ul>
+            <li>Make compatable with older browsers.</li>
+        </ul>
+    </p>
+
+    <h2>Examples</h2>
+
+    <div class="isitup-widget"
+        data-domain="duckduckgo.com"
+        data-uplink="http://duckduckgo.com"
+        data-downlink="http://isitup.org/duckduckgo.com">
+    </div>
+
+    <div class="isitup-widget"
+        data-domain="this.domain.is.down">
+    </div>
+
+    <div class="isitup-widget"
+        data-domain="an-invalid-domain">
+    </div>
+
+    <div style="clear:both;"></div>
+
+    <h2>Usage</h2>
+
+    <p>Add the following script tag to your site:</p>
+
+    <pre>&lt;!-- Is it up? Widget --&gt;
+&lt;script&gt;
+(function(d, s) {
+    // Start a new script tag, get position to insert.
+    var t = d.createElement(s),
+        e = d.getElementsByTagName(s)[0];
+
+    // Set the attributes of the script tag.
+    t.src  = "http://isitup.org/widget/widget.js";
+
+    // Insert the script tag.
+    e.parentNode.insertBefore(t, e);
+}(document, "script"));
+&lt;/script&gt;
+</pre>
+
+    <p>Then add something like the following inside your <code>&lt;body&gt;</code>:</p>
+
+    <pre>&lt;div class="isitup-widget"
+    data-domain="example.com"
+    data-uplink="http://example.com"
+    data-downlink="http://isitup.org/example.com"&gt;
+&lt;/div&gt;
+</pre>
+
+    <p>
+        <ul>
+            <li><code>data-domain</code> is the domain that you which to be checked.</li>
+            <li><code>data-uplink</code> is the link you wish to display if the site is up (optional).</li>
+            <li><code>data-downlink</code> is the link you whish to display if the site is down (also optional).</li>
+        </ul>
+    </p>
+
+    <h2>Styling</h2>
+
+    <p>The widget comes unstyled so that you can customise it to fit your site. To style the widget, use CSS. Below is the code used on this page:</p>
+
+    <pre>&lt;style type="text/css"&gt;
+.isitup-widget {
+    line-height: 1em;
+}
+
+.isitup-domain, .isitup-icon {
+    display: inline;
+}
+
+.isitup-icon {
+    margin: 5px;
+}
+&lt;/style&gt;
+</pre>
+
+    <h2>HTML Output</h2>
+
+    <p>The widget outputs minimal html into the DOM, below is an example of the output:</p>
+
+    <pre>&lt;div class="isitup-widget" data-domain="rememberthemilk.com" data-uplink="http://rememberthemilk.com" data-downlink="http://isitup.org/rememberthemilk.com" data-checked="true"&gt;
+    &lt;div class="isitup-icon"&gt;
+        &lt;img src="http://isitup.org/widget/img/online.png" width="16px" height="16px"&gt;
+    &lt;/div&gt;
+    &lt;div class="isitup-domain"&gt;
+        &lt;a href="http://rememberthemilk.com"&gt;rememberthemilk.com&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Is it up? API</title>
+
+    <!-- Meta Info -->
+    <meta name="description" content="A simple API by Is it up? for checking the status of a website." />
+    <meta name="msapplication-TileImage" content="/static/img/icon.png">
+    <meta name="msapplication-TileColor" content="#ECECEC">
+
+    <!-- Author -->
+    <meta name="author" content="Samuel Parkinson" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/img/small-icon.png" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css' />
+
+    <!-- Mobile Browser Stuff -->
+    <meta name="viewport" content="width=520" />
+
+    <style type="text/css">
+        body {
+        color: #36393D;
+        font-family: 'PT Sans', Helvetica, Arial, Verdana, sans-serif;
+        font-size: 100%;
+        min-width: 870px; }
+
+        #container {
+            width: 500px;
+            margin: 10px auto;
+            text-align: left; }
+
+            a {
+                color: #369;
+                text-decoration: none; }
+
+            a:hover { color: #4096EE; }
+
+            h1 {
+                font-size: 140%;
+                color: #369;
+                margin-top: 2em; }
+
+            h2 {
+                font-size: 120%;
+                color: #36393D;
+                margin-top: 2em;
+                margin-bottom: 0.5em; }
+
+            p {
+                color: #36393D;
+                line-height: 1.5em; }
+
+            ul, ol {
+                padding-left: 25px;
+            }
+
+            blockquote {
+                margin-left: 5px;
+                padding-left: 20px;
+                border-left: 3px solid #369;
+            }
+
+            pre {
+                overflow: auto;
+                font-size: 1em;
+                border: 1px solid #369;
+                color: #000;
+                padding: 5px;
+            }
+
+            code {
+                font-size: 1em;
+                color: #FFF;
+                background-color: #4096EE;
+                border-radius: 5px;
+                padding: 3px 5px;
+            }
+
+            code a, code a:hover {
+                color: #FFF;
+            }
+
+            .isitup-widget {
+                line-height: 1.5em;
+                margin: 0 0.6em;
+                display: inline;
+                float: left;
+            }
+
+            .isitup-domain, .isitup-icon {
+                display: inline;
+            }
+
+            .isitup-icon {
+                margin: 5px;
+            }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h1>The <a href="/">Is it up?</a> API</h1>
+
+    <p>The <a href="/" title="Is it up?">Is it up?</a> API tries to be very simple.</p>
+
+    <p>It provides the same amount of information as the regular site in several diffrent formats.</p>
+
+    <h2>Response Types</h2>
+
+    <ul>
+        <li><a href="https://en.wikipedia.org/wiki/JSON" title="Wikipedia - JSON">JSON</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/JSONP" title="Wikipedia - JSONP">JSONP</a></li>
+        <li>Plain Text (csv)</li>
+    </ul>
+
+    <h2>Usage Terms</h2>
+
+    <p>Please see the <a href="/static/txt/terms.txt" title="Is it up? Terms of Use">Terms of Use</a> for how you can avoid getting blacklisted when using the API.</p>
+
+    <p>Point 2 is the important one:</p>
+
+    <blockquote>
+        <p>Any client (browser or bot) must provide an accurate and appropriate user agent description when using isitup and it's api.</p>
+
+        <p>If you are using/making an automated system, please don't fake a browser user agent. You are more than welcome to use our api as long as you follow this condition.</p>
+    </blockquote>
+
+    <h2>Status Code</h2>
+
+    <p>The status code returned is always between 1 and 3. What each one means is defined below.</p>
+
+    <ol>
+        <li>Website is alive.</li>
+        <li>Website appears down.</li>
+        <li>Domain was not valid.</li>
+    </ol>
+
+    <h3>JSON Request</h3>
+
+    <p>To make a request for <code>duckduckgo.com</code> with JSON output simply make a request to the following url:</p>
+
+    <p><code><a href="/duckduckgo.com.json">http://isitup.org/duckduckgo.com.json</a></code></p>
+
+    <h4><code>JSON</code> Response</h4>
+
+    <pre>{
+    "domain": "duckduckgo.com",
+    "port": 80,
+    "status_code": 1,
+    "response_ip": "46.51.197.88",
+    "response_code": 200,
+    "response_time": 0.025
+}</pre>
+
+    <h3>JSONP Request</h3>
+
+    <p>For JSONP use the <code>callback</code> parameter on a JSON request like so:</p>
+
+    <p><code><a href="/duckduckgo.com.json?callback=callBack">http://isitup.org/duckduckgo.com.json?callback=callBack</a></code></p>
+
+    <h4><code>JSONP</code> Response</h4>
+
+    <pre>callBack({
+    "domain": "example.com",
+    "port": 80,
+    "status_code": 1,
+    "response_ip": "192.0.43.10",
+    "response_code": 302,
+    "response_time": 0.087
+});</pre>
+
+    <h3>Plain Text Request</h3>
+
+    <p>For a plain text response append <code>txt</code> to the end of the url like so:</p>
+
+    <p><code><a href="/duckduckgo.com.txt">http://isitup.org/duckduckgo.com.txt</a></code></p>
+
+    <h4><code>Plain Text</code> Response</h4>
+
+    <pre>example.com, 80, 1, 192.0.43.10, 302, 0.057</pre>
+</div>
+</body>
+</html>
