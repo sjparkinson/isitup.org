@@ -96,7 +96,7 @@ else
     <p class="save"><img src="<?php echo $setting['static']; ?>/img/accept.png" width="16" height="16" alt="" /><b><?php echo get_domain($domain["remote"], $setting["default"]); ?></b> is now your default domain. Click on <i>Clear</i> to restore the original.</p>
 <?php remove_cookies("saved"); endif; ?>
 
-    <form method="get" action="/check.php" id="form">
+    <form method="get" action="<?php echo $setting['folder']; ?>/check.php" id="form">
         <p>is <input type="text" name="domain" id="input" value="<?php echo get_domain($domain["remote"], $setting["default"]); ?>" accesskey="4" /> <input type="submit" id="submit" value="up?" accesskey="s" /></p>
     </form>
 </div>
@@ -105,8 +105,8 @@ else
     <ul>
         <li><a href="http://github.com/sjparkinson/isitup" title="Is it up? on GitHub">Source</a></li>
         <li><a href="https://trello.com/b/b1HnXdS9" id="version" title="Revision <?php echo $setting["version"]; ?>">Changelog</a></li>
-        <li><a href="/api/api.html" title="The Is it up? API">API</a></li>
-        <li><a href="/widget/widget.html" title="Is it up? Javascript Widget">Widget</a></li>
+        <li><a href="<?php echo $setting['folder']; ?>/api/api.html" title="The Is it up? API">API</a></li>
+        <li><a href="<?php echo $setting['folder']; ?>/widget/widget.html" title="Is it up? Javascript Widget">Widget</a></li>
         <?php if( show_clear() ): ?><li><a href="/clear" title="Reset to the default settings">Clear</a></li><?php endif; ?>
     </ul>
 </div>
