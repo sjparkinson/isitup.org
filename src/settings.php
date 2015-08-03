@@ -28,11 +28,61 @@
     // A list of banned user agents.
     $setting["banned_ua"] = array
     (
+        "Mozilla/4.0 (compatible; ICS)",
+        "Rackspace Monitoring/1.1 (https://monitoring.api.rackspacecloud.com)",
+        "Python-urllib/1.17",
+        "Xenu Link Sleuth/1.3.8"
     );
 
     // A list of banned referrers, can include wildcards.
     $setting["banned_referrers"] = array
     (
+        "http://*.xnrg.net/*",
+        "http://banjia.yulewangzhan.cn/*",
+        "http://gang.yulewangzhan.cn/*",
+        "http://hao.dangqian.com/hao/*",
+        "http://tlapple.com/*",
+        "http://www.010bjanmo.com/*",
+        "http://www.36963.com/*",
+        "http://www.510532.com/*",
+        "http://www.51qqq.net/*",
+        "http://www.62idc.com/*",
+        "http://www.72tui.com/*",
+        "http://www.110.gd*",
+        "http://www.278cc.com/*",
+        "http://www.598yingxiao.com/*",
+        "http://www.680.com/*",
+        "http://www.41418.net/*",
+        "http://www.668108.com/",
+        "http://www.747474.net/*",
+        "http://www.2011522.com/*",
+        "http://www.babaw.com/*",
+        "http://www.bjnanmo.com/*",
+        "http://www.craneceo.com/*",
+        "http://www.dangqian.com/*",
+        "http://www.dt-qz.com*",
+        "http://www.ej158.com/*",
+        "http://www.gpxz.com/*",
+        "http://www.hexiushou.com/*",
+        "http://www.hitsaati.com/backlinky.php",
+        "http://www.itunion.cn/*",
+        "http://www.junminqing.com/*",
+        "http://www.ku58.com/*",
+        "http://maskr.in/*",
+        "http://www.ndhjd.com/*",
+        "http://niulangdian.com/*",
+        "http://www.pinyouge.com/*",
+        "http://www.shihuifanli.com*",
+        "http://www.ufukart.com/backlink/index.html",
+        "http://www.wanshida518.cn/*",
+        "http://www.yuehaiwang.com/*",
+        "http://www.yuzhouzhiwang.com/*",
+        "http://www.zjgdesign.com/*",
+        "http://seo.dadadihao.com/*",
+        "http://www.90kis.com/*",
+        "http://www.zyruide.com/*",
+        "http://www.bmizg.com/*",
+        "http://www.ydjyjg.net/*"
     );
 
     #########################################

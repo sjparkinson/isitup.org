@@ -84,5 +84,11 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
         echo( $html );
     ?>
 </div>
+
+<div id="buysellads">
+    <!-- BuySellAds.com Zone Code -->
+    <script type="text/javascript" src="http://cdn.adpacks.com/adpacks.js?legacyid=1273050&zoneid=1386&key=7b6723eb9ed007b227c359abd99a3ca1&serve=C6SI42Y&placement=isituporg&circle=dev" id="_adpacks_js"></script>
+    <!-- End BuySellAds.com Zone Code -->
+</div>
 </body>
 </html>
