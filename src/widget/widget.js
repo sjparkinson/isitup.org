@@ -14,7 +14,7 @@
 var isitup =
 {
     // Our api host.
-    server: "http://isitup.org/",
+    server: "https://isitup.org/",
 
     // Domains we have made an API request for.
     requested: [],

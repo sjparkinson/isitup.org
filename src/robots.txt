@@ -4,3 +4,4 @@ Disallow: /d/
 Disallow: /clear
 Disallow: /*.json
 Disallow: /*.txt
+Sitemap: http://isitup.org/static/xml/sitemap.xml

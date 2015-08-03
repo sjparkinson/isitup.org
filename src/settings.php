@@ -27,11 +27,13 @@
 
     // A list of banned user agents.
     $setting["banned_ua"] = array
-    ();
+    (
+    );
 
     // A list of banned referrers, can include wildcards.
     $setting["banned_referrers"] = array
-    ();
+    (
+    );
 
     #########################################
 
@@ -45,9 +47,6 @@ else
     error_reporting(0);
 }
 
-// Get and set the git revision number.
-$setting["version"] = get_version();
-
 // Sets the time zone.
 date_default_timezone_set($setting["time_zone"]);
 
@@ -60,25 +59,6 @@ $setting["host"] = $_SERVER["SERVER_NAME"];
 if ($setting["folder"] != "")
 {
     $setting["host"] = $setting["host"] . $setting["folder"];
-}
-
-
-/**
- * Gets the short sha hash of the current git version if any.
- *
- * @return  string
- */
-function get_version()
-{
-    // Get and set the git revision number.
-    exec("git log -1 --pretty=format:'%h'", $version);
-
-    if ( empty($version) )
-    {
-        return "Unversioned";
-    }
-
-    return $version[0];
 }
 
 /**
@@ -121,16 +101,15 @@ function is_banned_referrer($patterns)
 
 // Forbid banned ips or user agents.
 if ( is_bad_request() )
-{ 
+{
     header("HTTP/1.1 403 Forbidden");
     exit();
 };
 
 // Check if we should send people to the offline page.
-if ($setting["live"] === false
-    && $_SERVER["SCRIPT_NAME"] != "offline.php")
+if ($setting["live"] === false)
 {
-    header("Location: http://" . $setting["host"] . "/offline", true, 503);
+    header("Location: http://" . $setting["host"] . "/offline.html", true, 503);
     exit();
 };
 
@@ -138,5 +117,3 @@ if ($setting["live"] === false
  * Set the headers.
  */
 header("X-XSS-Protection: 1; mode=block");
-
-header("Via: Is it up?/" . $setting["version"] . " (" . gethostname() . "." . $_SERVER["HTTP_HOST"] . ")");

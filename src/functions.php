@@ -17,7 +17,7 @@ function gen_domain($domain, $port)
     {
         $url = $domain .":". $port;
     };
-    
+
     return $url;
 }
 
@@ -30,7 +30,8 @@ function gen_domain($domain, $port)
  */
 function is_valid_domain($domain)
 {
-    $domain_regex   = "/^([\w\d](-*[\w\d])*)\.(([\w\d](-*[\w\d])*))*$/i";
+
+    $domain_regex   = "/^(xn--)?([\w0-9]([\w0-9\-]{0,61}[\w0-9])?\.)+(xn--)?[\w]{2,6}$/i";
 
     return (filter_var($domain, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) != false || preg_match($domain_regex, $domain));
 }
@@ -69,26 +70,33 @@ function filter_domain($domain)
 function get_response($domain, $port)
 {
     global $setting;
-    
+
     if ( is_valid_domain($domain) )
-    {        
-        $options = array
-        (
-            'timeout' => $setting["timeout"],
-            'useragent' => "Is is up?/" . $setting['version'] . " (http://isitup.org)",
-            'referer' => "http://isitup.org",
-            'port' => $port,
-            'compress' => true
-        );
-        
-        $r = @http_head("http://" . $domain, $options, $headers);
+    {
+        // create a new cURL resource
+        $ch = curl_init();
+
+        // set URL and other appropriate options
+        curl_setopt($ch, CURLOPT_URL, "http://" . $domain);
+        curl_setopt($ch, CURLOPT_PORT, $port);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Is is up? (+http://isitup.org)");
+        curl_setopt($ch, CURLOPT_TIMEOUT, $setting["timeout"]);
+
+        // This changes the request method to HEAD
+        curl_setopt($ch, CURLOPT_NOBODY, true);
+
+        // grab URL and pass it to the browser
+        curl_exec($ch);
 
         $data = array
         (
-            "code" => $headers["response_code"],
-            "time" => $headers["connect_time"],
+            "code" => curl_getinfo($ch, CURLINFO_HTTP_CODE),
+            "time" => curl_getinfo($ch, CURLINFO_CONNECT_TIME),
             "valid" => true
         );
+
+        // close cURL resource, and free up system resources
+        curl_close($ch);
     }
     else
     {
@@ -99,7 +107,7 @@ function get_response($domain, $port)
             "valid" => false
         );
     }
-    
+
     return $data;
 }
 
@@ -126,7 +134,7 @@ function gen_id($data)
     {
         $id = 2;
     };
-    
+
     return $id;
 }
 
@@ -195,7 +203,7 @@ function gen_html($id, $domain, $port, $time, $code)
         };
 
         $html = "<p><a href=\"http://" . gen_domain($domain, $port) . "\" class=\"domain\" title=\"http://" . $domain . "/\" rel=\"nofollow\">" . $domain . "</a> seems to be down!</p>\n\n";
-        
+
         if ( isset($text) )
         {
             $html .= "\t<p class=\"smaller\">" . $text . "</p>\n";
@@ -234,15 +242,15 @@ function gen_http_wiki_link($code)
         case ($code >= 400):
             $anchor = "4xx_Client_Error";
             break;
-            
+
         case ($code >= 300):
             $anchor = "3xx_Redirection";
             break;
-            
+
         case ($code >= 200):
             $anchor = "2xx_Success";
             break;
-            
+
         case ($code >= 100):
             $anchor = "1xx_Informational";
             break;
@@ -267,12 +275,12 @@ function gen_units($time)
 
         case ($time > 1):
             return "seconds";
-        
+
         default:
             $units = "<a title=\"Milliseconds\" href=\"http://www.wolframalpha.com/input/?i=" . $time * 1000 . "%20milliseconds\">ms</a>";
             break;
     }
-    
+
     return $units;
 }
 
@@ -325,7 +333,7 @@ function show_ip($domain)
     {
         $text = null;
     }
-    
+
     return $text;
 }
 
@@ -344,7 +352,7 @@ function get_cookie($cookie)
 
         return $clean;
     };
-    
+
     return false;
 }
 
@@ -378,7 +386,7 @@ function remove_cookies($cookie = array())
     {
         setcookie($cookie, false, time() - 60 * 60 * 24 * 365, "/", $_SERVER["SERVER_NAME"], 0, 1);
     };
-    
+
     return false;
 }
 
@@ -399,7 +407,7 @@ function get_domain($remote, $default)
     {
         $domain = $remote;
     }
-    
+
     return $domain;
 }
 
@@ -453,7 +461,7 @@ function show_clear()
     {
         return true;
     }
-    
+
     return false;
 }
 
@@ -491,14 +499,14 @@ function gen_json($data)
 {
     // Allow the use of this json on any domain.
     header('Access-Control-Allow-Origin: *');
-    
+
     $data = tidy_array($data, null);
-        
+
     $json = format_json(json_encode($data));
-        
+
     // JSONP callback function
     if ( isset($_GET["callback"]) )
-    {      
+    {
         header('Content-Type: application/javascript; charset=utf-8');
 
         $json = safe_callback($_GET["callback"]) . "(" . $json . ");";
@@ -507,7 +515,7 @@ function gen_json($data)
     {
         header('Content-Type: application/json; charset=utf-8');
     }
-    
+
     return $json;
 }
 
@@ -521,20 +529,20 @@ function gen_json($data)
 function gen_txt($data)
 {
     header('Content-Type: text/plain');
-    
+
     $data = tidy_array($data, "NULL");
-    
+
     $txt = "";
-    
+
     $last_key = end(array_keys($data));
-    
+
     foreach ($data as $key => $value)
     {
         $txt = $txt . $value;
-    
+
         if ($key != $last_key) $txt = $txt . ", ";
     }
-    
+
     return $txt;
 }
 
@@ -552,9 +560,9 @@ function tidy_array($array, $replacement_value)
     {
         if ( empty($value) ) $value = $replacement_value;
     };
-    
+
     unset($value);
-    
+
     return $array;
 }
 
@@ -570,7 +578,7 @@ function format_json($json)
     $pattern = array(',"', '{', '}', ':');
 
     $replacement = array(",\n    \"", "{\n    ", "\n}", ': ');
-        
+
     $formatted_json = str_replace($pattern, $replacement, $json);
 
     return $formatted_json;
