@@ -35,8 +35,8 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
     <link rel="shortcut icon" type="image/png" href="/static/img/icon.png" />
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" media="screen, print" href="/static/css/reset.css" />
-    <link rel="stylesheet" type="text/css" media="screen, print" href="/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style.css" />
 
     <?php if((strpos($_SERVER["HTTP_USER_AGENT"], "MSIE") !== false)): ?>
     <style type="text/css">
@@ -87,10 +87,7 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
     ?>
 </div>
 
-<div id="buysellads">
-    <!-- BuySellAds.com Zone Code -->
-    <script type="text/javascript" src="http://cdn.adpacks.com/adpacks.js?legacyid=1273050&zoneid=1386&key=7b6723eb9ed007b227c359abd99a3ca1&serve=C6SI42Y&placement=isituporg&circle=dev" id="_adpacks_js"></script>
-    <!-- End BuySellAds.com Zone Code -->
-</div>
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=isituporg" id="_carbonads_js"></script>
+
 </body>
 </html>

@@ -1,6 +1,6 @@
 /*** Google Font Import ***/
 
-@import url(//fonts.googleapis.com/css?family=PT+Sans);
+@import url(https://fonts.googleapis.com/css?family=PT+Sans);
 
 /*** General Styles ***/
 
@@ -8,15 +8,14 @@ body {
 	color: #36393D;
 	font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
 	min-width: 320px; }
- 
+
 a, a:visited, a:active {
 	color: #369;
 	text-decoration: none; }
- 
+
 a:hover { color: #4096EE; }
 
-
-/*** Main Styles ***/
+/** Main Styles **/
 
 #share {
 	position: absolute;
@@ -29,33 +28,33 @@ a:hover { color: #4096EE; }
 	font-size: 220%;
 	margin-top: 20%;
 	text-align: center; }
- 
+
 	#container p {
 		line-height: 1.2em;
 		margin: 0.6em; }
- 
+
 	#container img { border: 0; }
- 
+
 	#container code { font-size: 110%; }
- 
+
 	#container .warning img, #container .save img {
 		margin: 0 5px 5px 0;
 		vertical-align: middle; }
-		
+
 	#container .warning, #container .save {
 		font-size: 40%; }
- 
+
 	#container .warning { color: #B02B2C; }
- 
+
 	#container .save { color: #008C00; }
- 
+
 	#container .domain {
 		font-weight: bold;
 		word-wrap: break-word;
 		hyphens: none; }
- 
+
 	#container .smaller { font-size: 65%; }
- 
+
 	#container #input {
 		*vertical-align: middle;
 		-moz-border-radius: 5px;
@@ -68,9 +67,9 @@ a:hover { color: #4096EE; }
 		font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
 		padding: 5px;
 		width: 4em; }
- 
+
 	#container #input[disabled] { background-color: #EEE; }
- 
+
 	#container #submit {
 		background-color: transparent;
 		border: none;
@@ -78,72 +77,71 @@ a:hover { color: #4096EE; }
 		cursor: pointer;
 		font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
 		text-decoration: none; }
- 
+
 	#container #submit[disabled] { color: #AAA; }
- 
+
 	#container #submit:hover { color: #4096EE; }
 
 /*** Footer ***/
- 
+
 #footer {
 	color: #555;
 	font-size: 95%;
 	line-height: 2em;
 	text-align: center; }
-	
+
 	#footer li {
 		display: inline;
 		list-style-type: none;
 		margin: 0 20px; }
- 
+
 	#footer #api a {
 		font-size: 100%;
 		margin: 5px; }
-		
 
-/*** Buy Sell Ads ***/
 
-#buysellads {
+/** Carbon Ads **/
+
+#carbonads {
+	padding: 10px;
 	width: 300px;
+	border: 1px solid #CCC;
 	margin: 0 auto;
 	margin-top: 8%;
-}
-
-body .one .bsa_it_ad {
-	border: 1px solid #CCC;
-	background: none;
-	color: #36393D;
-	padding: 10px 10px 0 10px;
-	margin: 0;
 	font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
 }
 
-body .one .bsa_it_ad .bsa_it_i {  margin: 0 10px 0 0; }
-
-body .one .bsa_it_ad .bsa_it_i img {
-	padding: 0;
-	margin-bottom: 10px;
-	border: none; }
-
-body .one .bsa_it_ad .bsa_it_t { font-size: 15px; }
-
-body .one .bsa_it_ad .bsa_it_d { margin-bottom: 10px; font-size: 80%; }
-
-body .one .bsa_it_p { display: none; }
-
-body #bsa_link {
-	display: block;
-	font-size: 80%;
-	margin: 5px 0;
-	padding: 0 10px;
+#carbonads span span {
+	display: inline-block;
 }
 
-	body #bsa_link span {
-		float: right;
-	}
+.carbon-img {
+    float: left;
+	margin-right: 15px;
+}
 
+.carbon-text, .carbon-text:active {
+    display: block;
+	color: #36393D !important;
+	font-size: 85%;
+	line-height: 1.6em;
+	text-decoration: none;
+}
 
-/*** Media Queries ***/
+.carbon-poweredby, .carbon-text:active {
+	bottom: 15px;
+	color: #666 !important;
+	display: block;
+	float: right;
+	font-size: 10px;
+	left: 10px;
+	margin: 5px 0;
+	padding: 0 10px;
+	position: relative;
+	text-decoration: none;
+}
+
+/** Media Queries **/
 
 @media screen and (min-width: 320px) {
 	#container #input{ width: 4em; }
@@ -155,7 +153,7 @@ body #bsa_link {
 
 @media screen and (min-width: 480px) {
 	#container #input{ width: 8em; }
-	#buysellads{ width: 340px; }
+	#carbonads { width: 340px; }
 }
 
 @media screen and (min-width: 560px) {
