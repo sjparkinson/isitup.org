@@ -40,6 +40,8 @@ else
 
     <title>Is it up?</title>
 
+    <!-- Hi r/ProgrammerHumor :wave:! -->
+
     <!-- Meta Info -->
     <meta name="description" content="A simple tool to check if a website or ip address is up or down." />
     <meta name="wot-verification" content="c533868b214acabc1bc6" />
