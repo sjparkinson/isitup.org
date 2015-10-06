@@ -4,15 +4,15 @@
 
 	<Description>Check the availability of a url with Is it up?.</Description>
 
-	<Image height="16" width="16" type="img/png">http://isitup.org/static/img/icon.png</Image>
+	<Image height="16" width="16" type="img/png">https://isitup.org/static/img/icon.png</Image>
 
 	<Url type="text/html"
 		method="get"
-		template="http://isitup.org/{searchTerms}" />
+		template="https://isitup.org/{searchTerms}" />
 
 	<Url type="application/opensearchdescription+xml"
 		rel="self"
-		template="http://isitup.org/static/xml/search.xml" />
+		template="https://isitup.org/static/xml/search.xml" />
 
 	<Query role="example" searchTerms="example.com" />
 
