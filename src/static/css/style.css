@@ -128,7 +128,7 @@ a:hover { color: #4096EE; }
 	text-decoration: none;
 }
 
-.carbon-poweredby, .carbon-text:active {
+.carbon-poweredby {
 	bottom: 15px;
 	color: #666 !important;
 	display: block;
