@@ -9,6 +9,9 @@ list($domain, $port) = filter_domain($_GET["domain"]);
 // Check the site and get the response code.
 $data = get_response($domain, $port);
 
+// Check if IDN domain - convert, display correct domain name in HTML
+$domain = convert_idn_domain($domain);
+
 // Caluate and format the time taken to connect.
 $time = round($data["time"], 3);
 

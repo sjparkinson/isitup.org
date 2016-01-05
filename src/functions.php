@@ -37,6 +37,35 @@ function is_valid_domain($domain)
 }
 
 /**
+ * Converts Internationalized Domain Name (IDN) domain name to and from IDNA ASCII format
+ *
+ * @param   string  $domain
+ *
+ * @return  string   Converted domain name, either in ASCII format or UTF-8
+ */
+
+function convert_idn_domain($domain) 
+{
+    // Get domain length
+    $domain_length = strlen($domain);
+
+    // Perform two idn operations, convert to ascii and convert to utf8
+    $idn_ascii_domain = idn_to_ascii($domain); 
+    $idn_utf8_domain = idn_to_utf8($domain); 
+
+    if ($domain_length != strlen($idn_ascii_domain))
+    {
+        // IDN utf8 domain detected, return converted domain
+        $domain = $idn_ascii_domain;
+    } elseif ($domain_length != strlen($idn_utf8_domain)) {
+        // IDN ascii domain detected, return converted domain
+        $domain = $idn_utf8_domain;
+    } 
+
+    return $domain;
+}
+
+/**
  * Filters the given domain and split it into an array with a port number.
  *
  * @param   string  $domain
@@ -44,8 +73,11 @@ function is_valid_domain($domain)
  * @return  array   The domain and the port number.
  */
 function filter_domain($domain)
-{
-    $domain = preg_replace("/[^A-Za-z0-9-\/\.\:]/", "", trim($domain));
+{ 
+    // Convet IDN domain to ascii (if required)
+    $domain = convert_idn_domain($domain);
+
+    $domain = preg_replace("/[^A-Za-z0-9-\/\.\:]/", "", $domain);
 
     // Split the variable into two, $domain & $port.
     $result = explode(":", $domain);
@@ -502,7 +534,7 @@ function gen_json($data)
 
     $data = tidy_array($data, null);
 
-    $json = format_json(json_encode($data));
+    $json = format_json(json_encode($data, JSON_UNESCAPED_UNICODE));
 
     // JSONP callback function
     if ( isset($_GET["callback"]) )
