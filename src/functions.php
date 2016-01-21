@@ -30,8 +30,7 @@ function gen_domain($domain, $port)
  */
 function is_valid_domain($domain)
 {
-
-    $domain_regex   = "/^(xn--)?([\w0-9]([\w0-9\-]{0,61}[\w0-9])?\.)+(xn--)?[\w]{2,6}$/i";
+    $domain_regex = "/^(xn--)?([\w0-9]([\w0-9\-]{0,61}[\w0-9])?\.)+(xn--)?[\w]{2,6}$/i";
 
     return (filter_var($domain, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) != false || preg_match($domain_regex, $domain));
 }
@@ -44,23 +43,29 @@ function is_valid_domain($domain)
  * @return  string   Converted domain name, either in ASCII format or UTF-8
  */
 
-function convert_idn_domain($domain) 
+/**
+ * @return string
+ */
+function convert_idn_domain($domain)
 {
     // Get domain length
     $domain_length = strlen($domain);
 
     // Perform two idn operations, convert to ascii and convert to utf8
-    $idn_ascii_domain = idn_to_ascii($domain); 
-    $idn_utf8_domain = idn_to_utf8($domain); 
+    $idn_ascii_domain = idn_to_ascii($domain);
 
+    // IDN utf8 domain detected, return converted domain.
     if ($domain_length != strlen($idn_ascii_domain))
     {
-        // IDN utf8 domain detected, return converted domain
-        $domain = $idn_ascii_domain;
-    } elseif ($domain_length != strlen($idn_utf8_domain)) {
-        // IDN ascii domain detected, return converted domain
-        $domain = $idn_utf8_domain;
-    } 
+        return $idn_ascii_domain;
+    }
+
+    $idn_utf8_domain = idn_to_utf8($domain);
+
+    // IDN ascii domain detected, return converted domain.
+    if ($domain_length != strlen($idn_utf8_domain)) {
+        return $idn_utf8_domain;
+    }
 
     return $domain;
 }
@@ -73,7 +78,7 @@ function convert_idn_domain($domain)
  * @return  array   The domain and the port number.
  */
 function filter_domain($domain)
-{ 
+{
     // Convet IDN domain to ascii (if required)
     $domain = convert_idn_domain($domain);
 

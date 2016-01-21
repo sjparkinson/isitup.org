@@ -23,10 +23,10 @@ $id = gen_id($data);
 
 // Orgnise and generate the output.
 if ( isset($_GET["output"]) )
-{    
+{
     // The API called, should be "txt" or "json".
     $type = $_GET["output"];
-    
+
     $result = array
     (
         "domain"        => $domain,
@@ -36,10 +36,10 @@ if ( isset($_GET["output"]) )
         "response_code" => $code,
         "response_time" => $time
     );
-        
+
     // Generate our output.
     $output = gen_api($result, $type);
-            
+
     // If the api type was valid print our output.
     if ( $output != false ) echo($output);
 };
