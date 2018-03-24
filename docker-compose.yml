@@ -1,8 +1,0 @@
-web:
-    build: .
-    volumes:
-        - ./src/:/var/www/html/
-    environment:
-        - PORT=80
-    ports:
-        - "8042:80"
