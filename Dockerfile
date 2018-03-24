@@ -7,6 +7,4 @@ RUN apt-get update && \
 
 COPY config/apache/apache2.conf /etc/apache2/apache2.conf
 
-COPY CHECKS /app/CHECKS
-
 COPY src/ /var/www/html/
