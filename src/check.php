@@ -52,6 +52,15 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
 
     <!-- Mobile Browser Stuff -->
     <meta name="viewport" content="width=device-width" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-41035960-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-41035960-4');
+    </script>
 </head>
 <body>
 <div id="share">

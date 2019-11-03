@@ -76,6 +76,15 @@ else
             homepage("<?php echo get_jsdomain($domain['remote'], $setting['default']); ?>");
         });
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-41035960-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-41035960-4');
+    </script>
 </head>
 <body>
 <div id="container">
