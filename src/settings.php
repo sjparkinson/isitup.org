@@ -159,7 +159,7 @@ if ( is_bad_request() )
 // Check if we should send people to the offline page.
 if ($setting["live"] === false)
 {
-    header("Location: http://" . $setting["host"] . "/offline.html", true, 503);
+    header("Location: /offline.html", true, 503);
     exit();
 };
 

@@ -10,6 +10,8 @@ ErrorDocument 504 /errors/504.html
 
 Header set Cache-Control "no-cache, max-age=0"
 
+FileETag MTime Size
+
 RewriteEngine on
 
 RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]

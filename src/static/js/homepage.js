@@ -29,10 +29,6 @@
 			// Only if the url contains something we can submit
 			if (url && url != message)
 			{
-				// Disable the form from further submissions
-				$("#input").attr("disabled", true).css("color", "#AAA");
-				$("#submit").attr("disabled", true);
-
 				// Change the browser's url, adding only the domain
 				window.location = "/" + url.replace(/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/g, "")
 										   .toLowerCase();

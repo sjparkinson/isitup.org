@@ -1,5 +1,17 @@
 <?php
 
+header('ETag: ' . filemtime(__FILE__));
+
+// Check whether browser had sent a HTTP_IF_NONE_MATCH request header
+if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+	// If HTTP_IF_NONE_MATCH is same as the generated ETag => content is the same as browser cache
+	// So send a 304 Not Modified response header and exit
+	if($_SERVER['HTTP_IF_NONE_MATCH'] == filemtime(__FILE__)) {
+		header('HTTP/1.1 304 Not Modified', true, 304);
+		exit();
+	}
+}
+
 require("settings.php");
 require("functions.php");
 
@@ -8,7 +20,7 @@ if (isset($_GET["clear"]))
 {
     remove_cookies("input");
 
-    header("Location: http://" . $setting["host"], true, 303);
+    header("Location: /", true, 303);
     exit();
 };
 
@@ -94,7 +106,7 @@ else
     </noscript>
 
 <?php if ( isset($_GET["save"]) && empty($_GET["d"]) ) : ?>
-    <p class="warning"><img src="/static/img/exclamation.png" width="16" height="16" alt="" /><i>Error:</i> a domain needs to be selected, e.g. <code>http://isitup.org/save/<u>example.com</u></code>.</p>
+    <p class="warning"><img src="/static/img/exclamation.png" width="16" height="16" alt="" /><i>Error:</i> a domain needs to be selected, e.g. <code>https://isitup.org/save/<u>example.com</u></code>.</p>
 <?php elseif ( isset($_GET["save"]) ): ?>
     <p class="save"><img src="/static/img/accept.png" width="16" height="16" alt="" /><b><?php echo get_domain($domain["remote"], $setting["default"]); ?></b> is now your default domain. Click on <i>Clear</i> to restore the original.</p>
 <?php endif; ?>

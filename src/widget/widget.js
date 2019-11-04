@@ -124,7 +124,7 @@ var isitup =
                         // Set the image to yellow.
                         this.set_image("error", nodes[i]);
 
-                        // Set the link to http://isitup.org/d/<data-domain>
+                        // Set the link to https://isitup.org/d/<data-domain>
                         this.set_link(this.server + "d/" + nodes[i].getAttribute("data-domain"), nodes[i]);
 
                         break;

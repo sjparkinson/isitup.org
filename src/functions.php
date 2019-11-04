@@ -116,7 +116,7 @@ function get_response($domain, $port)
         // set URL and other appropriate options
         curl_setopt($ch, CURLOPT_URL, "http://" . $domain);
         curl_setopt($ch, CURLOPT_PORT, $port);
-        curl_setopt($ch, CURLOPT_USERAGENT, "Is is up? (+http://isitup.org)");
+        curl_setopt($ch, CURLOPT_USERAGENT, "Is is up? (+https://isitup.org)");
         curl_setopt($ch, CURLOPT_TIMEOUT, $setting["timeout"]);
 
         // This changes the request method to HEAD
