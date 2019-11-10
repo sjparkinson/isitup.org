@@ -97,6 +97,8 @@ else
 
         gtag('config', 'UA-41035960-4');
     </script>
+
+    <link rel="preload" href="https://cdn.carbonads.com/carbon.js?serve=CKYI5K3I&amp;placement=isituporg" as="script">
 </head>
 <body>
 <div id="container">
@@ -124,7 +126,7 @@ else
 </div>
 <?php endif; ?>
 
-<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=isituporg" id="_carbonads_js"></script>
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?serve=CKYI5K3I&amp;placement=isituporg" id="_carbonads_js"></script>
 
 </body>
 </html>

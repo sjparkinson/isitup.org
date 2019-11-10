@@ -61,6 +61,8 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
 
         gtag('config', 'UA-41035960-4');
     </script>
+
+    <link rel="preload" href="https://cdn.carbonads.com/carbon.js?serve=CKYI5K3I&amp;placement=isituporg" as="script">
 </head>
 <body>
 <div id="share">
@@ -99,7 +101,7 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
     ?>
 </div>
 
-<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=isituporg" id="_carbonads_js"></script>
+<script async type="text/javascript" src="https://cdn.carbonads.com/carbon.js?serve=CKYI5K3I&amp;placement=isituporg" id="_carbonads_js"></script>
 
 </body>
 </html>
