@@ -33,6 +33,16 @@ spec:
   selector:
     app: isitup-org
 ---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: isitup-org-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: isitup-org
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
