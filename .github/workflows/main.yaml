@@ -27,6 +27,10 @@ jobs:
         with:
           args: kubernetes cluster kubeconfig show k8s-lon1 > $GITHUB_WORKSPACE/.kubeconfig
 
+      - name: kubectl apply
+        if: github.ref == 'refs/heads/master'
+        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig apply -f deployment.yaml
+
       - name: kubectl rollout restart
         if: github.ref == 'refs/heads/master'
         run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout restart deployment/isitup-org
