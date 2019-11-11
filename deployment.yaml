@@ -41,7 +41,7 @@ spec:
   selector:
     matchLabels:
       app: isitup-org
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
