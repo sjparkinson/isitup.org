@@ -33,15 +33,18 @@ spec:
   selector:
     app: isitup-org
 ---
-apiVersion: policy/v1beta1
-kind: PodDisruptionBudget
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
 metadata:
-  name: isitup-org-pdb
+  name: isitup-org-hpa
 spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: isitup-org
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: isitup-org
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -51,7 +54,11 @@ spec:
   selector:
     matchLabels:
       app: isitup-org
-  replicas: 2
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
   template:
     metadata:
       labels:
@@ -62,5 +69,21 @@ spec:
           image: docker.pkg.github.com/sjparkinson/isitup.org/isitup.org:latest
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: 40m
+              memory: 50Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            timeoutSeconds: 3
       imagePullSecrets:
         - name: github
