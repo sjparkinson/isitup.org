@@ -11,6 +11,22 @@ jobs:
       - name: docker build
         run: docker build -t docker.pkg.github.com/sjparkinson/isitup.org/isitup.org:latest .
 
-      - name: docker build
-        if: github.ref == "master"
+      - name: docker login
+        if: github.ref == 'refs/heads/master'
+        run: docker login docker.pkg.github.com --username sjparkinson --password ${{ secrets.GITHUB_TOKEN }}
+
+      - name: docker push
+        if: github.ref == 'refs/heads/master'
         run: docker push docker.pkg.github.com/sjparkinson/isitup.org/isitup.org:latest
+
+      - name: doctl kubernetes
+        uses: digitalocean/action-doctl@master
+        if: github.ref == 'refs/heads/master'
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        with:
+          args: kubernetes cluster kubeconfig show k8s-lon1 > $GITHUB_WORKSPACE/.kubeconfig
+
+      - name: kubectl rollout restart
+        if: github.ref == 'refs/heads/master'
+        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout restart deployment/isitup-org
