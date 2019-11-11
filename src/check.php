@@ -67,30 +67,13 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
 <body>
 <div id="share">
     <?php if ($id == 1 || $id == 2): ?>
-    <script>
-    window.twttr = (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
-        if (d.getElementById(id)) return t;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "https://platform.twitter.com/widgets.js";
-        js.async = true;
-        fjs.parentNode.insertBefore(js, fjs);
-
-        t._e = [];
-        t.ready = function(f) {
-            t._e.push(f);
-        };
-
-        return t;
-    }(document, "script", "twitter-wjs"));
-    </script>
-
-    <a href="https://twitter.com/intent/tweet" class="twitter-share-button"
-        data-size="large"  data-hashtags="isitup" data-dnt="true"
-        data-dnt="true" data-related="samparkinson_"
-        data-text="<?php echo $title; ?>"></a>
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+        data-show-count="false"
+        data-size="large"
+        data-hashtags="isitup"
+        data-dnt="true"
+        data-text="<?php echo $title; ?>">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <?php endif; ?>
 </div>
 
