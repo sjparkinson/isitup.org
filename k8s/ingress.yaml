@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: isitup-org-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+  labels:
+    app: isitup-org
+spec:
+  tls:
+    - hosts:
+        - isitup.org
+      secretName: isitup-org-tls
+  rules:
+    - host: isitup.org
+      http:
+        paths:
+          - backend:
+              serviceName: isitup-org
+              servicePort: 80
