@@ -1,0 +1,48 @@
+name: Deploy
+
+on: deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: doctl kubernetes
+        uses: digitalocean/action-doctl@master
+        env:
+          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        with:
+          args: kubernetes cluster kubeconfig show k8s-lon1 > $GITHUB_WORKSPACE/.kubeconfig
+
+      - name: github deployment in progress
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.repos.createDeploymentStatus({
+              ...context.repo,
+              deployment_id: ${{ github.event.deployment.id }},
+              state: 'in_progress'
+            })
+
+      - name: kubectl apply
+        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig apply -f k8s/
+
+      - name: kubectl rollout restart
+        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout restart deployment/isitup-org
+
+      - name: kubectl rollout status
+        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout status deployment/isitup-org
+
+      - name: github deployment success
+        uses: actions/github-script@^0.3.0
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.repos.createDeploymentStatus({
+              ...context.repo,
+              deployment_id: ${{ github.event.deployment.id }},
+              state: 'success',
+              environment_url: 'https://isitup.org'
+            })
