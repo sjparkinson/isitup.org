@@ -19,18 +19,10 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: docker push docker.pkg.github.com/sjparkinson/isitup.org/isitup.org:latest
 
-      - name: doctl kubernetes
-        uses: digitalocean/action-doctl@master
+      - name: github deployment
         if: github.ref == 'refs/heads/master'
-        env:
-          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        uses: actions/github-script@0.3.0
         with:
-          args: kubernetes cluster kubeconfig show k8s-lon1 > $GITHUB_WORKSPACE/.kubeconfig
-
-      - name: kubectl apply
-        if: github.ref == 'refs/heads/master'
-        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig apply -f deployment.yaml
-
-      - name: kubectl rollout restart
-        if: github.ref == 'refs/heads/master'
-        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout restart deployment/isitup-org
+          github-token: ${{ github.token }}
+          script: |
+            github.repos.createDeployment({ ...context.repo, ref: '${{ github.ref }}', environment: 'production', required_contexts: [] })
