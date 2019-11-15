@@ -71,18 +71,12 @@ jobs:
 
       - name: github deployment
         id: deployment
-        uses: actions/github-script@0.3.0
+        uses: sjparkinson/actions-github-deployment@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github-token: ${{ github.token }}
-          script: |
-            const deployment = await github.repos.createDeployment({
-              ...context.repo,
-              ref: '${{ github.sha }}',
-              environment: 'production',
-              required_contexts: []
-            });
-
-            return deployment.data.id;
+          ref: ${{ github.sha }}
+          environment: production
 
       - name: kubectl apply
         run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig apply -k k8s/
@@ -97,7 +91,7 @@ jobs:
           script: |
             github.repos.createDeploymentStatus({
               ...context.repo,
-              deployment_id: ${{ steps.deployment.outputs.result }},
+              deployment_id: ${{ steps.deployment.outputs.deployment_id }},
               state: 'success',
               environment_url: 'https://isitup.org'
             })
