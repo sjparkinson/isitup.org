@@ -21,6 +21,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: github deployment
+        id: deployment
+        uses: chrnorm/deployment-action@releases/v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: production
+
       - name: docker login
         run: docker login docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
 
@@ -69,15 +76,6 @@ jobs:
                     image: docker.pkg.github.com/${{ github.repository }}/isitup.org:${{ github.sha }}
           EOF
 
-      - name: github deployment
-        id: deployment
-        uses: sjparkinson/actions-github-deployment@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          ref: ${{ github.sha }}
-          environment: production
-
       - name: kubectl apply
         run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig apply -k k8s/
 
@@ -85,13 +83,18 @@ jobs:
         run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout status deployment/isitup-org
 
       - name: github deployment success
-        uses: actions/github-script@0.3.0
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
         with:
-          github-token: ${{ github.token }}
-          script: |
-            github.repos.createDeploymentStatus({
-              ...context.repo,
-              deployment_id: ${{ steps.deployment.outputs.deployment_id }},
-              state: 'success',
-              environment_url: 'https://isitup.org'
-            })
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: success
+          target-url: https://isitup.org
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: github deployment failure
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: failure
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
