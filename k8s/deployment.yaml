@@ -25,7 +25,7 @@ spec:
           resources:
             requests:
               cpu: 40m
-              memory: 50Mi
+              memory: 60Mi
           livenessProbe:
             httpGet:
               path: /
