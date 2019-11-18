@@ -11,6 +11,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 100%
+  revisionHistoryLimit: 1
   template:
     metadata:
       labels:
