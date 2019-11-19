@@ -68,7 +68,7 @@ jobs:
         env:
           DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         with:
-          args: kubernetes cluster kubeconfig show k8s-lon1 > $GITHUB_WORKSPACE/.kubeconfig
+          args: kubernetes cluster kubeconfig show k8s-lon1 > .kubeconfig
 
       - name: kustomize
         run: |
@@ -98,10 +98,14 @@ jobs:
           EOF
 
       - name: kubectl apply
-        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig apply -k k8s/
+        run: kubectl apply -k k8s/
+        env:
+          KUBECONFIG: .kubeconfig
 
       - name: kubectl rollout status
-        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout status deployment/isitup-org
+        run: kubectl rollout status deployment/isitup-org
+        env:
+          KUBECONFIG: .kubeconfig
 
       - name: github deployment success
         uses: actions/github-script@0.3.0
