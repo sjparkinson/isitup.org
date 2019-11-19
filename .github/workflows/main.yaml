@@ -98,10 +98,14 @@ jobs:
           EOF
 
       - name: kubectl apply
-        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig apply -k k8s/
+        run: kubectl apply -k k8s/
+        env:
+          KUBECONFIG: $GITHUB_WORKSPACE/.kubeconfig
 
       - name: kubectl rollout status
-        run: kubectl --kubeconfig $GITHUB_WORKSPACE/.kubeconfig rollout status deployment/isitup-org
+        run: kubectl rollout status deployment/isitup-org
+        env:
+          KUBECONFIG: $GITHUB_WORKSPACE/.kubeconfig
 
       - name: github deployment success
         uses: actions/github-script@0.3.0
