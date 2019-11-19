@@ -72,19 +72,12 @@ jobs:
 
       - name: kustomize
         run: |
-          cat <<EOF > k8s/kustomization.yaml
-          apiVersion: kustomize.config.k8s.io/v1beta1
-          kind: Kustomization
-          resources:
-            - autoscaling.yaml
-            - deployment.yaml
-            - ingress.yaml
-            - service.yaml
+          cat >> k8s/kustomization.yaml <<EOF
           patchesStrategicMerge:
             - image.yaml
           EOF
 
-          cat <<EOF > k8s/image.yaml
+          cat > k8s/image.yaml <<EOF
           apiVersion: apps/v1
           kind: Deployment
           metadata:
