@@ -1,12 +1,12 @@
 <?php
 
-header('ETag: ' . filemtime(__FILE__));
+header('ETag: ' . md5(filemtime(__FILE__) . $_COOKIE["input"]));
 
 // Check whether browser had sent a HTTP_IF_NONE_MATCH request header
 if(isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
 	// If HTTP_IF_NONE_MATCH is same as the generated ETag => content is the same as browser cache
 	// So send a 304 Not Modified response header and exit
-	if($_SERVER['HTTP_IF_NONE_MATCH'] == filemtime(__FILE__)) {
+	if($_SERVER['HTTP_IF_NONE_MATCH'] == md5(filemtime(__FILE__) . $_COOKIE["input"])) {
 		header('HTTP/1.1 304 Not Modified', true, 304);
 		exit();
 	}
