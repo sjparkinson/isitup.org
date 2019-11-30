@@ -39,6 +39,7 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" />
     <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style.css" />
 
     <?php if((strpos($_SERVER["HTTP_USER_AGENT"], "MSIE") !== false)): ?>

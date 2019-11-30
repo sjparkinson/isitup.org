@@ -62,6 +62,7 @@ else
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" media="all" href="/static/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" />
     <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style.css" />
 
     <!--[if lt IE 8]>
