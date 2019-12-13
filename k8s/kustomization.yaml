@@ -6,3 +6,6 @@ resources:
   - ingress.yaml
   - pod-disruption-budget.yaml
   - service.yaml
+commonLabels:
+  app.kubernetes.io/name: isitup-org
+  app.kubernetes.io/part-of: isitup-org

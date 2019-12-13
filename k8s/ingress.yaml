@@ -4,8 +4,6 @@ metadata:
   name: isitup-org-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
-  labels:
-    app: isitup-org
 spec:
   rules:
     - host: isitup.org

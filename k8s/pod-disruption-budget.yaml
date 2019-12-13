@@ -6,4 +6,5 @@ spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: isitup-org
+      app.kubernetes.io/name: isitup-org
+      app.kubernetes.io/part-of: isitup-org

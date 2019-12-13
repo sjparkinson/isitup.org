@@ -5,7 +5,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: isitup-org
+      app.kubernetes.io/name: isitup-org
+      app.kubernetes.io/part-of: isitup-org
   replicas: 2
   strategy:
     type: RollingUpdate
@@ -15,7 +16,8 @@ spec:
   template:
     metadata:
       labels:
-        app: isitup-org
+        app.kubernetes.io/name: isitup-org
+        app.kubernetes.io/part-of: isitup-org
     spec:
       affinity:
         podAntiAffinity:
