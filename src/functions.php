@@ -157,7 +157,7 @@ function get_response($domain, $port)
  */
 function gen_id($data)
 {
-    $good_codes = array(200, 301, 302, 303, 304, 307, 400, 401, 403, 405);
+    $good_codes = array(200, 301, 302, 303, 304, 307, 308, 400, 401, 403, 405);
 
     if ($data["valid"] === false)
     {
