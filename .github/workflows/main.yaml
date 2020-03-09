@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/master'
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: docker build
         run: |
@@ -20,7 +20,7 @@ jobs:
     env:
       KUBECONFIG: .kubeconfig
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: github deployment
         id: deployment
