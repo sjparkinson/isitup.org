@@ -17,6 +17,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
+    env:
+      KUBECONFIG: .kubeconfig
     steps:
       - uses: actions/checkout@v1
 
@@ -68,7 +70,7 @@ jobs:
         env:
           DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         with:
-          args: kubernetes cluster kubeconfig show k8s-lon1 > .kubeconfig
+          args: kubernetes cluster kubeconfig show k8s-lon1 > ${{ env.KUBECONFIG }}
 
       - name: kustomize
         run: |
@@ -92,13 +94,12 @@ jobs:
 
       - name: kubectl apply
         run: kubectl apply -k k8s/
-        env:
-          KUBECONFIG: .kubeconfig
+
+      - name: kubectl annotate
+        run: kubectl annotate deployment/isitup-org kubernetes.io/change-cause="updated to revision https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
 
       - name: kubectl rollout status
-        run: kubectl rollout status deployment/isitup-org
-        env:
-          KUBECONFIG: .kubeconfig
+        run: kubectl rollout status deployment/isitup-org --timeout=3m
 
       - name: github deployment success
         uses: actions/github-script@0.3.0
