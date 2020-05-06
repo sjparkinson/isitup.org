@@ -17,14 +17,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
-    env:
-      KUBECONFIG: .kubeconfig
     steps:
       - uses: actions/checkout@v2
 
       - name: github deployment
         id: deployment
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@0.9.0
         with:
           script: |
             const deployment = await github.repos.createDeployment({
@@ -38,7 +36,7 @@ jobs:
             return deployment.data.id;
 
       - name: github deployment in progress
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@0.9.0
         with:
           script: |
             github.repos.createDeploymentStatus({
@@ -63,12 +61,13 @@ jobs:
           docker push docker.pkg.github.com/${{ github.repository }}/isitup.org:${{ github.sha }}
           docker push docker.pkg.github.com/${{ github.repository }}/isitup.org:latest
 
-      - name: doctl kubernetes
-        uses: digitalocean/action-doctl@master
-        env:
-          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: install doctl
+        uses: digitalocean/action-doctl@v2
         with:
-          args: kubernetes cluster kubeconfig show k8s-lon1 > ${{ env.KUBECONFIG }}
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: doctl kubernetes kubeconfig
+        run: doctl kubernetes cluster kubeconfig save k8s-lon1
 
       - name: kustomize
         run: |
@@ -100,7 +99,7 @@ jobs:
         run: kubectl rollout status deployment/isitup-org --timeout=3m
 
       - name: github deployment success
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@0.9.0
         if: success()
         with:
           script: |
@@ -115,7 +114,7 @@ jobs:
             })
 
       - name: github deployment failure
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@0.9.0
         if: failure()
         with:
           script: |
