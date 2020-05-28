@@ -81,6 +81,8 @@ jobs:
           kind: Deployment
           metadata:
             name: isitup-org
+            annotations:
+              change-cause: "updated to revision https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
           spec:
             template:
               spec:
@@ -91,9 +93,6 @@ jobs:
 
       - name: kubectl apply
         run: kubectl apply -k k8s/
-
-      - name: kubectl annotate
-        run: kubectl annotate deployment/isitup-org kubernetes.io/change-cause="updated to revision https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
 
       - name: kubectl rollout status
         run: kubectl rollout status deployment/isitup-org --timeout=3m
@@ -115,7 +114,7 @@ jobs:
 
       - name: github deployment failure
         uses: actions/github-script@0.9.0
-        if: failure()
+        if: cancelled() || failure()
         with:
           script: |
             github.repos.createDeploymentStatus({

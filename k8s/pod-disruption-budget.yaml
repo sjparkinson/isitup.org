@@ -3,7 +3,7 @@ kind: PodDisruptionBudget
 metadata:
   name: isitup-org-pdb
 spec:
-  maxUnavailable: 1
+  minAvailable: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: isitup-org
