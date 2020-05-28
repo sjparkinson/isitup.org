@@ -1,22 +1,13 @@
-name: Build
+name: Deploy
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/master'
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: docker build
-        run: |
-          docker build . \
-            -t docker.pkg.github.com/${{ github.repository }}/isitup.org:${{ github.sha }}
-
   deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
 
