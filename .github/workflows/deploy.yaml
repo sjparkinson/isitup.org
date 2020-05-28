@@ -73,7 +73,7 @@ jobs:
           metadata:
             name: isitup-org
             annotations:
-              change-cause: "updated to revision https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
+              kubernetes.io/change-cause: "updated to revision https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
           spec:
             template:
               spec:
