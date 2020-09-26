@@ -34,8 +34,8 @@ spec:
             - containerPort: 80
           resources:
             requests:
-              cpu: 40m
-              memory: 60Mi
+              cpu: 10m
+              memory: 40Mi
           livenessProbe:
             httpGet:
               path: /
