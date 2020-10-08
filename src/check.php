@@ -27,8 +27,6 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
 
     <title><?php echo $title . " // isitup.org"; // display the dynamic title ?></title>
 
-    <!-- Hi r/ProgrammerHumor :wave:! -->
-
     <!-- Meta Info -->
     <meta name="description" content="The availability results for <?php echo $domain; ?>. // isitup.org" />
 
