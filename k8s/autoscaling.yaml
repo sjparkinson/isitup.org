@@ -9,4 +9,4 @@ spec:
     name: isitup-org
   minReplicas: 1
   maxReplicas: 10
-  targetCPUUtilizationPercentage: 80
+  targetCPUUtilizationPercentage: 90
