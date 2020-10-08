@@ -100,6 +100,7 @@ else
     </script>
 
     <link rel="preload" href="https://cdn.carbonads.com/carbon.js?serve=CKYI5K3I&amp;placement=isituporg" as="script">
+    <link rel="preconnect" href="https://srv.carbonads.net" crossorigin>
     <link rel="preconnect" href="https://cdn4.buysellads.net" crossorigin>
 </head>
 <body>
