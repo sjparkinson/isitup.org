@@ -51,14 +51,15 @@ $html   = gen_html($id, $domain, $port, $time, $data["code"]);
 
     <!-- Mobile Browser Stuff -->
     <meta name="viewport" content="width=device-width" />
+    
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-41035960-4"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NP4RFP7BZ0"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'UA-41035960-4');
+        gtag('config', 'G-NP4RFP7BZ0');
     </script>
 
     <link rel="preload" href="https://cdn.carbonads.com/carbon.js?serve=CKYI5K3I&amp;placement=isituporg" as="script">
