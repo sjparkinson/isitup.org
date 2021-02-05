@@ -1,5 +1,7 @@
 FROM php:8-apache
 
+LABEL org.opencontainers.image.source https://github.com/sjparkinson/isitup.org
+
 RUN apt-get update && \
     apt-get install -y libicu-dev --no-install-recommends && \
     docker-php-ext-install intl && \
