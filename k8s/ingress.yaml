@@ -1,7 +1,7 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: isitup-org-ingress
+  name: isitup.org
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-production
@@ -15,6 +15,10 @@ spec:
     - host: isitup.org
       http:
         paths:
-          - backend:
-              serviceName: isitup-org
-              servicePort: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: isitup-org
+                port:
+                  number: 80
