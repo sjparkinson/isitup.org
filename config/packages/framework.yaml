@@ -1,0 +1,23 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(string:APP_SECRET)%'
+    #csrf_protection: true
+    #http_method_override: true
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        handler_id: null
+        cookie_secure: auto
+        cookie_samesite: strict
+
+    #esi: true
+    #fragments: true
+    php_errors:
+        log: true
+
+    http_client:
+        default_options:
+            max_duration: '%env(float:HTTP_CLIENT_TIMEOUT)%'
+            headers: { 'User-Agent': 'Is is up? (+https://isitup.org)' }
+            max_redirects: 0

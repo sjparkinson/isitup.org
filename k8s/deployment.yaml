@@ -30,6 +30,19 @@ spec:
       containers:
         - name: isitup-org
           image: ghcr.io/sjparkinson/isitup.org:latest
+          command: [ "/cnb/lifecycle/launcher"]
+          args: ["vendor/bin/heroku-php-apache2", "public"]
+          env:
+            - name: APP_ENV
+              value: prod
+            - name: HTTP_CLIENT_TIMEOUT
+              value: 3
+            - name: GOOGLE_ANALYTICS_ID
+              value: G-NP4RFP7BZ0
+            - name: CARBON_ADS_ID
+              value: CKYI5K3I
+            - name: CARBON_ADS_PLACEMENT
+              value: isituporg
           ports:
             - containerPort: 80
           resources:

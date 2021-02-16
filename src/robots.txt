@@ -1,7 +1,0 @@
-User-agent: *
-Disallow: /save/
-Disallow: /d/
-Disallow: /clear
-Disallow: /*.json
-Disallow: /*.txt
-Sitemap: /static/xml/sitemap.xml

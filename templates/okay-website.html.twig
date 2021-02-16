@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Yay, {{ website }} is up.{% endblock %}
+
+{% block body %}
+    <div id="share">
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+            data-show-count="false"
+            data-size="large"
+            data-hashtags="isitup"
+            data-dnt="true"
+            data-text="Yay, {{ website }} is up.">Tweet</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+
+    <div id="container">
+        <p><a href="http://{{ website }}" class="domain" rel="nofollow">{{ website }}</a> is up.</p>
+
+        <p class="smaller">It took {{ response_total_time | number_format(3) }} seconds to get a {{ response_status_code }} status code from an IP address of {{ response_ip_address }}.</p>
+
+        <p class="smaller"><a href="{{ path('index') }}" title="Home">Go back</a> to check another site or <a href="{{ path('save', { website: website }) }}" title="Use {{ website }} as the default site to check">save</a> this as your default.</p>
+    </div>
+{% endblock %}

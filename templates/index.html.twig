@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div id="container">
+    <noscript>
+        <p class="warning">Please don't enter "http://" or a trailing slash, as you do not seem to be using javascript.</p>
+        <p class="warning">For example type in <code>example.com</code> instead of <code>http://<u>example.com</u>/test/ing.html</code></p>
+    </noscript>
+
+    <form method="get" action="/check" id="form">
+        <p>is <input type="text" name="website" id="input" value="{{ website }}" accesskey="4" /> <input type="submit" id="submit" value="up?" accesskey="s" /></p>
+    </form>
+</div>
+
+{% if has_saved_website %}
+<div id="footer">
+    <ul>
+        <li><a href="{{ path('clear') }}">Remove {{ website }} as your default website.</a></li>
+    </ul>
+</div>
+{% endif %}
+{% endblock %}
