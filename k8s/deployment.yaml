@@ -31,7 +31,7 @@ spec:
         - name: isitup-org
           image: ghcr.io/sjparkinson/isitup.org:latest
           command: [ "/cnb/lifecycle/launcher"]
-          args: ["vendor/bin/heroku-php-apache2", "-p", "80", "public"]
+          args: ["vendor/bin/heroku-php-apache2", "-p", "8080", "public"]
           env:
             - name: APP_ENV
               value: prod
@@ -44,7 +44,7 @@ spec:
             - name: CARBON_ADS_PLACEMENT
               value: isituporg
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           resources:
             requests:
               cpu: 20m
@@ -55,13 +55,13 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
             initialDelaySeconds: 3
             timeoutSeconds: 3
           readinessProbe:
             httpGet:
               path: /
-              port: 80
+              port: 8080
             initialDelaySeconds: 3
             timeoutSeconds: 3
       imagePullSecrets:

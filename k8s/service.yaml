@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
     - port: 80
-      targetPort: 80
+      targetPort: 8080
   selector:
     app.kubernetes.io/name: isitup-org
     app.kubernetes.io/part-of: isitup-org

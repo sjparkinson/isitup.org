@@ -21,4 +21,4 @@ spec:
               service:
                 name: isitup-org
                 port:
-                  number: 80
+                  number: 8080
