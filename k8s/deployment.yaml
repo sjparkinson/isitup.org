@@ -31,7 +31,7 @@ spec:
         - name: isitup-org
           image: ghcr.io/sjparkinson/isitup.org:latest
           command: [ "/cnb/lifecycle/launcher"]
-          args: ["vendor/bin/heroku-php-apache2", "public"]
+          args: ["vendor/bin/heroku-php-apache2", "-p", "80", "public"]
           env:
             - name: APP_ENV
               value: prod
