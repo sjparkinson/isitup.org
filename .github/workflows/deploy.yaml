@@ -49,9 +49,8 @@ jobs:
       - name: Run pack build
         run: |
           pack build --builder heroku/buildpacks --buildpack heroku/php \
+            --env APP_ENV=prod \
             ghcr.io/${{ github.repository }}:${{ github.sha }}
-        env:
-          APP_ENV: prod
 
       - name: Run docker tag
         run: |
