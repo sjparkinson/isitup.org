@@ -14,9 +14,7 @@
 
 {% if has_saved_website %}
 <div id="footer">
-    <ul>
-        <li><a href="{{ path('clear') }}">Remove {{ website }} as your default website.</a></li>
-    </ul>
+    <p><a href="{{ path('clear') }}">Remove {{ website }} as your default website.</a></p>
 </div>
 {% endif %}
 {% endblock %}
