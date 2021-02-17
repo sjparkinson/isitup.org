@@ -6,11 +6,41 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install pack
+        run: curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.14.2/pack-v0.14.2-linux.tgz" | sudo tar -C /usr/local/bin/ --no-same-owner -xzv pack
+
+      - name: Run pack build
+        run: |
+          pack build --builder heroku/buildpacks --buildpack heroku/php --env APP_ENV=prod \
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+      - name: Run docker tag
+        run: |
+          docker tag \
+          ghcr.io/${{ github.repository }}:${{ github.sha }} \
+          ghcr.io/${{ github.repository }}:latest
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
+
+      - name: Run docker push
+        run: |
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository }}:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Create GitHub deployment
         id: deployment
         uses: actions/github-script@0.9.0
@@ -38,36 +68,10 @@ jobs:
               mediaType: { previews: ['flash', 'ant-man'] }
             })
 
-      - name: Install pack
-        run: curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.14.2/pack-v0.14.2-linux.tgz" | sudo tar -C /usr/local/bin/ --no-same-owner -xzv pack
-
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Run pack build
-        run: |
-          pack build --builder heroku/buildpacks --buildpack heroku/php --env APP_ENV=prod \
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-
-      - name: Run docker tag
-        run: |
-          docker tag \
-          ghcr.io/${{ github.repository }}:${{ github.sha }} \
-          ghcr.io/${{ github.repository }}:latest
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GH_CONTAINER_REGISTRY_TOKEN }}
-
-      - name: Run docker push
-        run: |
-          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
-          docker push ghcr.io/${{ github.repository }}:latest
 
       - run: doctl kubernetes cluster kubeconfig save k8s-lon1
 
