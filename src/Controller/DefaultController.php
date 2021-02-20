@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
+use App\Service\HttpService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\HttpService;
 
 class DefaultController extends AbstractController
 {
@@ -63,21 +63,27 @@ class DefaultController extends AbstractController
 
     /**
      * @Route("/{website}.json", requirements={"website": "[^/]+"}, priority=1)
-     * 
-     * TODO: JSONP support
      */
-    public function checkWebsiteJson(HttpService $http, string $website): Response
+    public function checkWebsiteJson(HttpService $http, Request $request, string $website): Response
     {
         $response = $http->fetch($website);
 
-        return $this->json([
+        $payload = [
             "domain"        => $website,
             "port"          => 80,
             "status_code"   => $response["status"],
             "response_ip"   => $response["response_ip_address"],
             "response_code" => $response["response_status_code"],
             "response_time" => floatval(number_format($response["response_total_time"], 3))
-        ]);
+        ];
+
+        $response = new JsonResponse($payload);
+
+        if ($request->query->has("callback")) {
+            $response->setCallback($request->query->get("callback"));
+        }
+
+        return $response;
     }
 
     /**
