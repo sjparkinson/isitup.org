@@ -6,6 +6,7 @@
     "require": {
         "php": "^8",
         "ext-ctype": "*",
+        "ext-curl": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^6.0",
         "symfony/apache-pack": "^1.0",
