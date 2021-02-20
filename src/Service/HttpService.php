@@ -27,10 +27,7 @@ class HttpService
         }
 
         // See if the input is a valid domain that resolves to an IPv4 address.
-        if (
-            preg_match("/^(xn--)?([\w0-9]([\w0-9\-]{0,61}[\w0-9])?\.)+(xn--)?[\w]{2,6}$/i", $website)
-            && checkdnsrr($website, "A")
-        ) {
+        if (preg_match("/^(xn--)?([\w0-9]([\w0-9\-]{0,61}[\w0-9])?\.)+(xn--)?[\w]{2,6}$/i", $website)) {
             return true;
         }
 
