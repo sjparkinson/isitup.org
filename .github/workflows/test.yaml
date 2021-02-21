@@ -1,0 +1,31 @@
+name: Test
+
+on: 
+  - push
+  - pull_request
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP, with Composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: ctype, curl, iconv
+
+      - run: composer validate
+
+      - name: Cache Composer packages
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
+
+      - run: composer test

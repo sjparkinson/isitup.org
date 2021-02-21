@@ -1,10 +1,12 @@
 {
+    "name": "sjparkinson/isitup.org",
+    "description": "Check if a website is up or down!",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^8",
+        "php": "8.0.*",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-iconv": "*",
@@ -22,7 +24,10 @@
         "twig/twig": "^3.0"
     },
     "require-dev": {
+        "symfony/browser-kit": "^5.2",
+        "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",
+        "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^5.2",
         "symfony/var-dumper": "^5.2",
         "symfony/web-profiler-bundle": "^5.2"
@@ -50,6 +55,11 @@
         "symfony/polyfill-php72": "*"
     },
     "scripts": {
+        "test": [
+            "php bin/console lint:container",
+            "php bin/console lint:twig",
+            "php bin/phpunit"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"

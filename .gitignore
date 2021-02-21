@@ -27,6 +27,7 @@
 /app/bootstrap.php.cache
 /var/bootstrap.php.cache
 /bin/*
+!bin/phpunit
 !bin/console
 !bin/symfony_requirements
 /vendor/
@@ -53,3 +54,9 @@
 
 # Local environment variables
 .env.local
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
