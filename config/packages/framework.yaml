@@ -11,6 +11,10 @@ framework:
         cookie_secure: auto
         cookie_samesite: strict
 
+    # Trust the DigitalOcean reverse proxy.
+    trusted_proxies: '10.0.0.0/8'
+    trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
+
     #esi: true
     #fragments: true
     php_errors:
