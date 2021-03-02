@@ -4,7 +4,7 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ApoControllerTest extends WebTestCase
+class ApiControllerTest extends WebTestCase
 {
     /**
      * @dataProvider validWebsites
