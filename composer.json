@@ -49,6 +49,10 @@
             "App\\Tests\\": "tests/"
         }
     },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*"
+    },
     "scripts": {
         "test": [
             "php bin/console lint:container",
