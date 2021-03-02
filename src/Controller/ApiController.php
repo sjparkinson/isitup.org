@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
@@ -16,6 +17,10 @@ class ApiController extends AbstractController
      */
     public function checkWebsiteJson(HttpService $http, Request $request, string $website): Response
     {
+        if (!$http->isValidWebsite($website)) {
+            throw new BadRequestHttpException();
+        }
+        
         $response = $http->fetch($website);
 
         $payload = [
@@ -41,6 +46,10 @@ class ApiController extends AbstractController
      */
     public function checkWebsiteText(HttpService $http, string $website): Response
     {
+        if (!$http->isValidWebsite($website)) {
+            throw new BadRequestHttpException();
+        }
+        
         $response = $http->fetch($website);
 
         $results = [

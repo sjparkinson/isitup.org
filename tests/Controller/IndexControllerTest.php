@@ -85,7 +85,9 @@ class IndexControllerTest extends WebTestCase
             ['this-is-an-invalid-website.c'],
             ['-example.com'],
             ['example.com-'],
-            ['127.0.0.'],
+            ['127.0.0.1'],
+            ['10.0.0.0'],
+            ['127.0.0.']
         ];
     }
 }

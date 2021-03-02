@@ -37,7 +37,7 @@ class HttpServiceTest extends TestCase
             ['duckduckgo.com'],
             ['isitup.org'],
             ['xn--c1yn36f.com'],
-            ['127.0.0.1'],
+            ['93.184.216.34'],
             ['2606:2800:220:1:248:1893:25c8:1946'],
         ];
     }
@@ -49,6 +49,8 @@ class HttpServiceTest extends TestCase
             ['example.com-'],
             ['example'],
             ['example.c'],
+            ['127.0.0.1'],
+            ['10.0.0.0'],
             ['127.0.0.']
         ];
     }

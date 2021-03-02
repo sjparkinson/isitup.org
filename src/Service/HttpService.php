@@ -21,8 +21,10 @@ class HttpService
      */
     public function isValidWebsite(string $website)
     {
+        $filterFlags = FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
+
         // See if the input is a valid IP address.
-        if (filter_var($website, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6)) {
+        if (filter_var($website, FILTER_VALIDATE_IP, $filterFlags)) {
             return true;
         }
 
@@ -53,11 +55,17 @@ class HttpService
             ];
         } catch (HttpExceptionInterface) {
             return [
-                "status" => 2
+                "status" => 2,
+                "response_total_time" => 0,
+                "response_status_code" => null,
+                "response_ip_address" => null,
             ];
         } catch (TransportExceptionInterface) {
             return [
-                "status" => 2
+                "status" => 2,
+                "response_total_time" => 0,
+                "response_status_code" => null,
+                "response_ip_address" => null,
             ];
         }
 
@@ -72,6 +80,9 @@ class HttpService
 
         return [
             "status" => 2,
+            "response_total_time" => null,
+            "response_status_code" => null,
+            "response_ip_address" => null,
         ];
     }
 }
