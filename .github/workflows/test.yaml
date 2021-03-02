@@ -26,6 +26,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
+      - name: Cache PHPUnit runtime
+        uses: actions/cache@v2
+        with:
+          path: bin/.phpunit
+          key: ${{ runner.os }}-phpunit-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-phpunit-
+
       - run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader
 
       - run: composer test
