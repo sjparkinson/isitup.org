@@ -22,7 +22,7 @@ class HttpService
     public function isValidWebsite(string $website)
     {
         // See if the input is a valid IP address.
-        if (filter_var($website, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        if (filter_var($website, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6)) {
             return true;
         }
 

@@ -73,6 +73,8 @@ class IndexControllerTest extends WebTestCase
     {
         return [
             ['example.com'],
+            ['93.184.216.34'],
+            ['2606:2800:220:1:248:1893:25c8:1946'],
         ];
     }
 
@@ -83,6 +85,7 @@ class IndexControllerTest extends WebTestCase
             ['this-is-an-invalid-website.c'],
             ['-example.com'],
             ['example.com-'],
+            ['127.0.0.'],
         ];
     }
 }
