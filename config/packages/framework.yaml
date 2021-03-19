@@ -24,4 +24,4 @@ framework:
         default_options:
             max_duration: '%env(float:HTTP_CLIENT_TIMEOUT)%'
             headers: { 'User-Agent': 'Is is up? (+https://isitup.org)' }
-            max_redirects: 1
+            max_redirects: '%env(int:HTTP_CLIENT_MAX_REDIRECTS)%'
