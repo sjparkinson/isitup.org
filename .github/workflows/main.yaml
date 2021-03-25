@@ -1,4 +1,4 @@
-name: Main
+name: Test & Deploy
 
 on: 
   - push
@@ -46,7 +46,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: test
     environment:
-      name: production
+      name: Production
       url: https://isitup.org
     runs-on: ubuntu-latest
     steps:
@@ -56,14 +56,11 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Create Apps Platform deployment
-        run: doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }}
-
-      - name: Get deployment ID
         id: deployment
-        run: echo ::set-output name=deployment_id::$(doctl apps list-deployments ${{ secrets.DIGITALOCEAN_APP_ID }} --format ID | sed -n 2p)
+        run: |
+          doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }}
+          echo ::set-output name=deployment_id::$(doctl apps list-deployments ${{ secrets.DIGITALOCEAN_APP_ID }} --format ID | sed -n 2p)
+          sleep 15
 
-      - name: Wait for deployment to start
-        run: sleep 10
-
-      - name: Get deployment logs
+      - name: Get build logs
         run: doctl apps logs ${{ secrets.DIGITALOCEAN_APP_ID }} --follow --type build --deployment ${{ steps.deployment.outputs.deployment_id }}
