@@ -18,7 +18,7 @@ class IndexControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testCheckWebsiteWithVanityUrl($website)
+    public function testCheckWebsiteWithVanityUrl(string $website)
     {
         $client = static::createClient();
 
@@ -30,7 +30,7 @@ class IndexControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testCheckWebsiteWithWebsiteParam($website)
+    public function testCheckWebsiteWithWebsiteParam(string $website)
     {
         $client = static::createClient();
 
@@ -42,7 +42,7 @@ class IndexControllerTest extends WebTestCase
     /**
      * @dataProvider invalidWebsites
      */
-    public function testCheckWebsiteWithInvalidWebsite($website)
+    public function testCheckWebsiteWithInvalidWebsite(string $website)
     {
         $client = static::createClient();
 
@@ -55,7 +55,7 @@ class IndexControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testSaveWebsite($website)
+    public function testSaveWebsite(string $website)
     {
         $client = static::createClient();
 
@@ -69,7 +69,7 @@ class IndexControllerTest extends WebTestCase
         $this->assertEquals($website, $cookieValue);
     }
 
-    public function validWebsites()
+    public function validWebsites(): array
     {
         return [
             ['example.com'],
@@ -78,7 +78,7 @@ class IndexControllerTest extends WebTestCase
         ];
     }
 
-    public function invalidWebsites()
+    public function invalidWebsites(): array
     {
         return [
             ['this-is-an-invalid-website'],

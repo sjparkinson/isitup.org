@@ -9,7 +9,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testJsonWithValidWebsite($website)
+    public function testJsonWithValidWebsite(string $website)
     {
         $client = static::createClient();
 
@@ -22,7 +22,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider invalidWebsites
      */
-    public function testJsonWithInvalidWebsite($website)
+    public function testJsonWithInvalidWebsite(string $website)
     {
         $client = static::createClient();
 
@@ -34,7 +34,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testTxtWithValidWebsite($website)
+    public function testTxtWithValidWebsite(string $website)
     {
         $client = static::createClient();
 
@@ -47,7 +47,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider invalidWebsites
      */
-    public function testTxtWithInvalidWebsite($website)
+    public function testTxtWithInvalidWebsite(string $website)
     {
         $client = static::createClient();
 
@@ -56,7 +56,7 @@ class ApiControllerTest extends WebTestCase
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
-    public function validWebsites()
+    public function validWebsites(): array
     {
         return [
             ['example.com'],
@@ -65,7 +65,7 @@ class ApiControllerTest extends WebTestCase
         ];
     }
 
-    public function invalidWebsites()
+    public function invalidWebsites(): array
     {
         return [
             ['this-is-an-invalid-website'],

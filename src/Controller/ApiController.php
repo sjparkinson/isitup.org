@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\HttpService;
+use App\Service\WebsiteStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,19 +15,19 @@ class ApiController extends AbstractController
     /**
      * @Route("/{website}.json", requirements={"website": "[^/]+"}, priority=1)
      */
-    public function checkWebsiteJson(HttpService $http, Request $request, string $website): Response
+    public function jsonCheck(WebsiteStatusService $websiteStatusService, Request $request, string $website): JsonResponse
     {
-        if (!$http->isValidWebsite($website)) {
+        if (!$websiteStatusService->isValidWebsite($website)) {
             throw new BadRequestHttpException();
         }
-        
-        $response = $http->fetch($website);
+
+        $response = $websiteStatusService->getStatus($website);
 
         $payload = [
-            "domain"        => $website,
-            "port"          => 80,
-            "status_code"   => $response["status"],
-            "response_ip"   => $response["response_ip_address"],
+            "domain" => $website,
+            "port" => 80,
+            "status_code" => $response["status"],
+            "response_ip" => $response["response_ip_address"],
             "response_code" => $response["response_status_code"],
             "response_time" => floatval(number_format($response["response_total_time"], 3))
         ];
@@ -44,13 +44,13 @@ class ApiController extends AbstractController
     /**
      * @Route("/{website}.txt", requirements={"website": "[^/]+"}, priority=1)
      */
-    public function checkWebsiteText(HttpService $http, string $website): Response
+    public function textCheck(WebsiteStatusService $websiteStatusService, string $website): Response
     {
-        if (!$http->isValidWebsite($website)) {
+        if (!$websiteStatusService->isValidWebsite($website)) {
             throw new BadRequestHttpException();
         }
-        
-        $response = $http->fetch($website);
+
+        $response = $websiteStatusService->getStatus($website);
 
         $results = [
             $website,

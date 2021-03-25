@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\HttpService;
+use App\Service\WebsiteStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,23 +28,23 @@ class IndexController extends AbstractController
      * @Route("/check")
      * @Route("/{website}", requirements={"website": "[^/]+"})
      */
-    public function checkWebsite(HttpService $http, Request $request, ?string $website): Response
+    public function check(WebsiteStatusService $websiteStatusService, Request $request, ?string $website): Response
     {
         if (!$website && !$request->query->get('website')) {
-            // We need a value to check, someone has probabily visited /check manually.
+            // We need a value to check, someone has probably visited /check manually.
             throw $this->createNotFoundException();
         }
 
-        // Pick the website to check from either the route paramater or the query parameter.
+        // Pick the website to check from either the route parameter or the query parameter.
         $website = $request->query->get('website') ?? $website;
 
-        if (!$http->isValidWebsite($website)) {
+        if (!$websiteStatusService->isValidWebsite($website)) {
             return $this->render('invalid-website.html.twig', [
                 'website' => $website,
             ]);
         }
 
-        $response = $http->fetch($website);
+        $response = $websiteStatusService->getStatus($website);
 
         if ($response["status"] === 1) {
             return $this->render('okay-website.html.twig', [
@@ -63,7 +63,7 @@ class IndexController extends AbstractController
     /**
      * @Route("/save/{website}", requirements={"website": "[^/]+"}, name="save")
      */
-    public function setDefaultWebsite(string $website): Response
+    public function save(string $website): Response
     {
         $response = $this->redirectToRoute('index');
         $response->headers->setCookie(Cookie::create('website', $website));
@@ -73,10 +73,10 @@ class IndexController extends AbstractController
 
     /**
      * Clear the `website` cookie.
-     * 
+     *
      * @Route("/clear", name="clear", priority=1)
      */
-    public function clearDefaultWebsite(): Response
+    public function clear(): Response
     {
         $response = $this->redirectToRoute('index');
         $response->headers->clearCookie('website');

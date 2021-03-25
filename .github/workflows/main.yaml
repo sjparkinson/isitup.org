@@ -35,6 +35,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-phpunit-
 
+      - run: composer validate --strict
+      
       - run: composer install --no-progress --no-suggest
 
       - run: composer test

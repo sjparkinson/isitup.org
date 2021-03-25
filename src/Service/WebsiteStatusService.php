@@ -7,19 +7,21 @@ use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class HttpService
+final class WebsiteStatusService implements WebsiteStatusServiceInterface
 {
     private HttpClientInterface $httpClient;
+
+    /**
+     * The list of HTTP status codes that indicate a website is working.
+     */
+    private const SUCCESS_STATUS_CODES = [200, 301, 302, 303, 304, 307, 308];
 
     public function __construct(HttpClientInterface $httpClient)
     {
         $this->httpClient = $httpClient;
     }
 
-    /**
-     * Checks if the given string is a valid IP address or a domain name.
-     */
-    public function isValidWebsite(string $website)
+    public function isValidWebsite(string $website): bool
     {
         $filterFlags = FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
 
@@ -36,45 +38,35 @@ class HttpService
         return false;
     }
 
-    /**
-     * See if the website is doing something like working.
-     */
-    public function fetch(string $website)
+    public function getStatus(string $website): array
     {
         try {
             $response = $this->httpClient->request('HEAD', "http://$website");
 
             // Wait for the request to finish.
             $response->getHeaders();
+
+            if (in_array($response->getStatusCode(), self::SUCCESS_STATUS_CODES)) {
+                return [
+                    "status" => 1,
+                    "response_total_time" => $response->getInfo('total_time'),
+                    "response_status_code" => $response->getStatusCode(),
+                    "response_ip_address" => $response->getInfo('primary_ip')
+                ];
+            }
         } catch (RedirectionException $e) {
             return [
                 "status" => 1,
-                "response_total_time" => $response->getInfo('total_time'),
-                "response_status_code" => $response->getStatusCode(),
-                "response_ip_address" => $response->getInfo('primary_ip')
+                "response_total_time" => $e->getResponse()->getInfo('total_time'),
+                "response_status_code" => $e->getResponse()->getInfo('http_code'),
+                "response_ip_address" => $e->getResponse()->getInfo('primary_ip')
             ];
-        } catch (HttpExceptionInterface) {
+        } catch (HttpExceptionInterface | TransportExceptionInterface) {
             return [
                 "status" => 2,
                 "response_total_time" => 0,
                 "response_status_code" => null,
                 "response_ip_address" => null,
-            ];
-        } catch (TransportExceptionInterface) {
-            return [
-                "status" => 2,
-                "response_total_time" => 0,
-                "response_status_code" => null,
-                "response_ip_address" => null,
-            ];
-        }
-
-        if (in_array($response->getStatusCode(), [200, 301, 302, 303, 304, 307, 308, 400, 401, 403, 405])) {
-            return [
-                "status" => 1,
-                "response_total_time" => $response->getInfo('total_time'),
-                "response_status_code" => $response->getStatusCode(),
-                "response_ip_address" => $response->getInfo('primary_ip')
             ];
         }
 
