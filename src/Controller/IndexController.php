@@ -39,7 +39,7 @@ class IndexController extends AbstractController
         $website = $request->query->get('website') ?? $website;
 
         if (!$websiteStatusService->isValidWebsite($website)) {
-            return $this->render('invalid-website.html.twig', [
+            return $this->render('website-invalid.html.twig', [
                 'website' => $website,
             ]);
         }
@@ -47,7 +47,7 @@ class IndexController extends AbstractController
         $response = $websiteStatusService->getStatus($website);
 
         if ($response["status"] === 1) {
-            return $this->render('okay-website.html.twig', [
+            return $this->render('website-okay.html.twig', [
                 'website' => $website,
                 'response_total_time' => $response["response_total_time"],
                 'response_status_code' => $response["response_status_code"],
@@ -55,7 +55,7 @@ class IndexController extends AbstractController
             ]);
         }
 
-        return $this->render('not-okay-website.html.twig', [
+        return $this->render('website-not-okay.html.twig', [
             'website' => $website,
         ]);
     }

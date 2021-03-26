@@ -102,8 +102,7 @@ a:hover { color: #4096EE; }
 	padding: 10px;
 	width: 300px;
 	border: 1px solid #CCC;
-	margin: 0 auto;
-	margin-top: 8%;
+	margin: 8% auto 0;
 	font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
 }
 
@@ -164,5 +163,3 @@ a:hover { color: #4096EE; }
 	#container #input{ width: 14em; }
 	#container { margin-top: 14%; }
 }
-
-@-ms-viewport { width: device-width; }

@@ -1,20 +1,46 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<div id="container">
-    <noscript>
-        <p class="warning">Please don't enter "http://" or a trailing slash, as you do not seem to be using javascript.</p>
-        <p class="warning">For example type in <code>example.com</code> instead of <code>http://<u>example.com</u>/test/ing.html</code></p>
-    </noscript>
+    <div id="container">
+        <noscript>
+            <p class="warning">Please don't enter "http://" or a trailing slash, as you do not seem to be using
+                javascript.</p>
+            <p class="warning">For example type in <code>example.com</code> instead of <code>http://<u>example.com</u>/test/ing.html</code>
+            </p>
+        </noscript>
 
-    <form method="get" action="/check" id="form">
-        <p>is <input type="text" name="website" id="input" value="{{ website }}" accesskey="4" /> <input type="submit" id="submit" value="up?" accesskey="s" /></p>
-    </form>
-</div>
+        <form method="get" action="/check" id="form">
+            <p>is <input type="text" name="website" id="input" placeholder="{{ website }}" accesskey="4"/> <input
+                        type="submit" id="submit" value="up?" accesskey="s"/></p>
+        </form>
+    </div>
 
-{% if has_saved_website %}
-<div id="footer">
-    <p><a href="{{ path('clear') }}">Remove {{ website }} as your default website.</a></p>
-</div>
-{% endif %}
+    {% if has_saved_website %}
+        <div id="footer">
+            <p><a href="{{ path('clear') }}">Remove {{ website }} as your default website.</a></p>
+        </div>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+            integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Hijack form submission
+            $("#form").on("submit", function () {
+                // Retrieve the value from the input field
+                let url = $("input").val();
+
+                // Only if the url contains something we can submit
+                if (url) {
+                    // Change the browser's url, adding only the domain
+                    window.location = "/" + url.replace(/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/g, "")
+                        .toLowerCase();
+                }
+
+                // Return false if input is empty
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

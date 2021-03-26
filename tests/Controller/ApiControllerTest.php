@@ -17,6 +17,7 @@ class ApiControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
+        $this->assertJson($client->getResponse()->getContent());
     }
 
     /**
@@ -42,6 +43,8 @@ class ApiControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertStringContainsString('text/plain', $client->getResponse()->headers->get('content-type'));
+        $this->assertMatchesRegularExpression("/\S+, \S+, \S+, \S*, \S*, \S+/", $client->getResponse()->getContent());
+        $this->assertStringStartsWith($website, $client->getResponse()->getContent());
     }
 
     /**

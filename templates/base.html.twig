@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <title>{% block title %}Is it up?{% endblock %}</title>
 
     <!-- Meta Info -->
-    <meta name="description" content="A simple tool to check if a website or ip address is up or down." />
-    <meta name="wot-verification" content="c533868b214acabc1bc6" />
+    <meta name="description" content="A simple tool to check if a website or ip address is up or down."/>
+    <meta name="wot-verification" content="c533868b214acabc1bc6"/>
     <meta name="theme-color" content="#ECECEC"/>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" media="all" href="https://unpkg.com/normalize.css@8.0.1/normalize.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Bebas+Neue&amp;display=swap" />
-    <link rel="stylesheet" type="text/css" media="screen" href="/styles/styles.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/styles/normalize.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="https://fonts.googleapis.com/css?family=Bebas+Neue&amp;display=swap"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/styles/styles.css"/>
 
     <!--[if lt IE 8]>
     <style type="text/css">
@@ -25,21 +26,12 @@
     <![endif]-->
 
     <!-- Mobile Browser Stuff -->
-    <meta name="viewport" content="width=device-width" />
-    
+    <meta name="viewport" content="width=device-width"/>
+
     {{ include('tags/google-analytics-tag.html.twig') }}
 </head>
 <body>
-    {% block body %}{% endblock %}
-
-    <script
-        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-        crossorigin="anonymous"></script>
-    <script src="/javascript/javascript.js"></script>
-    <script>
-        $(document).ready(function () { homepage("{{ website }}"); });
-    </script>
-    {{ include('tags/carbon-ads-tag.html.twig') }}
+{% block body %}{% endblock %}
+{{ include('tags/carbon-ads-tag.html.twig') }}
 </body>
 </html>
