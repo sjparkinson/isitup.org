@@ -16,12 +16,15 @@ class IndexController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        $website = $request->cookies->get('website') ?? $request->query->get('website') ?? 'duckduckgo.com';
+        $website = $request->query->has('website') ? $request->query->get('website') : 'duckduckgo.com';
 
-        return $this->render('index.html.twig', [
-            'website' => $website,
-            'has_saved_website' => $request->cookies->has('website')
+        $response = $this->render('index.html.twig', [
+            'website' => $website
         ]);
+
+        $response->headers->clearCookie('website');
+
+        return $response;
     }
 
     /**
@@ -58,29 +61,5 @@ class IndexController extends AbstractController
         return $this->render('website-not-okay.html.twig', [
             'website' => $website,
         ]);
-    }
-
-    /**
-     * @Route("/save/{website}", requirements={"website": "[^/]+"}, name="save")
-     */
-    public function save(string $website): Response
-    {
-        $response = $this->redirectToRoute('index');
-        $response->headers->setCookie(Cookie::create('website', $website));
-
-        return $response;
-    }
-
-    /**
-     * Clear the `website` cookie.
-     *
-     * @Route("/clear", name="clear", priority=1)
-     */
-    public function clear(): Response
-    {
-        $response = $this->redirectToRoute('index');
-        $response->headers->clearCookie('website');
-
-        return $response;
     }
 }

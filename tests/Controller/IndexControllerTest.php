@@ -3,6 +3,7 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
 
 class IndexControllerTest extends WebTestCase
 {
@@ -13,6 +14,17 @@ class IndexControllerTest extends WebTestCase
         $client->request('GET', '/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    public function testIndexClearsWebsiteCookie()
+    {
+        $client = static::createClient();
+        $client->getCookieJar()->set(new Cookie('website', 'example.com', domain: 'localhost'));
+
+        $client->request('GET', '/');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertBrowserNotHasCookie('website');
     }
 
     /**
@@ -50,23 +62,6 @@ class IndexControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('html #container p', 'We need a valid domain to check!');
-    }
-
-    /**
-     * @dataProvider validWebsites
-     */
-    public function testSaveWebsite(string $website)
-    {
-        $client = static::createClient();
-
-        $client->request('GET', "/save/${website}");
-
-        $cookieJar = $client->getCookieJar();
-        $cookieValue = $cookieJar->get('website', domain: 'localhost')->getValue();
-
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
-        $this->assertTrue($client->getResponse()->isRedirect('/'));
-        $this->assertEquals($website, $cookieValue);
     }
 
     public function validWebsites(): array
