@@ -64,7 +64,7 @@ jobs:
       - name: Create Apps Platform deployment
         id: deployment
         run: |
-          doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }}
+          doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --force-rebuild
           echo ::set-output name=deployment_id::$(doctl apps list-deployments ${{ secrets.DIGITALOCEAN_APP_ID }} --format ID | sed -n 2p)
           sleep 15
 
