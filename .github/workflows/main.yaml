@@ -69,4 +69,5 @@ jobs:
           sleep 15
 
       - name: Get build logs
+        if: ${{ always() }}
         run: doctl apps logs ${{ secrets.DIGITALOCEAN_APP_ID }} --type build --deployment ${{ steps.deployment.outputs.deployment_id }}
