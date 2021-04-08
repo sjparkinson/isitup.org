@@ -5,8 +5,8 @@ on:
   - pull_request
 
 jobs:
-  test:
-    name: Test
+  phpunit:
+    name: PHPUnit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
