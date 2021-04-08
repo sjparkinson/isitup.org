@@ -1,6 +1,6 @@
-name: Test & Deploy
+name: Test
 
-on: 
+on:
   - push
   - pull_request
 
@@ -32,7 +32,6 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Cache PHPUnit runtime
         uses: actions/cache@v2
         with:
@@ -40,34 +39,8 @@ jobs:
           key: ${{ runner.os }}-phpunit-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-phpunit-
-
       - run: composer validate --strict
       
       - run: composer install --no-progress
 
       - run: composer test
-
-  deploy:
-    name: Deploy
-    if: github.ref == 'refs/heads/main'
-    needs: test
-    environment:
-      name: production
-      url: https://isitup.org
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Create Apps Platform deployment
-        id: deployment
-        run: |
-          doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --force-rebuild --wait
-          echo ::set-output name=deployment_id::$(doctl apps list-deployments ${{ secrets.DIGITALOCEAN_APP_ID }} --format ID | sed -n 2p)
-          sleep 15
-
-      - name: Get build logs
-        if: ${{ always() }}
-        run: doctl apps logs ${{ secrets.DIGITALOCEAN_APP_ID }} --type build --deployment ${{ steps.deployment.outputs.deployment_id }}

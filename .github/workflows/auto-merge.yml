@@ -1,4 +1,4 @@
-name: Dependabot
+name: Auto-merge
 
 on:
   pull_request:
@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  merge:
-    name: Auto-merge Dependabot PR
+  dependabot:
+    name: Dependabot
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
     steps:
