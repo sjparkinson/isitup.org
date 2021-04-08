@@ -1,0 +1,62 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.162.0/containers/php
+{
+	"name": "PHP",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": { 
+			// Update VARIANT to pick a PHP version: 8, 8.0, 7, 7.4, 7.3
+			"VARIANT": "8",
+			"INSTALL_NODE": "false",
+			"NODE_VERSION": "lts/*"
+		}
+	},
+	
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"php.validate.executablePath": "/usr/local/bin/php",
+		"css.validate": false,
+		"less.validate": false,
+		"php.suggest.basic": false,
+		"scss.validate": false,
+		"stylelint.validate": [
+			"css",
+			"html",
+			"less",
+			"markdown",
+			"postcss",
+			"sass",
+			"scss",
+			"source.css.styled",
+			"source.markdown.math",
+			"styled-css",
+			"sugarss",
+			"xml",
+			"xsl"
+		]
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"bmewburn.vscode-intelephense-client",
+		"calebporzio.better-phpunit",
+		"dbaeumer.vscode-eslint",
+		"EditorConfig.EditorConfig",
+		"esbenp.prettier-vscode",
+		"felixfbecker.php-debug",
+		"mrmlnc.vscode-apache",
+		"redhat.vscode-yaml",
+		"stylelint.vscode-stylelint",
+		"visualstudioexptteam.vscodeintellicode"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8000],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "curl -sS https://get.symfony.com/cli/installer | bash && sudo mv /home/vscode/.symfony/bin/symfony /usr/local/bin/symfony && sudo sh -c \"echo 'xdebug.log_level = 0' >> /usr/local/etc/php/conf.d/xdebug.ini\"",
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
+}

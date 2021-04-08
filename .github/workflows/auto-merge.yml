@@ -1,9 +1,9 @@
 name: Auto-merge
 
 on:
-  pull_request:
-    branches:
-      - main
+  pull_request_target:
+    types:
+      - opened
 
 jobs:
   dependabot:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.pulls.merge({
               owner: context.repo.owner,
