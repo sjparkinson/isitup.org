@@ -32,6 +32,8 @@ jobs:
               }
             }`;
             
+            console.log(pullRequestId);
+            
             await github.graphql(enablePullRequestAutoMerge, {
               pullRequestId: pullRequestId
             });
