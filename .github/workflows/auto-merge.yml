@@ -20,19 +20,17 @@ jobs:
               }
             }`;
             
-            const pullRequestId = await github.graphql(getPullRequestId, {
+            const pullRequestId = (await github.graphql(getPullRequestId, {
               owner: context.repo.owner,
               name: context.repo.repo,
               number: context.payload.pull_request.number
-            });
+            })).repository.pullRequest.id;
             
             const enablePullRequestAutoMerge = `mutation($pullRequestId: ID!) {
               enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: REBASE }) {
                 clientMutationId
               }
             }`;
-            
-            console.log(pullRequestId);
             
             await github.graphql(enablePullRequestAutoMerge, {
               pullRequestId: pullRequestId
