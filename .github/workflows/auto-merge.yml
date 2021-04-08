@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
     steps:
-      - uses: actions/github-script@v3
+      - name: Auto-merge pull request
+        uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -32,7 +33,8 @@ jobs:
               }
             }`;
             
-            await github.graphql(enablePullRequestAutoMerge, {
+            const autoMerge = await github.graphql(enablePullRequestAutoMerge, {
               pullRequestId: pullRequestId
             });
             
+            console.debug(autoMerge);
