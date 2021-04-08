@@ -1,0 +1,38 @@
+name: Auto-merge
+
+on: pull_request_target
+
+jobs:
+  dependabot:
+    name: Dependabot
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const getPullRequestId = `query($owner: String!, $name: String!, $number: Int!) {
+              repository(owner: $owner, name: $name) {
+                pullRequest(number: $number) {
+                  id
+                }
+              }
+            }`;
+            
+            const pullRequestId = await github.graphql(getPullRequestId, {
+              owner: context.repo.owner,
+              name: context.repo.repo,
+              number: context.payload.pull_request.number
+            });
+            
+            const enablePullRequestAutoMerge = `mutation($pullRequestId: ID!) {
+              enablePullRequestAutoMerge(input: { pullRequestId: $pullRequestId, mergeMethod: REBASE }) {
+                clientMutationId
+              }
+            }`;
+            
+            await github.graphql(enablePullRequestAutoMerge, {
+              pullRequestId: pullRequestId
+            });
+            
