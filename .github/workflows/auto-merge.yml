@@ -15,5 +15,6 @@ jobs:
             github.pulls.merge({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number
+              pull_number: context.payload.pull_request.number,
+              merge_method: 'rebase'
             })
