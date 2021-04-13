@@ -26,14 +26,14 @@ jobs:
       - run: composer validate
 
       - name: Cache Composer packages
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: vendor
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
       - name: Cache PHPUnit runtime
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: bin/.phpunit
           key: ${{ runner.os }}-phpunit-${{ hashFiles('**/composer.lock') }}
