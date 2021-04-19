@@ -5,16 +5,18 @@ on:
     workflows:
       - Test
     branches:
+      # When a deployment is created in App Platform, it is based on the latest commit to the main branch
       - main
     types: 
       - completed
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy to App Platform
     environment:
       name: production
       url: https://isitup.org
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Install doctl
@@ -27,7 +29,6 @@ jobs:
         run: |
           doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --force-rebuild --wait
           echo ::set-output name=deployment_id::$(doctl apps list-deployments ${{ secrets.DIGITALOCEAN_APP_ID }} --format ID | sed -n 2p)
-          sleep 15
 
       - name: Get build logs
         if: ${{ always() }}
