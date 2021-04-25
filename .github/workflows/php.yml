@@ -53,10 +53,8 @@ jobs:
 
       - name: Create Apps Platform deployment
         id: deployment
-        run: |
-          doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --force-rebuild --wait
-          echo ::set-output name=deployment_id::$(doctl apps list-deployments ${{ secrets.DIGITALOCEAN_APP_ID }} --format ID | sed -n 2p)
+        run: doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --force-rebuild --wait
 
       - name: Get build logs
         if: ${{ always() }}
-        run: doctl apps logs ${{ secrets.DIGITALOCEAN_APP_ID }} --type build --deployment ${{ steps.deployment.outputs.deployment_id }}
+        run: doctl apps logs ${{ secrets.DIGITALOCEAN_APP_ID }} --type build
