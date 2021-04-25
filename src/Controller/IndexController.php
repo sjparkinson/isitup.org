@@ -11,9 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
     public function index(Request $request): Response
     {
         $website = $request->query->has('website') ? $request->query->get('website') : 'duckduckgo.com';
@@ -27,10 +25,8 @@ class IndexController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/check")
-     * @Route("/{website}", requirements={"website": "[^/]+"})
-     */
+    #[Route('/check', name: 'app_check', methods: ['GET', 'HEAD'])]
+    #[Route('/{website}', name: 'app_check_vanity', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'])]
     public function check(WebsiteStatusService $websiteStatusService, Request $request, ?string $website): Response
     {
         if (!$website && !$request->query->get('website')) {

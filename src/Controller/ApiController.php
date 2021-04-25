@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController extends AbstractController
 {
-    /**
-     * @Route("/{website}.json", requirements={"website": "[^/]+"}, priority=1)
-     */
+    #[Route('/{website}.json', name: 'app_api_json_check', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
     public function jsonCheck(WebsiteStatusService $websiteStatusService, Request $request, string $website): JsonResponse
     {
         if (!$websiteStatusService->isValidWebsite($website)) {
@@ -41,9 +39,7 @@ class ApiController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/{website}.txt", requirements={"website": "[^/]+"}, priority=1)
-     */
+    #[Route('/{website}.txt', name: 'app_api_txt_check', requirements:  ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
     public function textCheck(WebsiteStatusService $websiteStatusService, string $website): Response
     {
         if (!$websiteStatusService->isValidWebsite($website)) {
