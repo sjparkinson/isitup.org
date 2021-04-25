@@ -1,0 +1,60 @@
+name: PHP
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  phpunit:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP, with Composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: ctype, curl, iconv, json, pcre, session, simplexml, tokenizer
+
+      - run: composer validate --strict
+
+      - name: Cache Composer packages
+        uses: actions/cache@v2.1.5
+        with:
+          path: |
+            vendor
+            bin/.phpunit
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - run: composer validate --strict
+      
+      - run: composer install --no-progress
+
+      - run: composer test
+
+  deploy:
+    name: Deploy
+    environment:
+      name: production
+      url: https://isitup.org
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: phpunit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Create Apps Platform deployment
+        id: deployment
+        run: |
+          doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --force-rebuild --wait
+          echo ::set-output name=deployment_id::$(doctl apps list-deployments ${{ secrets.DIGITALOCEAN_APP_ID }} --format ID | sed -n 2p)
+
+      - name: Get build logs
+        if: ${{ always() }}
+        run: doctl apps logs ${{ secrets.DIGITALOCEAN_APP_ID }} --type build --deployment ${{ steps.deployment.outputs.deployment_id }}
