@@ -16,25 +16,25 @@
     </div>
 
     <script>
-        let form = document.getElementById('form');
-        
-        // Listen in to the form submission
-        form.addEventListener("submit", function () {
-            // Retrieve the value from the input field
-            let input = document.getElementById('input');
-            let url = input.value;
-            
-            // Only if the url contains something we can submit
-            if (url) {
-                // Change the browser's url, adding only the domain
-                window.location = "/" + url.replace(/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/g, "")
-                    .toLowerCase();
-            }
-            
-            // Do not submit if there is no input value
-            input.setAttribute('placeholder', 'please enter a domain...');
-            
-            return false;
+        // Listen in on the form submission
+        document.getElementById("form").addEventListener("submit", function (event) {
+              let input = document.getElementById("input");
+
+              // Only if the url contains something we can submit
+              if (input.value) {
+                    // Change the browser's url, adding only the domain
+                    window.location =
+                          "/" +
+                          input.value
+                                .replace(/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/g, "")
+                                .toLowerCase();
+              }
+
+              // Do not submit if there is no input value
+              input.setAttribute("placeholder", "please enter a domain...");
+
+              event.preventDefault();
+              event.stopPropagation();
         });
     </script>
 {% endblock %}
