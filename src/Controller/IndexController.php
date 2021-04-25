@@ -4,25 +4,20 @@ namespace App\Controller;
 
 use App\Service\WebsiteStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class IndexController extends AbstractController
+final class IndexController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
     public function index(Request $request): Response
     {
         $website = $request->query->has('website') ? $request->query->get('website') : 'duckduckgo.com';
 
-        $response = $this->render('index.html.twig', [
+        return $this->render('index.html.twig', [
             'website' => $website
         ]);
-
-        $response->headers->clearCookie('website');
-
-        return $response;
     }
 
     #[Route('/check', name: 'app_check', methods: ['GET', 'HEAD'])]

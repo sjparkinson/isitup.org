@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ApiController extends AbstractController
+final class ApiController extends AbstractController
 {
     #[Route('/{website}.json', name: 'app_api_json_check', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
     public function jsonCheck(WebsiteStatusService $websiteStatusService, Request $request, string $website): JsonResponse
@@ -39,7 +39,7 @@ class ApiController extends AbstractController
         return $response;
     }
 
-    #[Route('/{website}.txt', name: 'app_api_txt_check', requirements:  ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
+    #[Route('/{website}.txt', name: 'app_api_txt_check', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
     public function textCheck(WebsiteStatusService $websiteStatusService, string $website): Response
     {
         if (!$websiteStatusService->isValidWebsite($website)) {
