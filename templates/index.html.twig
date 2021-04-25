@@ -16,12 +16,13 @@
     </div>
 
     <script>
-        let form = document.getElementById('input');
+        let form = document.getElementById('form');
         
         // Listen in to the form submission
         form.addEventListener("submit", function () {
             // Retrieve the value from the input field
-            let url = form.value;
+            let input = document.getElementById('input');
+            let url = input.value;
             
             // Only if the url contains something we can submit
             if (url) {
@@ -31,7 +32,7 @@
             }
             
             // Do not submit if there is no input value
-            form.setAttribute('placeholder', 'please enter a domain...');
+            input.setAttribute('placeholder', 'please enter a domain...');
             
             return false;
         });
