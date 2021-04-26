@@ -16,17 +16,6 @@ class IndexControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testIndexClearsWebsiteCookie()
-    {
-        $client = static::createClient();
-        $client->getCookieJar()->set(new Cookie('website', 'example.com', domain: 'localhost'));
-
-        $client->request('GET', '/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertBrowserNotHasCookie('website');
-    }
-
     /**
      * @dataProvider validWebsites
      */
