@@ -30,9 +30,9 @@ final class IndexController extends AbstractController
         }
 
         // Pick the website to check from either the route parameter or the query parameter.
-        $website = $request->query->get('website') ?? $website;
+        $website = $website ?? $request->query->get('website');
 
-        if (!$websiteStatusService->isValidWebsite($website)) {
+        if (!$website || !$websiteStatusService->isValidWebsite($website)) {
             return $this->render('website-invalid.html.twig', [
                 'website' => $website,
             ]);
