@@ -62,12 +62,7 @@ final class WebsiteStatusService implements WebsiteStatusServiceInterface
                 "response_ip_address" => $e->getResponse()->getInfo('primary_ip')
             ];
         } catch (HttpExceptionInterface | TransportExceptionInterface) {
-            return [
-                "status" => 2,
-                "response_total_time" => 0,
-                "response_status_code" => null,
-                "response_ip_address" => null,
-            ];
+            // Return the default response information.
         }
 
         return [

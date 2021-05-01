@@ -5,6 +5,34 @@ on:
   - pull_request
 
 jobs:
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP, with Composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: ctype, curl, iconv, json, pcre, session, simplexml, tokenizer
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer packages
+        uses: actions/cache@v2.1.5
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - run: composer install --no-progress
+
+      - run: php vendor/bin/psalm --output-format=github --long-progress
+      
   phpunit:
     name: PHPUnit
     runs-on: ubuntu-latest

@@ -1,6 +1,30 @@
 {
+    "amphp/amp": {
+        "version": "v2.5.2"
+    },
+    "amphp/byte-stream": {
+        "version": "v1.8.1"
+    },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99.1"
+    },
+    "composer/semver": {
+        "version": "3.2.4"
+    },
+    "composer/xdebug-handler": {
+        "version": "2.0.0"
+    },
+    "dnoegel/php-xdg-base-dir": {
+        "version": "v0.1.1"
+    },
     "doctrine/instantiator": {
         "version": "1.4.0"
+    },
+    "felixfbecker/advanced-json-rpc": {
+        "version": "v3.2.0"
+    },
+    "felixfbecker/language-server-protocol": {
+        "version": "1.5.1"
     },
     "monolog/monolog": {
         "version": "2.2.0"
@@ -8,8 +32,14 @@
     "myclabs/deep-copy": {
         "version": "1.10.2"
     },
+    "netresearch/jsonmapper": {
+        "version": "v2.1.0"
+    },
     "nikic/php-parser": {
         "version": "v4.10.4"
+    },
+    "openlss/lib-array2xml": {
+        "version": "1.0.0"
     },
     "phar-io/manifest": {
         "version": "2.0.1"
@@ -375,7 +405,13 @@
     "twig/twig": {
         "version": "v3.2.1"
     },
+    "vimeo/psalm": {
+        "version": "4.7.2"
+    },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "webmozart/path-util": {
+        "version": "2.3.0"
     }
 }

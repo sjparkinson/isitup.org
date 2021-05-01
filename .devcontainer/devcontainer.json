@@ -45,6 +45,7 @@
 		"EditorConfig.EditorConfig",
 		"esbenp.prettier-vscode",
 		"felixfbecker.php-debug",
+		"getpsalm.psalm-vscode-plugin",
 		"mrmlnc.vscode-apache",
 		"redhat.vscode-yaml",
 		"stylelint.vscode-stylelint",
