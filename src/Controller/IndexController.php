@@ -12,11 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 final class IndexController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        return $this->render('index.html.twig', [
-            'website' => $request->query->get('website', 'duckduckgo.com')
-        ]);
+        return $this->render('index.html.twig', ['website' => 'duckduckgo.com']);
     }
 
     #[Route('/check', name: 'app_check', methods: ['GET', 'HEAD'])]
