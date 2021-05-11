@@ -22,6 +22,7 @@
         "symfony/framework-bundle": "^5.2",
         "symfony/http-client": "^5.2",
         "symfony/monolog-bundle": "^3.0",
+        "symfony/security-csrf": "5.2.*",
         "symfony/twig-bundle": "^5.2",
         "symfony/yaml": "^5.2",
         "twig/extra-bundle": "^3.0",

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\InvalidWebsiteException;
 use App\Service\WebsiteStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,11 +16,11 @@ final class ApiController extends AbstractController
     #[Route('/{website}.json', name: 'app_api_json_check', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
     public function jsonCheck(WebsiteStatusService $websiteStatusService, Request $request, string $website): JsonResponse
     {
-        if (!$websiteStatusService->isValidWebsite($website)) {
-            throw new BadRequestHttpException();
+        try {
+            $response = $websiteStatusService->getStatus($website);
+        } catch (InvalidWebsiteException) {
+            throw new BadRequestHttpException;
         }
-
-        $response = $websiteStatusService->getStatus($website);
 
         $payload = [
             "domain" => $website,
@@ -42,11 +43,11 @@ final class ApiController extends AbstractController
     #[Route('/{website}.txt', name: 'app_api_txt_check', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
     public function textCheck(WebsiteStatusService $websiteStatusService, string $website): Response
     {
-        if (!$websiteStatusService->isValidWebsite($website)) {
-            throw new BadRequestHttpException();
+        try {
+            $response = $websiteStatusService->getStatus($website);
+        } catch (InvalidWebsiteException) {
+            throw new BadRequestHttpException;
         }
-
-        $response = $websiteStatusService->getStatus($website);
 
         $results = [
             $website,

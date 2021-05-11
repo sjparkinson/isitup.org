@@ -4,7 +4,10 @@ namespace App\Service;
 
 interface WebsiteStatusServiceInterface
 {
-    public function isValidWebsite(string $website): bool;
-
+    /**
+     * @return array<string, mixed>
+     * 
+     * @throws InvalidWebsiteException
+     */
     public function getStatus(string $website): array;
 }

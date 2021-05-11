@@ -2,6 +2,7 @@
 
 namespace App\Tests\Service;
 
+use App\Service\InvalidWebsiteException;
 use App\Service\WebsiteStatusService;
 use App\Service\WebsiteStatusServiceInterface;
 use PHPUnit\Framework\TestCase;
@@ -20,17 +21,18 @@ final class WebsiteStatusServiceTest extends TestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testIsValidWebsiteWithValidWebsite(string $website)
+    public function testWithValidWebsite(string $website): void
     {
-        $this->assertTrue($this->websiteStatusService->isValidWebsite($website));
+        $this->assertIsArray($this->websiteStatusService->getStatus($website));
     }
-    
+
     /**
      * @dataProvider invalidWebsites
      */
-    public function testIsValidWebsiteWithInvalidWebsite(string $website)
+    public function testWithInvalidWebsite(string $website): void
     {
-        $this->assertFalse($this->websiteStatusService->isValidWebsite($website));
+        $this->expectException(InvalidWebsiteException::class);
+        $this->websiteStatusService->getStatus($website);
     }
 
     public function validWebsites(): array

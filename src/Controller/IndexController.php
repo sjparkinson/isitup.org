@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\InvalidWebsiteException;
 use App\Service\WebsiteStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +14,8 @@ final class IndexController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
     public function index(Request $request): Response
     {
-        $website = $request->query->has('website') ? $request->query->get('website') : 'duckduckgo.com';
-
         return $this->render('index.html.twig', [
-            'website' => $website
+            'website' => $request->query->get('website', 'duckduckgo.com')
         ]);
     }
 
@@ -24,21 +23,20 @@ final class IndexController extends AbstractController
     #[Route('/{website}', name: 'app_check_vanity', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'])]
     public function check(WebsiteStatusService $websiteStatusService, Request $request, ?string $website): Response
     {
-        if (!$website && !$request->query->get('website')) {
-            // We need a value to check, someone has probably visited /check manually.
+        $website = $request->query->get('website', $website);
+
+        // We need a website to check, someone has probably visited /check directly.
+        if (!$website) {
             throw $this->createNotFoundException();
         }
 
-        // Pick the website to check from either the route parameter or the query parameter.
-        $website = $website ?? $request->query->get('website');
-
-        if (!$website || !$websiteStatusService->isValidWebsite($website)) {
+        try {
+            $response = $websiteStatusService->getStatus($website);
+        } catch (InvalidWebsiteException) {
             return $this->render('website-invalid.html.twig', [
                 'website' => $website,
             ]);
         }
-
-        $response = $websiteStatusService->getStatus($website);
 
         if ($response["status"] === 1) {
             return $this->render('website-okay.html.twig', [

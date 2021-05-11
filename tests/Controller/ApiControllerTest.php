@@ -9,7 +9,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testJsonWithValidWebsite(string $website)
+    public function testJsonWithValidWebsite(string $website): void
     {
         $client = static::createClient();
 
@@ -23,7 +23,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider invalidWebsites
      */
-    public function testJsonWithInvalidWebsite(string $website)
+    public function testJsonWithInvalidWebsite(string $website): void
     {
         $client = static::createClient();
 
@@ -35,7 +35,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testTxtWithValidWebsite(string $website)
+    public function testTxtWithValidWebsite(string $website): void
     {
         $client = static::createClient();
 
@@ -50,7 +50,7 @@ class ApiControllerTest extends WebTestCase
     /**
      * @dataProvider invalidWebsites
      */
-    public function testTxtWithInvalidWebsite(string $website)
+    public function testTxtWithInvalidWebsite(string $website): void
     {
         $client = static::createClient();
 

@@ -3,11 +3,10 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\Cookie;
 
 class IndexControllerTest extends WebTestCase
 {
-    public function testIndex()
+    public function testIndex(): void
     {
         $client = static::createClient();
 
@@ -19,7 +18,7 @@ class IndexControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testCheckWebsiteWithVanityUrl(string $website)
+    public function testCheckWebsiteWithVanityUrl(string $website): void
     {
         $client = static::createClient();
 
@@ -31,7 +30,7 @@ class IndexControllerTest extends WebTestCase
     /**
      * @dataProvider validWebsites
      */
-    public function testCheckWebsiteWithWebsiteParam(string $website)
+    public function testCheckWebsiteWithWebsiteParam(string $website): void
     {
         $client = static::createClient();
 
@@ -43,7 +42,7 @@ class IndexControllerTest extends WebTestCase
     /**
      * @dataProvider invalidWebsites
      */
-    public function testCheckWebsiteWithInvalidWebsite(string $website)
+    public function testCheckWebsiteWithInvalidWebsite(string $website): void
     {
         $client = static::createClient();
 
