@@ -3,15 +3,7 @@
 {% block title %}Yay, {{ website }} is up.{% endblock %}
 
 {% block body %}
-    <div id="share">
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
-            data-show-count="false"
-            data-size="large"
-            data-hashtags="isitup"
-            data-dnt="true"
-            data-text="Yay, {{ website }} is up.">Tweet</a>
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
+    {{ include('tags/twitter-share-button.html.twig', { text: 'Yay, %s is up.' | format(website) }) }}
 
     <div id="container">
         <p><a href="http://{{ website }}" class="domain" rel="nofollow">{{ website }}</a> is up 🎉</p>
