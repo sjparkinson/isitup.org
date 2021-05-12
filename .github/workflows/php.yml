@@ -13,7 +13,7 @@ jobs:
     name: PHPUnit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Setup PHP, with Composer and extensions
         uses: shivammathur/setup-php@2.11.0
@@ -46,7 +46,7 @@ jobs:
     name: Psalm
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
 
       - name: Setup PHP with Composer and extensions
         uses: shivammathur/setup-php@2.11.0
