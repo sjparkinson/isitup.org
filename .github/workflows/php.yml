@@ -73,6 +73,14 @@ jobs:
       - name: Run Psalm
         run: php vendor/bin/psalm --output-format=github --long-progress
 
+      - name: Run Psalm security analysis
+        run: php vendor/bin/psalm --taint-analysis --output-format=github --long-progress --report=psalm-results.sarif
+
+      - name: Upload security analysis to GitHub
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: psalm-results.sarif
+
   deploy:
     name: Deploy
     environment:
