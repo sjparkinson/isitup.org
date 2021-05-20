@@ -88,6 +88,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "psalm/plugin-symfony": {
+        "version": "v2.3.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
