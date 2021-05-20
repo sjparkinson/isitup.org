@@ -11,14 +11,24 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class IndexController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET', 'HEAD'])]
-    public function index(): Response
+    #[Route('/', name: 'root')]
+    public function index(Request $request): Response
     {
+        if ($request->getMethod() == Request::METHOD_POST) {
+            $website = $request->request->get('website') ?? 'duckduckgo.com';
+            $website = strtolower(preg_replace('/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/i', '', $website));
+
+            return $this->redirectToRoute(
+                'app_index_check',
+                ['website' => $website], 
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
         return $this->render('index.html.twig', ['website' => 'duckduckgo.com']);
     }
 
-    #[Route('/check', name: 'app_check', methods: ['GET', 'HEAD'])]
-    #[Route('/{website}', name: 'app_check_vanity', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'])]
+    #[Route('/{website}', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'])]
     public function check(WebsiteStatusService $websiteStatusService, Request $request, ?string $website): Response
     {
         $website = $request->query->get('website', $website);

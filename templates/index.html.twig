@@ -9,32 +9,9 @@
             </p>
         </noscript>
 
-        <form method="get" action="/check" id="form">
+        <form method="post" action="/" id="form">
             <p>is <input type="text" name="website" id="input" placeholder="{{ website }}" accesskey="4"/> <input
                         type="submit" id="submit" value="up?" accesskey="s"/></p>
         </form>
     </div>
-
-    <script>
-        // Listen in on the form submission
-        document.getElementById("form").addEventListener("submit", function (event) {
-              let input = document.getElementById("input");
-
-              // Only if the url contains something we can submit
-              if (input.value) {
-                    // Change the browser's url, adding only the domain
-                    window.location =
-                          "/" +
-                          input.value
-                                .replace(/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/g, "")
-                                .toLowerCase();
-              }
-
-              // Do not submit if there is no input value
-              input.setAttribute("placeholder", "please enter a domain...");
-
-              event.preventDefault();
-              event.stopPropagation();
-        });
-    </script>
 {% endblock %}

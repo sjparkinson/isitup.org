@@ -6,7 +6,7 @@
     {{ include('tags/twitter-share-button.html.twig', { text: 'Yay, %s is up.' | format(website) }) }}
 
     <div id="container">
-        <p><a href="http://{{ website }}" class="domain" rel="nofollow">{{ website }}</a> is up 🎉</p>
+        <p><a href="https://{{ website }}" class="domain" rel="nofollow">{{ website }}</a> is up 🎉</p>
 
         <p class="smaller">It took {{ response_total_time | number_format(3) }} seconds to get a {{ response_status_code }} status code from an IP address of {{ response_ip_address }}.</p>
     </div>

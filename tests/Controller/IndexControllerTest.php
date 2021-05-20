@@ -12,31 +12,49 @@ class IndexControllerTest extends WebTestCase
 
         $client->request('GET', '/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertResponseIsSuccessful();
+    }
+
+    /**
+     * @dataProvider validIndexWebsites
+     */
+    public function testIndexSubmittedWithValidWebsite(string $website, string $expectedWebsite): void
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/');
+        $client->submitForm('submit', [
+            'website' => $website,
+        ]);
+
+        $this->assertResponseRedirects("/${expectedWebsite}", 303);
+    }
+
+    /**
+     * @dataProvider invalidWebsites
+     */
+    public function testIndexSubmittedWithInvalidWebsite(string $website): void
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/');
+        $client->submitForm('submit', [
+            'website' => $website,
+        ]);
+
+        $this->assertResponseRedirects("/${website}", 303);
     }
 
     /**
      * @dataProvider validWebsites
      */
-    public function testCheckWebsiteWithVanityUrl(string $website): void
+    public function testCheckWithValidWebsite(string $website): void
     {
         $client = static::createClient();
 
         $client->request('GET', "/${website}");
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * @dataProvider validWebsites
-     */
-    public function testCheckWebsiteWithWebsiteParam(string $website): void
-    {
-        $client = static::createClient();
-
-        $client->request('GET', '/check', ['website' => $website]);
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertResponseIsSuccessful();
     }
 
     /**
@@ -48,8 +66,22 @@ class IndexControllerTest extends WebTestCase
 
         $client->request('GET', "/${website}");
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('html #container p', 'We need a valid domain to check!');
+    }
+
+    public function validIndexWebsites(): array
+    {
+        return [
+            ['example.com', 'example.com'],
+            ['93.184.216.34', '93.184.216.34'],
+            ['https://93.184.216.34', '93.184.216.34'],
+            ['2606:2800:220:1:248:1893:25c8:1946', '2606:2800:220:1:248:1893:25c8:1946'],
+            ['https://2606:2800:220:1:248:1893:25c8:1946', '2606:2800:220:1:248:1893:25c8:1946'],
+            ['http://example.com', 'example.com'],
+            ['https://example.com', 'example.com'],
+            ['https://example.com/path/', 'example.com']
+        ];
     }
 
     public function validWebsites(): array
