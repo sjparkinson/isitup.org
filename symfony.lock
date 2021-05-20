@@ -88,6 +88,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "psalm/plugin-phpunit": {
+        "version": "0.15.1"
+    },
     "psalm/plugin-symfony": {
         "version": "v2.3.0"
     },
