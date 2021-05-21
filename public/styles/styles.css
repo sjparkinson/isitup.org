@@ -29,21 +29,6 @@ a:hover { color: #4096EE; }
 		line-height: 1.2em;
 		margin: 0.6em; }
 
-	#container img { border: 0; }
-
-	#container code { font-size: 110%; }
-
-	#container .warning img, #container .save img {
-		margin: 0 5px 5px 0;
-		vertical-align: middle; }
-
-	#container .warning, #container .save {
-		font-size: 40%; }
-
-	#container .warning { color: #B02B2C; }
-
-	#container .save { color: #008C00; }
-
 	#container .domain {
 		font-weight: bold;
 		word-wrap: break-word;
@@ -76,24 +61,6 @@ a:hover { color: #4096EE; }
 
 	#container #submit:hover { color: #4096EE; }
 
-/*** Footer ***/
-
-#footer {
-	color: #555;
-	font-size: 95%;
-	line-height: 2em;
-	text-align: center; }
-
-	#footer li {
-		display: inline;
-		list-style-type: none;
-		margin: 0 20px; }
-
-	#footer #api a {
-		font-size: 100%;
-		margin: 5px; }
-
-
 /** Carbon Ads **/
 
 #carbonads {
@@ -101,7 +68,6 @@ a:hover { color: #4096EE; }
 	width: 300px;
 	border: 1px solid #CCC;
 	margin: 8% auto 0;
-	font-family: 'PT Sans', Helvetica, Arial, Verdana, clean, sans-serif;
 }
 
 #carbonads span span {
