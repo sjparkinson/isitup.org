@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -70,6 +72,16 @@ class IndexControllerTest extends WebTestCase
         $this->assertSelectorTextContains('html #container p', 'We need a valid domain to check!');
     }
 
+    public function testReally(): void
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/isitup.org');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('html #container', 'have a think about what you\'ve just done');
+    }
+
     public function validIndexWebsites(): array
     {
         return [
@@ -80,7 +92,7 @@ class IndexControllerTest extends WebTestCase
             ['https://2606:2800:220:1:248:1893:25c8:1946', '2606:2800:220:1:248:1893:25c8:1946'],
             ['http://example.com', 'example.com'],
             ['https://example.com', 'example.com'],
-            ['https://example.com/path/', 'example.com']
+            ['https://example.com/path/', 'example.com'],
         ];
     }
 
@@ -102,7 +114,7 @@ class IndexControllerTest extends WebTestCase
             ['example.com-'],
             ['127.0.0.1'],
             ['10.0.0.0'],
-            ['127.0.0.']
+            ['127.0.0.'],
         ];
     }
 }

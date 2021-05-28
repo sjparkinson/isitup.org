@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Service\InvalidWebsiteException;
@@ -19,22 +21,22 @@ final class ApiController extends AbstractController
         try {
             $response = $websiteStatusService->getStatus($website);
         } catch (InvalidWebsiteException) {
-            throw new BadRequestHttpException;
+            throw new BadRequestHttpException();
         }
 
         $payload = [
-            "domain" => $website,
-            "port" => 80,
-            "status_code" => $response["status"],
-            "response_ip" => $response["response_ip_address"],
-            "response_code" => $response["response_status_code"],
-            "response_time" => floatval(number_format($response["response_total_time"], 3))
+            'domain' => $website,
+            'port' => 80,
+            'status_code' => $response['status'],
+            'response_ip' => $response['response_ip_address'],
+            'response_code' => $response['response_status_code'],
+            'response_time' => floatval(number_format((float) $response['response_total_time'], 3)),
         ];
 
         $response = new JsonResponse($payload);
 
-        if ($request->query->has("callback")) {
-            $response->setCallback($request->query->get("callback"));
+        if ($request->query->has('callback')) {
+            $response->setCallback($request->query->get('callback'));
         }
 
         return $response;
@@ -46,19 +48,19 @@ final class ApiController extends AbstractController
         try {
             $response = $websiteStatusService->getStatus($website);
         } catch (InvalidWebsiteException) {
-            throw new BadRequestHttpException;
+            throw new BadRequestHttpException();
         }
 
         $results = [
             $website,
             80,
-            $response["status"],
-            $response["response_ip_address"],
-            $response["response_status_code"],
-            number_format($response["response_total_time"], 3)
+            $response['status'],
+            $response['response_ip_address'],
+            $response['response_status_code'],
+            number_format((float) $response['response_total_time'], 3),
         ];
 
-        $response = new Response(implode(", ", $results));
+        $response = new Response(implode(', ', $results));
         $response->headers->set('Content-Type', 'text/plain');
 
         return $response;

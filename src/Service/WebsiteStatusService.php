@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Service;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class WebsiteStatusService implements WebsiteStatusServiceInterface
 {
@@ -36,28 +38,28 @@ final class WebsiteStatusService implements WebsiteStatusServiceInterface
 
             if (in_array($response->getStatusCode(), self::SUCCESS_STATUS_CODES)) {
                 return [
-                    "status" => 1,
-                    "response_total_time" => $response->getInfo('total_time'),
-                    "response_status_code" => $response->getStatusCode(),
-                    "response_ip_address" => $response->getInfo('primary_ip')
+                    'status' => 1,
+                    'response_total_time' => $response->getInfo('total_time'),
+                    'response_status_code' => $response->getStatusCode(),
+                    'response_ip_address' => $response->getInfo('primary_ip'),
                 ];
             }
         } catch (RedirectionException $e) {
             return [
-                "status" => 1,
-                "response_total_time" => $e->getResponse()->getInfo('total_time'),
-                "response_status_code" => $e->getResponse()->getInfo('http_code'),
-                "response_ip_address" => $e->getResponse()->getInfo('primary_ip')
+                'status' => 1,
+                'response_total_time' => $e->getResponse()->getInfo('total_time'),
+                'response_status_code' => $e->getResponse()->getInfo('http_code'),
+                'response_ip_address' => $e->getResponse()->getInfo('primary_ip'),
             ];
         } catch (HttpExceptionInterface | TransportExceptionInterface) {
             // Return the default response information.
         }
 
         return [
-            "status" => 2,
-            "response_total_time" => null,
-            "response_status_code" => null,
-            "response_ip_address" => null,
+            'status' => 2,
+            'response_total_time' => 0.0,
+            'response_status_code' => null,
+            'response_ip_address' => null,
         ];
     }
 

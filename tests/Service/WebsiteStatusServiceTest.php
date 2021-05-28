@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Service;
 
 use App\Service\InvalidWebsiteException;
@@ -56,7 +58,7 @@ final class WebsiteStatusServiceTest extends TestCase
             ['example.c'],
             ['127.0.0.1'],
             ['10.0.0.0'],
-            ['127.0.0.']
+            ['127.0.0.'],
         ];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -77,7 +79,7 @@ class ApiControllerTest extends WebTestCase
             ['example.com-'],
             ['127.0.0.1'],
             ['10.0.0.0'],
-            ['127.0.0.']
+            ['127.0.0.'],
         ];
     }
 }

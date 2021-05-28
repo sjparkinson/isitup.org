@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Service\InvalidWebsiteException;
@@ -14,13 +16,13 @@ final class IndexController extends AbstractController
     #[Route('/', name: 'root')]
     public function index(Request $request): Response
     {
-        if ($request->getMethod() == Request::METHOD_POST) {
+        if (Request::METHOD_POST == $request->getMethod()) {
             $website = $request->request->get('website') ?? 'duckduckgo.com';
             $website = strtolower(preg_replace('/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/i', '', $website));
 
             return $this->redirectToRoute(
                 'app_index_check',
-                ['website' => $website], 
+                ['website' => $website],
                 Response::HTTP_SEE_OTHER
             );
         }
@@ -46,17 +48,23 @@ final class IndexController extends AbstractController
             ]);
         }
 
-        if ($response["status"] === 1) {
+        if (1 === $response['status']) {
             return $this->render('website-okay.html.twig', [
                 'website' => $website,
-                'response_total_time' => $response["response_total_time"],
-                'response_status_code' => $response["response_status_code"],
-                'response_ip_address' => $response["response_ip_address"]
+                'response_total_time' => $response['response_total_time'],
+                'response_status_code' => $response['response_status_code'],
+                'response_ip_address' => $response['response_ip_address'],
             ]);
         }
 
         return $this->render('website-not-okay.html.twig', [
             'website' => $website,
         ]);
+    }
+
+    #[Route('/isitup.org', methods: ['GET', 'HEAD'], priority: 1)]
+    public function really(Request $request): Response
+    {
+        return $this->render('website-really.html.twig');
     }
 }
