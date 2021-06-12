@@ -89,7 +89,7 @@ jobs:
       name: production
       url: https://isitup.org
     concurrency: production_environment
-    if: ${{ github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repo.default_branch) }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs:
       - phpunit
       - psalm
