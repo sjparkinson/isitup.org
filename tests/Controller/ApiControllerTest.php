@@ -14,17 +14,12 @@ class ApiControllerTest extends WebTestCase
     public function testJsonWithValidWebsite(string $website): void
     {
         $client = static::createClient();
-
         $client->request('GET', "/${website}.json");
 
-        $contentType = $client->getResponse()->headers->get('content-type');
-        $content = $client->getResponse()->getContent();
-
         $this->assertResponseIsSuccessful();
+        $this->assertResponseFormatSame('json');
 
-        $this->assertNotNull($contentType);
-        /* @psalm-suppress PossiblyNullArgument */
-        $this->assertStringContainsString('application/json', $contentType);
+        $content = $client->getResponse()->getContent();
 
         $this->assertNotFalse($content);
         $this->assertJson($content);
@@ -39,7 +34,7 @@ class ApiControllerTest extends WebTestCase
 
         $client->request('GET', "/${website}.json");
 
-        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertResponseStatusCodeSame(400);
     }
 
     /**
@@ -48,17 +43,12 @@ class ApiControllerTest extends WebTestCase
     public function testTxtWithValidWebsite(string $website): void
     {
         $client = static::createClient();
-
         $client->request('GET', "/${website}.txt");
 
-        $contentType = $client->getResponse()->headers->get('content-type');
-        $content = $client->getResponse()->getContent();
-
         $this->assertResponseIsSuccessful();
+        $this->assertResponseFormatSame('txt');
 
-        $this->assertNotNull($contentType);
-        /* @psalm-suppress PossiblyNullArgument */
-        $this->assertStringContainsString('text/plain', $contentType);
+        $content = $client->getResponse()->getContent();
 
         $this->assertNotFalse($content);
         /* @psalm-suppress PossiblyNullArgument */
@@ -75,7 +65,7 @@ class ApiControllerTest extends WebTestCase
 
         $client->request('GET', "/${website}.txt");
 
-        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+        $this->assertResponseStatusCodeSame(400);
     }
 
     /**
