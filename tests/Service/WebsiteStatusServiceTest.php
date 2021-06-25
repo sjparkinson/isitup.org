@@ -37,6 +37,9 @@ final class WebsiteStatusServiceTest extends TestCase
         $this->websiteStatusService->getStatus($website);
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function validWebsites(): array
     {
         return [
@@ -49,6 +52,9 @@ final class WebsiteStatusServiceTest extends TestCase
         ];
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function invalidWebsites(): array
     {
         return [

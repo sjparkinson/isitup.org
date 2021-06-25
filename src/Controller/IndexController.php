@@ -22,8 +22,17 @@ final class IndexController extends AbstractController
     #[Route('/', methods: ['POST'])]
     public function indexSubmit(Request $request): Response
     {
-        $website = $request->request->get('website', 'duckduckgo.com');
+        /** @var string */
+        $website = $request->request->filter('website', 'duckduckgo.com');
         $website = strtolower(preg_replace('/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/i', '', $website));
+
+        if ('' === $website) {
+            return $this->redirectToRoute(
+                'app_index_check',
+                ['website' => 'duckduckgo.com'],
+                Response::HTTP_SEE_OTHER
+            );
+        }
 
         return $this->redirectToRoute(
             'app_index_check',

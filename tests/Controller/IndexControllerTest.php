@@ -17,6 +17,16 @@ class IndexControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    public function testIndexSubmittedWithBlankWebsite(): void
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/');
+        $client->submitForm('submit', ['website' => '']);
+
+        $this->assertResponseRedirects('/duckduckgo.com', 303);
+    }
+
     /**
      * @dataProvider validIndexWebsites
      */
@@ -72,7 +82,7 @@ class IndexControllerTest extends WebTestCase
         $this->assertSelectorTextContains('html #container p', 'We need a valid domain to check!');
     }
 
-    public function testReally(): void
+    public function testCheckWebsiteWithInception(): void
     {
         $client = static::createClient();
 
@@ -82,6 +92,9 @@ class IndexControllerTest extends WebTestCase
         $this->assertSelectorTextContains('html #container', 'have a think about what you\'ve just done');
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function validIndexWebsites(): array
     {
         return [
@@ -96,6 +109,9 @@ class IndexControllerTest extends WebTestCase
         ];
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function validWebsites(): array
     {
         return [
@@ -105,6 +121,9 @@ class IndexControllerTest extends WebTestCase
         ];
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function invalidWebsites(): array
     {
         return [

@@ -17,9 +17,17 @@ class ApiControllerTest extends WebTestCase
 
         $client->request('GET', "/${website}.json");
 
+        $contentType = $client->getResponse()->headers->get('content-type');
+        $content = $client->getResponse()->getContent();
+
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('application/json', $client->getResponse()->headers->get('content-type'));
-        $this->assertJson($client->getResponse()->getContent());
+
+        $this->assertNotNull($contentType);
+        /* @psalm-suppress PossiblyNullArgument */
+        $this->assertStringContainsString('application/json', $contentType);
+
+        $this->assertNotFalse($content);
+        $this->assertJson($content);
     }
 
     /**
@@ -43,10 +51,19 @@ class ApiControllerTest extends WebTestCase
 
         $client->request('GET', "/${website}.txt");
 
+        $contentType = $client->getResponse()->headers->get('content-type');
+        $content = $client->getResponse()->getContent();
+
         $this->assertResponseIsSuccessful();
-        $this->assertStringContainsString('text/plain', $client->getResponse()->headers->get('content-type'));
-        $this->assertMatchesRegularExpression("/\S+, \S+, \S+, \S*, \S*, \S+/", $client->getResponse()->getContent());
-        $this->assertStringStartsWith($website, $client->getResponse()->getContent());
+
+        $this->assertNotNull($contentType);
+        /* @psalm-suppress PossiblyNullArgument */
+        $this->assertStringContainsString('text/plain', $contentType);
+
+        $this->assertNotFalse($content);
+        /* @psalm-suppress PossiblyNullArgument */
+        $this->assertMatchesRegularExpression("/\S+, \S+, \S+, \S*, \S*, \S+/", $content);
+        $this->assertStringStartsWith($website, $content);
     }
 
     /**
@@ -61,6 +78,9 @@ class ApiControllerTest extends WebTestCase
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function validWebsites(): array
     {
         return [
@@ -70,6 +90,9 @@ class ApiControllerTest extends WebTestCase
         ];
     }
 
+    /**
+     * @return list<list<string>>
+     */
     public function invalidWebsites(): array
     {
         return [
