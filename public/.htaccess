@@ -11,10 +11,16 @@ DirectoryIndex index.php
 # when compiling LESS/Sass/CoffeScript assets.
 # Options +FollowSymlinks
 
+# Block requests by IP address.
 <RequireAll>
     Require all granted
     Require not ip 95.217.227.107
 </RequireAll>
+
+# Block requests by their User Agent header.
+<If "%{HTTP_USER_AGENT} == 'Ruby'">
+    Require all denied
+</If>
 
 # Disabling MultiViews prevents unwanted negotiation, e.g. "/index" should not resolve
 # to the front controller "/index.php" but be rewritten to "/index.php/index".
