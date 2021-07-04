@@ -9,3 +9,6 @@ Disallow: /
 
 User-agent: MTRobot
 Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
