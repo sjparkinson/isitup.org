@@ -7,41 +7,50 @@ namespace App\Controller;
 use App\Service\InvalidWebsiteException;
 use App\Service\WebsiteStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class IndexController extends AbstractController
+final class AppController extends AbstractController
 {
-    #[Route('/', methods: ['GET', 'HEAD'])]
-    public function index(): Response
-    {
-        return $this->render('index.html.twig', ['website' => 'duckduckgo.com']);
-    }
+    private const DEFAULT_WEBSITE = 'duckduckgo.com';
 
-    #[Route('/', methods: ['POST'])]
-    public function indexSubmit(Request $request): Response
+    #[Route('/', name: 'app_index', methods: ['GET', 'HEAD', 'POST'])]
+    public function index(Request $request): Response
     {
-        /** @var string */
-        $website = $request->request->filter('website', 'duckduckgo.com');
-        $website = strtolower(preg_replace('/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/i', '', $website));
+        /** @var FormInterface */
+        $form = $this->createFormBuilder(['website' => self::DEFAULT_WEBSITE])
+            ->add('website', TextType::class, ['required' => false])
+            ->add('submit', SubmitType::class)
+            ->getForm();
 
-        if ('' === $website) {
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var array<array-key, string> */
+            $data = $form->getData();
+
+            $website = $data['website'] ?? self::DEFAULT_WEBSITE;
+            $website = preg_replace('/^[ \s]+|[ \s]+$|http(s)?:\/\/|\/(.*)/i', '', $website);
+            $website = strtolower($website);
+            $website = '' === $website ? self::DEFAULT_WEBSITE : $website;
+
             return $this->redirectToRoute(
-                'app_index_check',
-                ['website' => 'duckduckgo.com'],
+                'app_check',
+                ['website' => $website],
                 Response::HTTP_SEE_OTHER
             );
         }
 
-        return $this->redirectToRoute(
-            'app_index_check',
-            ['website' => $website],
-            Response::HTTP_SEE_OTHER
-        );
+        return $this->render('index.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
-    #[Route('/{website}', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'])]
+    #[Route('/{website}', name: 'app_check', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'])]
     public function check(WebsiteStatusService $websiteStatusService, Request $request, string $website): Response
     {
         try {
@@ -66,7 +75,7 @@ final class IndexController extends AbstractController
         ]);
     }
 
-    #[Route('/isitup.org', methods: ['GET', 'HEAD'], priority: 1)]
+    #[Route('/isitup.org', name: 'app_really', methods: ['GET', 'HEAD'], priority: 1)]
     public function really(Request $request): Response
     {
         return $this->render('website-really.html.twig');

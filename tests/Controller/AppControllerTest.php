@@ -6,7 +6,7 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class IndexControllerTest extends WebTestCase
+class AppControllerTest extends WebTestCase
 {
     public function testIndex(): void
     {
@@ -22,7 +22,7 @@ class IndexControllerTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/');
-        $client->submitForm('submit', ['website' => '']);
+        $client->submitForm('form[submit]', ['form[website]' => '']);
 
         $this->assertResponseRedirects('/duckduckgo.com', 303);
     }
@@ -35,8 +35,8 @@ class IndexControllerTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/');
-        $client->submitForm('submit', [
-            'website' => $website,
+        $client->submitForm('form[submit]', [
+            'form[website]' => $website,
         ]);
 
         $this->assertResponseRedirects("/${expectedWebsite}", 303);
@@ -50,8 +50,8 @@ class IndexControllerTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/');
-        $client->submitForm('submit', [
-            'website' => $website,
+        $client->submitForm('form[submit]', [
+            'form[website]' => $website,
         ]);
 
         $this->assertResponseRedirects("/${website}", 303);

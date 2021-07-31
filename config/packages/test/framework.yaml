@@ -1,2 +1,6 @@
 framework:
     test: true
+    
+    session:
+        storage_factory_id: session.storage.factory.php_bridge
+        handler_id: ~

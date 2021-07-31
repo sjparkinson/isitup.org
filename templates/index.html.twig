@@ -2,9 +2,8 @@
 
 {% block body %}
     <div id="container">
-        <form method="post" action="/" id="form">
-            <p>is <input type="text" name="website" id="input" placeholder="{{ website }}" accesskey="4"/> <input
-                        type="submit" id="submit" value="up?" accesskey="s"/></p>
-        </form>
+        {{ form_start(form, {'attr': {'id': 'form'}}) }}
+            <p>is {{ form_widget(form.website, {'id': 'input', 'value': '', 'attr': {'placeholder': form.website.vars.value}}) }} {{ form_widget(form.submit, {'id': 'submit', 'label': 'up?'}) }}</p>                
+        {{ form_end(form) }}
     </div>
 {% endblock %}
