@@ -19,7 +19,7 @@ final class ApiController extends AbstractController
     public function jsonCheck(WebsiteStatusService $websiteStatusService, Request $request, string $website): JsonResponse
     {
         try {
-            $response = $websiteStatusService->getStatus($website);
+            $status = $websiteStatusService->getStatus($website);
         } catch (InvalidWebsiteException) {
             throw new BadRequestHttpException();
         }
@@ -27,10 +27,10 @@ final class ApiController extends AbstractController
         $payload = [
             'domain' => $website,
             'port' => 80,
-            'status_code' => $response['status'],
-            'response_ip' => $response['response_ip_address'],
-            'response_code' => $response['response_status_code'],
-            'response_time' => floatval(number_format((float) $response['response_total_time'], 3)),
+            'status_code' => $status->isOkay() ? 1 : 2,
+            'response_ip' => $status->getIpAddress(),
+            'response_code' => $status->getStatusCode(),
+            'response_time' => floatval(number_format($status->getResponseTime(), 3)),
         ];
 
         $response = new JsonResponse($payload);
@@ -46,7 +46,7 @@ final class ApiController extends AbstractController
     public function textCheck(WebsiteStatusService $websiteStatusService, string $website): Response
     {
         try {
-            $response = $websiteStatusService->getStatus($website);
+            $status = $websiteStatusService->getStatus($website);
         } catch (InvalidWebsiteException) {
             throw new BadRequestHttpException();
         }
@@ -54,10 +54,10 @@ final class ApiController extends AbstractController
         $results = [
             $website,
             80,
-            $response['status'],
-            $response['response_ip_address'],
-            $response['response_status_code'],
-            number_format((float) $response['response_total_time'], 3),
+            $status->isOkay() ? 1 : 2,
+            $status->getIpAddress(),
+            $status->getStatusCode(),
+            number_format($status->getResponseTime(), 3),
         ];
 
         $response = new Response(implode(', ', $results));
