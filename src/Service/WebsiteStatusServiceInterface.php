@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\WebsiteStatus;
+
 interface WebsiteStatusServiceInterface
 {
     /**
-     * @return array<string, mixed>
-     *
      * @throws InvalidWebsiteException
      */
-    public function getStatus(string $website): array;
+    public function getStatus(string $website): WebsiteStatus;
 }

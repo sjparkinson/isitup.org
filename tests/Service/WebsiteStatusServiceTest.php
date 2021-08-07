@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Service;
 
+use App\Entity\WebsiteStatus;
 use App\Service\InvalidWebsiteException;
 use App\Service\WebsiteStatusService;
 use App\Service\WebsiteStatusServiceInterface;
@@ -25,7 +26,9 @@ final class WebsiteStatusServiceTest extends TestCase
      */
     public function testWithValidWebsite(string $website): void
     {
-        $this->assertIsArray($this->websiteStatusService->getStatus($website));
+        $status = $this->websiteStatusService->getStatus($website);
+
+        $this->assertInstanceOf(WebsiteStatus::class, $status);
     }
 
     /**

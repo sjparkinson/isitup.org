@@ -54,19 +54,19 @@ final class AppController extends AbstractController
     public function check(WebsiteStatusService $websiteStatusService, Request $request, string $website): Response
     {
         try {
-            $response = $websiteStatusService->getStatus($website);
+            $status = $websiteStatusService->getStatus($website);
         } catch (InvalidWebsiteException) {
             return $this->render('website-invalid.html.twig', [
                 'website' => $website,
             ]);
         }
 
-        if (1 === $response['status']) {
+        if ($status->isOkay()) {
             return $this->render('website-okay.html.twig', [
                 'website' => $website,
-                'response_total_time' => $response['response_total_time'],
-                'response_status_code' => $response['response_status_code'],
-                'response_ip_address' => $response['response_ip_address'],
+                'response_total_time' => $status->getResponseTime(),
+                'response_status_code' => $status->getStatusCode(),
+                'response_ip_address' => $status->getIpAddress(),
             ]);
         }
 
