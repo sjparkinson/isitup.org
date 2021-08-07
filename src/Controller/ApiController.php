@@ -30,7 +30,7 @@ final class ApiController extends AbstractController
             'status_code' => $status->isOkay() ? 1 : 2,
             'response_ip' => $status->getIpAddress(),
             'response_code' => $status->getStatusCode(),
-            'response_time' => floatval(number_format($status->getResponseTime(), 3)),
+            'response_time' => floatval(number_format($status->getTotalTime(), 3)),
         ];
 
         $response = new JsonResponse($payload);
@@ -57,7 +57,7 @@ final class ApiController extends AbstractController
             $status->isOkay() ? 1 : 2,
             $status->getIpAddress(),
             $status->getStatusCode(),
-            number_format($status->getResponseTime(), 3),
+            number_format($status->getTotalTime(), 3),
         ];
 
         $response = new Response(implode(', ', $results));

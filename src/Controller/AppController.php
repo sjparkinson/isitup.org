@@ -9,7 +9,6 @@ use App\Service\WebsiteStatusService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +20,6 @@ final class AppController extends AbstractController
     #[Route('/', name: 'app_index', methods: ['GET', 'HEAD', 'POST'])]
     public function index(Request $request): Response
     {
-        /** @var FormInterface */
         $form = $this->createFormBuilder(['website' => self::DEFAULT_WEBSITE])
             ->add('website', TextType::class, ['required' => false])
             ->add('submit', SubmitType::class)
@@ -64,9 +62,7 @@ final class AppController extends AbstractController
         if ($status->isOkay()) {
             return $this->render('website-okay.html.twig', [
                 'website' => $website,
-                'response_total_time' => $status->getResponseTime(),
-                'response_status_code' => $status->getStatusCode(),
-                'response_ip_address' => $status->getIpAddress(),
+                'status' => $status,
             ]);
         }
 

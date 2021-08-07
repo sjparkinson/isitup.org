@@ -4,57 +4,49 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Symfony\Component\HttpClient\Exception\RedirectionException;
-use Symfony\Contracts\HttpClient\ResponseInterface;
-
 final class WebsiteStatus
 {
     private string $website;
 
-    private float $response_time = 0.0;
+    private float $totalTime = 0.0;
 
-    private ?int $status_code = null;
+    private ?int $statusCode = null;
 
-    private ?string $ip_address = null;
+    private ?string $ipAddress = null;
 
     public function __construct(string $website)
     {
         $this->website = $website;
     }
 
-    public function setResponse(ResponseInterface $response): void
+    public function getTotalTime(): float
     {
-        $this->response_time = (float) $response->getInfo('total_time');
-
-        $this->status_code = $response->getStatusCode();
-
-        $this->ip_address = (string) $response->getInfo('primary_ip');
+        return $this->totalTime;
     }
 
-    public function setRedirectionException(RedirectionException $e): void
+    public function setTotalTime(float $time): void
     {
-        /* @var float */
-        $this->response_time = (float) $e->getResponse()->getInfo('total_time');
-
-        $this->status_code = $e->getResponse()->getStatusCode();
-
-        /* @var string */
-        $this->ip_address = (string) $e->getResponse()->getInfo('primary_ip');
-    }
-
-    public function getResponseTime(): float
-    {
-        return $this->response_time;
+        $this->totalTime = $time;
     }
 
     public function getStatusCode(): ?int
     {
-        return $this->status_code;
+        return $this->statusCode;
+    }
+
+    public function setStatusCode(int $statusCode): void
+    {
+        $this->statusCode = $statusCode;
     }
 
     public function getIpAddress(): ?string
     {
-        return $this->ip_address;
+        return $this->ipAddress;
+    }
+
+    public function setIpAddress(string $ipAddress): void
+    {
+        $this->ipAddress = $ipAddress;
     }
 
     public function isOkay(): bool

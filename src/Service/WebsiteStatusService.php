@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\WebsiteStatus;
+use App\Entity\WebsiteStatusFactory;
 use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -25,8 +26,6 @@ final class WebsiteStatusService implements WebsiteStatusServiceInterface
             throw new InvalidWebsiteException("${website} is not a valid website");
         }
 
-        $status = new WebsiteStatus($website);
-
         try {
             $response = $this->httpClient->request('HEAD', "http://$website");
 
@@ -34,14 +33,12 @@ final class WebsiteStatusService implements WebsiteStatusServiceInterface
             // raise an exception if there are any issues with the network request.
             $response->getHeaders();
 
-            $status->setResponse($response);
+            return WebsiteStatusFactory::createFromResponse($website, $response);
         } catch (RedirectionException $e) {
-            $status->setRedirectionException($e);
+            return WebsiteStatusFactory::createFromRedirectionException($website, $e);
         } catch (HttpExceptionInterface | TransportExceptionInterface) {
-            // Return the default response information.
+            return new WebSiteStatus($website);
         }
-
-        return $status;
     }
 
     /**

@@ -8,6 +8,6 @@
     <div id="container">
         <p><a href="https://{{ website }}" class="domain" rel="nofollow">{{ website }}</a> is up 🎉</p>
 
-        <p class="smaller">It took {{ response_total_time | number_format(3) }} seconds to get a {{ response_status_code }} status code from an IP address of {{ response_ip_address }}.</p>
+        <p class="smaller">It took {{ status.totalTime | number_format(3) }} seconds to get a {{ status.statusCode }} status code from an IP address of {{ status.ipAddress }}.</p>
     </div>
 {% endblock %}
