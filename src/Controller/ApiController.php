@@ -36,7 +36,7 @@ final class ApiController extends AbstractController
         $response = new JsonResponse($payload);
 
         if ($request->query->has('callback')) {
-            $response->setCallback($request->query->get('callback'));
+            $response->setCallback((string) $request->query->get('callback'));
         }
 
         return $response;
