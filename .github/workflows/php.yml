@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Setup PHP with Composer and extensions
-        uses: shivammathur/setup-php@2
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
