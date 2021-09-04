@@ -36,7 +36,7 @@ final class WebsiteStatusService implements WebsiteStatusServiceInterface
             return WebsiteStatusFactory::createFromResponse($website, $response);
         } catch (RedirectionException $e) {
             return WebsiteStatusFactory::createFromRedirectionException($website, $e);
-        } catch (HttpExceptionInterface | TransportExceptionInterface) {
+        } catch (HttpExceptionInterface|TransportExceptionInterface) {
             return new WebSiteStatus($website);
         }
     }

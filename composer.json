@@ -68,7 +68,7 @@
         "test": [
             "php bin/console lint:container",
             "php bin/console lint:twig",
-            "php vendor/bin/php-cs-fixer fix --dry-run",
+            "php vendor/bin/php-cs-fixer fix --dry-run --diff",
             "php bin/phpunit"
         ],
         "auto-scripts": {
