@@ -16,31 +16,30 @@
         "ext-simplexml": "*",
         "ext-tokenizer": "*",
         "symfony/apache-pack": "^1.0",
-        "symfony/console": "^5.3",
-        "symfony/dotenv": "^5.3",
+        "symfony/console": "^6.0",
+        "symfony/dotenv": "^6.0",
         "symfony/flex": "^2.0",
-        "symfony/form": "^5.3",
-        "symfony/framework-bundle": "^5.3",
-        "symfony/http-client": "^5.3",
+        "symfony/form": "^6.0",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/http-client": "^6.0",
         "symfony/monolog-bundle": "^3.0",
-        "symfony/security-csrf": "^5.3",
-        "symfony/twig-bundle": "^5.3",
-        "symfony/yaml": "^5.3",
+        "symfony/security-csrf": "^6.0",
+        "symfony/twig-bundle": "^6.0",
+        "symfony/yaml": "^6.0",
         "twig/extra-bundle": "^3.0",
         "twig/twig": "^3.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.0",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16.0",
         "psalm/plugin-symfony": "^3.0",
-        "symfony/browser-kit": "^5.3",
-        "symfony/css-selector": "^5.3",
-        "symfony/debug-bundle": "^5.3",
+        "symfony/browser-kit": "^6.0",
+        "symfony/css-selector": "^6.0",
+        "symfony/debug-bundle": "^6.0",
         "symfony/phpunit-bridge": "^6.0",
-        "symfony/stopwatch": "^5.3",
-        "symfony/var-dumper": "^5.3",
-        "symfony/web-profiler-bundle": "^5.3",
+        "symfony/stopwatch": "^6.0",
+        "symfony/var-dumper": "^6.0",
+        "symfony/web-profiler-bundle": "^6.0",
         "vimeo/psalm": "^4.7"
     },
     "config": {
@@ -68,7 +67,6 @@
         "test": [
             "php bin/console lint:container",
             "php bin/console lint:twig",
-            "php vendor/bin/php-cs-fixer fix --dry-run --diff",
             "php bin/phpunit"
         ],
         "auto-scripts": {
@@ -88,7 +86,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "^5.3"
+            "require": "^6.0"
         }
     }
 }
