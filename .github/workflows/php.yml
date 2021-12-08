@@ -90,7 +90,7 @@ jobs:
     environment:
       name: production
       url: https://isitup.org
-    concurrency: production_environment
+    concurrency: production
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs:
       - phpunit
@@ -104,8 +104,8 @@ jobs:
 
       - name: Create Apps Platform deployment
         id: deployment
-        run: doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --force-rebuild --wait
+        run: doctl apps create-deployment 7172ee3c-69f7-40cf-9bb4-ee712bbc7871 --force-rebuild --wait
 
       - name: Get build logs
         if: ${{ always() }}
-        run: doctl apps logs ${{ secrets.DIGITALOCEAN_APP_ID }} --type build
+        run: doctl apps logs 7172ee3c-69f7-40cf-9bb4-ee712bbc7871 --type build
