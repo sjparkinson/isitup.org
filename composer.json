@@ -15,7 +15,6 @@
         "ext-session": "*",
         "ext-simplexml": "*",
         "ext-tokenizer": "*",
-        "symfony/apache-pack": "^1.0",
         "symfony/console": "^6.0",
         "symfony/dotenv": "^6.0",
         "symfony/flex": "^2.0",
