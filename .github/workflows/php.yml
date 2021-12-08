@@ -35,14 +35,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      - run: composer validate --strict
+      - run: composer validate --strict --ansi
       
       - name: Install Composer packages
-        run: |
-          composer install --no-progress
-          php bin/phpunit install
+        run: composer install --no-progress --ansi
 
-      - run: composer test
+      - run: composer test --ansi
 
   psalm:
     name: Psalm
@@ -72,7 +70,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-psalm-
 
-      - run: composer install --no-progress
+      - run: composer install --no-progress --ansi
 
       - name: Run Psalm
         run: php vendor/bin/psalm --output-format=github --long-progress
