@@ -12,8 +12,7 @@ framework:
         cookie_samesite: strict
         storage_factory_id: session.storage.factory.native
 
-    # Trust the DigitalOcean reverse proxy.
-    trusted_proxies: '10.0.0.0/8'
+    trusted_proxies: '%env(string:TRUSTED_PROXIES)%'
     trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
 
     #esi: true
