@@ -1,14 +1,21 @@
-// For format details, see https://aka.ms/devcontainer.json.
-// For config options, see the README at https://github.com/microsoft/vscode-dev-containers/tree/master/containers/php.
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.203.0/containers/php
 {
 	"name": "PHP",
-	"image": "mcr.microsoft.com/vscode/devcontainers/php:8",
+	"runArgs": ["--init"],
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": { 
+			// Update VARIANT to pick a PHP version: 8, 8.0, 7, 7.4, 7.3
+			// Append -bullseye or -buster to pin to an OS version.
+			// Use -bullseye variants on local on arm64/Apple Silicon.
+			"VARIANT": "8",
+		}
+	},
 	
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
 		"php.validate.executablePath": "/usr/local/bin/php",
-		"php-cs-fixer.executablePath": "vendor/bin/php-cs-fixer",
-		"php-cs-fixer.onsave": true,
 		"css.validate": false,
 		"less.validate": false,
 		"php.suggest.basic": false,
@@ -32,13 +39,13 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"bmewburn.vscode-intelephense-client",
 		"calebporzio.better-phpunit",
 		"dbaeumer.vscode-eslint",
 		"EditorConfig.EditorConfig",
 		"esbenp.prettier-vscode",
 		"felixfbecker.php-debug",
 		"getpsalm.psalm-vscode-plugin",
-		"junstyle.php-cs-fixer",
 		"mrmlnc.vscode-apache",
 		"redhat.vscode-yaml",
 		"stylelint.vscode-stylelint",
@@ -46,7 +53,7 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8000],
+	"forwardPorts": [8080],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "curl -sS https://get.symfony.com/cli/installer | bash && sudo mv /home/vscode/.symfony/bin/symfony /usr/local/bin/symfony && sudo sh -c \"echo 'xdebug.log_level = 0' >> /usr/local/etc/php/conf.d/xdebug.ini\" && composer install",

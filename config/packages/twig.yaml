@@ -7,3 +7,7 @@ twig:
         carbon_ads:
             id: '%env(string:CARBON_ADS_ID)%'
             placement: '%env(string:CARBON_ADS_PLACEMENT)%'
+
+when@test:
+    twig:
+        strict_variables: true
