@@ -8,7 +8,7 @@ on:
 
 env:
   php-version: '8.0'
-  php-extensions: ctype, curl, iconv, json, pcre, session, simplexml, tokenizer
+  php-extensions: ctype, curl, iconv, intl, json, pcre, session, simplexml, tokenizer
 
 jobs: 
   phpunit:
