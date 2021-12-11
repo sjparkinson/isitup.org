@@ -6675,16 +6675,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v6.0.0",
+            "version": "v6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "9a805f19146e5397ca9c4c92374e4c62af88d246"
+                "reference": "3e2f1610a25edc2afc2f5f37cc421049d6bef208"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/9a805f19146e5397ca9c4c92374e4c62af88d246",
-                "reference": "9a805f19146e5397ca9c4c92374e4c62af88d246",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/3e2f1610a25edc2afc2f5f37cc421049d6bef208",
+                "reference": "3e2f1610a25edc2afc2f5f37cc421049d6bef208",
                 "shasum": ""
             },
             "require": {
@@ -6726,7 +6726,7 @@
             "description": "Simulates the behavior of a web browser, allowing you to make requests, click on links and submit forms programmatically",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/browser-kit/tree/v6.0.0"
+                "source": "https://github.com/symfony/browser-kit/tree/v6.0.1"
             },
             "funding": [
                 {
@@ -6742,7 +6742,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-27T08:01:25+00:00"
+            "time": "2021-12-08T15:13:44+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -6889,16 +6889,16 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v6.0.0",
+            "version": "v6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "e6f132c117f50858e2d0a6ea8919796241be4a18"
+                "reference": "5f05ce4e33e729b4c8c7b7436b681cacdf500867"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/e6f132c117f50858e2d0a6ea8919796241be4a18",
-                "reference": "e6f132c117f50858e2d0a6ea8919796241be4a18",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/5f05ce4e33e729b4c8c7b7436b681cacdf500867",
+                "reference": "5f05ce4e33e729b4c8c7b7436b681cacdf500867",
                 "shasum": ""
             },
             "require": {
@@ -6942,7 +6942,7 @@
             "description": "Eases DOM navigation for HTML and XML documents",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/dom-crawler/tree/v6.0.0"
+                "source": "https://github.com/symfony/dom-crawler/tree/v6.0.1"
             },
             "funding": [
                 {
@@ -6958,7 +6958,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-04T17:14:40+00:00"
+            "time": "2021-12-08T15:13:44+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
