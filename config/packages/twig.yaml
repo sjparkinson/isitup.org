@@ -2,8 +2,6 @@ twig:
     default_path: '%kernel.project_dir%/templates'
 
     globals:
-        google_analytics:
-            id: '%env(string:GOOGLE_ANALYTICS_ID)%'
         carbon_ads:
             id: '%env(string:CARBON_ADS_ID)%'
             placement: '%env(string:CARBON_ADS_PLACEMENT)%'
