@@ -1,4 +1,4 @@
-name: Scorecards supply-chain security
+name: Security Scorecards
 
 on:
   push:
