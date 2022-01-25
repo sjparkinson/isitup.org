@@ -1,0 +1,80 @@
+name: Security
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Declare default permissions as read only.
+permissions: read-all
+
+jobs:
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP with Composer and extensions
+        uses: shivammathur/setup-php@da0e8547371daac1784abb79f9bb2af76dcdfaf0
+        with:
+          php-version: ${{ env.php-version }}
+          extensions: ${{ env.php-extensions }}
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer packages
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed
+        with:
+          path: |
+            ${{ steps.composer-cache.outputs.dir }}
+            $HOME/.cache/psalm
+          key: ${{ runner.os }}-security-psalm-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-security-psalm-
+
+      - run: composer install --no-progress --ansi
+
+      - name: Run Psalm security analysis
+        run: php vendor/bin/psalm --taint-analysis --output-format=github --long-progress --report=psalm-results.sarif
+
+      - name: Upload Psalm security analysis to GitHub
+        uses: github/codeql-action/upload-sarif@8b37404d562d866ad6a65d0ecb4fa5131e047ca4
+        with:
+          sarif_file: psalm-results.sarif
+          
+  scorecard:
+    name: Scorecard
+    runs-on: ubuntu-latest
+    permissions:
+      # Needed to upload the results to code-scanning dashboard.
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
+
+      - name: "Run analysis"
+        uses: ossf/scorecard-action@c8416b0b2bf627c349ca92fc8e3de51a64b005cf
+        with:
+          results_file: results.sarif
+          results_format: sarif
+          repo_token: ${{ github.token }}
+          publish_results: true
+
+      # Upload the results to GitHub's code scanning dashboard.
+      - name: "Upload to code-scanning"
+        uses: github/codeql-action/upload-sarif@8b37404d562d866ad6a65d0ecb4fa5131e047ca4
+        with:
+          sarif_file: results.sarif
