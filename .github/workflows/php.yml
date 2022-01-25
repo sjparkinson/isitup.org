@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
 
       - name: Setup PHP, with Composer and extensions
         uses: shivammathur/setup-php@da0e8547371daac1784abb79f9bb2af76dcdfaf0
@@ -51,6 +53,8 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+        with:
+          persist-credentials: false
 
       - name: Setup PHP with Composer and extensions
         uses: shivammathur/setup-php@da0e8547371daac1784abb79f9bb2af76dcdfaf0
