@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions: read-all
+
 env:
   php-version: '8.0'
   php-extensions: ctype, curl, iconv, intl, json, pcre, session, simplexml, tokenizer
@@ -15,10 +17,10 @@ jobs:
     name: PHPUnit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
 
       - name: Setup PHP, with Composer and extensions
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@da0e8547371daac1784abb79f9bb2af76dcdfaf0
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
@@ -28,7 +30,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer packages
-        uses: actions/cache@v2
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -48,10 +50,10 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
 
       - name: Setup PHP with Composer and extensions
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@da0e8547371daac1784abb79f9bb2af76dcdfaf0
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
@@ -61,7 +63,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer packages
-        uses: actions/cache@v2
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
@@ -96,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install doctl
-        uses: digitalocean/action-doctl@v2
+        uses: digitalocean/action-doctl@d36a87b1d9c7bd55c8d8434ff2a991a6ee32a448
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
