@@ -49,8 +49,6 @@ jobs:
   psalm:
     name: Psalm
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
         with:
