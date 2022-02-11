@@ -49,7 +49,7 @@ jobs:
         run: php vendor/bin/psalm --taint-analysis --output-format=github --long-progress --report=psalm-results.sarif
 
       - name: Upload Psalm security analysis to GitHub
-        uses: github/codeql-action/upload-sarif@2b46439dd5477d8a1659811cdc500d35e601a1cb
+        uses: github/codeql-action/upload-sarif@474bbf07f9247ffe1856c6a0f94aeeb10e7afee6
         with:
           sarif_file: psalm-results.sarif
           
@@ -78,6 +78,6 @@ jobs:
 
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
-        uses: github/codeql-action/upload-sarif@2b46439dd5477d8a1659811cdc500d35e601a1cb
+        uses: github/codeql-action/upload-sarif@474bbf07f9247ffe1856c6a0f94aeeb10e7afee6
         with:
           sarif_file: results.sarif
