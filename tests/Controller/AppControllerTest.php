@@ -20,9 +20,10 @@ class AppControllerTest extends WebTestCase
     public function testIndexSubmittedWithBlankWebsite(): void
     {
         $client = static::createClient();
+        $client->disableReboot();
 
         $client->request('GET', '/');
-        $client->submitForm('form[submit]', ['form[website]' => '']);
+        $client->submitForm('form[submit]');
 
         $this->assertResponseRedirects('/duckduckgo.com', 303);
     }
@@ -33,6 +34,7 @@ class AppControllerTest extends WebTestCase
     public function testIndexSubmittedWithValidWebsite(string $website, string $expectedWebsite): void
     {
         $client = static::createClient();
+        $client->disableReboot();
 
         $client->request('GET', '/');
         $client->submitForm('form[submit]', [
@@ -48,6 +50,7 @@ class AppControllerTest extends WebTestCase
     public function testIndexSubmittedWithInvalidWebsite(string $website): void
     {
         $client = static::createClient();
+        $client->disableReboot();
 
         $client->request('GET', '/');
         $client->submitForm('form[submit]', [
