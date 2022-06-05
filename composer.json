@@ -9,13 +9,21 @@
         "php": "^8.1",
         "ext-ctype": "*",
         "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-filter": "*",
         "ext-iconv": "*",
-        "ext-intl": "*",
         "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
         "ext-pcre": "*",
+        "ext-phar": "*",
+        "ext-reflection": "*",
         "ext-session": "*",
         "ext-simplexml": "*",
+        "ext-spl": "*",
         "ext-tokenizer": "*",
+        "ext-xml": "*",
+        "ext-xmlwriter": "*",
         "symfony/console": "^6.0",
         "symfony/dotenv": "^6.0",
         "symfony/flex": "^2.0",
@@ -66,7 +74,7 @@
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
-        "symfony/polyfill-iconv": "*"
+        "symfony/polyfill-mbstring": "*"
     },
     "scripts": {
         "test": [

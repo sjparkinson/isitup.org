@@ -3,15 +3,7 @@
 {
 	"name": "PHP",
 	"runArgs": ["--init"],
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": { 
-			// Update VARIANT to pick a PHP version.
-			// Append -bullseye or -buster to pin to an OS version.
-			// Use -bullseye variants on local on arm64/Apple Silicon.
-			"VARIANT": "8.1"
-		}
-	},
+	"image": "mcr.microsoft.com/vscode/devcontainers/php:8.1-bullseye",
 	
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
