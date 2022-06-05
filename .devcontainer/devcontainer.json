@@ -12,6 +12,7 @@
 		"less.validate": false,
 		"php.suggest.basic": false,
 		"scss.validate": false,
+		"git.enableCommitSigning": true,
 		"stylelint.validate": [
 			"css",
 			"html",
