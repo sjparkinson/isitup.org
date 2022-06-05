@@ -9,7 +9,7 @@ on:
 permissions: read-all
 
 env:
-  php-version: '8.0'
+  php-version: '8.1'
   php-extensions: ctype, curl, iconv, intl, json, pcre, session, simplexml, tokenizer
 
 jobs: 
