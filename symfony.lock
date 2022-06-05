@@ -29,6 +29,9 @@
     "felixfbecker/language-server-protocol": {
         "version": "1.5.1"
     },
+    "masterminds/html5": {
+        "version": "2.7.5"
+    },
     "monolog/monolog": {
         "version": "2.2.0"
     },
@@ -196,9 +199,6 @@
             "config/packages/dev/debug.yaml"
         ]
     },
-    "symfony/debug-pack": {
-        "version": "v1.0.9"
-    },
     "symfony/dependency-injection": {
         "version": "v5.2.3"
     },
@@ -323,8 +323,8 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.22.0"
     },
-    "symfony/polyfill-php81": {
-        "version": "v1.23.0"
+    "symfony/polyfill-php80": {
+        "version": "v1.26.0"
     },
     "symfony/property-access": {
         "version": "v5.3.4"
@@ -363,9 +363,6 @@
     "symfony/string": {
         "version": "v5.2.3"
     },
-    "symfony/test-pack": {
-        "version": "v1.0.7"
-    },
     "symfony/translation-contracts": {
         "version": "v2.3.0"
     },
@@ -384,9 +381,6 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
-    },
-    "symfony/twig-pack": {
-        "version": "v1.0.1"
     },
     "symfony/var-dumper": {
         "version": "v5.2.3"
