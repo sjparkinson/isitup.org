@@ -13,6 +13,18 @@ env:
   php-extensions: ctype, curl, iconv, intl, json, pcre, session, simplexml, tokenizer
 
 jobs:
+  dependencies:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+        with:
+          persist-credentials: false
+
+      - uses: actions/dependency-review-action@29fc7a23bd29f1860e3d4284d962de788669e558
+
   psalm:
     name: Psalm
     runs-on: ubuntu-latest
