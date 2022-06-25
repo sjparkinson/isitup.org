@@ -3335,16 +3335,16 @@
         },
         {
             "name": "symfony/twig-bundle",
-            "version": "v6.1.0",
+            "version": "v6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/twig-bundle.git",
-                "reference": "1bc5eebac714c553c509b3a143af7a51470953f4"
+                "reference": "a2abab10068525a7f5a879e40e411d369d688545"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/twig-bundle/zipball/1bc5eebac714c553c509b3a143af7a51470953f4",
-                "reference": "1bc5eebac714c553c509b3a143af7a51470953f4",
+                "url": "https://api.github.com/repos/symfony/twig-bundle/zipball/a2abab10068525a7f5a879e40e411d369d688545",
+                "reference": "a2abab10068525a7f5a879e40e411d369d688545",
                 "shasum": ""
             },
             "require": {
@@ -3401,7 +3401,7 @@
             "description": "Provides a tight integration of Twig into the Symfony full-stack framework",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/twig-bundle/tree/v6.1.0"
+                "source": "https://github.com/symfony/twig-bundle/tree/v6.1.1"
             },
             "funding": [
                 {
@@ -3417,7 +3417,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-13T16:41:52+00:00"
+            "time": "2022-05-27T16:55:36+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -7125,16 +7125,16 @@
         },
         {
             "name": "symfony/web-profiler-bundle",
-            "version": "v6.1.0",
+            "version": "v6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-profiler-bundle.git",
-                "reference": "1541139951a3b5ed71517ea936442978fb168dbe"
+                "reference": "2a5bdd2d82dda75475c428c0fd1d59b6d7aad117"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/1541139951a3b5ed71517ea936442978fb168dbe",
-                "reference": "1541139951a3b5ed71517ea936442978fb168dbe",
+                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/2a5bdd2d82dda75475c428c0fd1d59b6d7aad117",
+                "reference": "2a5bdd2d82dda75475c428c0fd1d59b6d7aad117",
                 "shasum": ""
             },
             "require": {
@@ -7183,7 +7183,7 @@
             "description": "Provides a development tool that gives detailed information about the execution of any request",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/web-profiler-bundle/tree/v6.1.0"
+                "source": "https://github.com/symfony/web-profiler-bundle/tree/v6.1.1"
             },
             "funding": [
                 {
@@ -7199,7 +7199,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-12T08:58:15+00:00"
+            "time": "2022-06-06T19:15:01+00:00"
         },
         {
             "name": "theseer/tokenizer",
