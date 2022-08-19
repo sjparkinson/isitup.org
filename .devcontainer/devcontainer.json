@@ -49,7 +49,7 @@
 	"forwardPorts": [8080],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "curl -sS https://get.symfony.com/cli/installer | bash && sudo mv /home/vscode/.symfony/bin/symfony /usr/local/bin/symfony && sudo sh -c \"echo 'xdebug.log_level = 0' >> /usr/local/etc/php/conf.d/xdebug.ini\" && composer install",
+	"postCreateCommand": "curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash && sudo apt install symfony-cli && sudo sh -c \"echo 'xdebug.log_level = 0' >> /usr/local/etc/php/conf.d/xdebug.ini\" && composer install",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
