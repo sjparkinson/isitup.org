@@ -7,7 +7,7 @@ on:
 permissions: read-all
 
 env:
-  php-version: '8.2'
+  php-version: "8.2"
   php-extensions: ctype, curl, iconv, intl, json, pcre, session, simplexml, tokenizer
 
 jobs:
@@ -42,7 +42,7 @@ jobs:
 
       - name: Get Composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Composer packages
         uses: actions/cache@6998d139ddd3e68c71e9e398d8e40b71a2f39812
