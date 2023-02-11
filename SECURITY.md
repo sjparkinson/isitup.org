@@ -2,4 +2,4 @@
 
 ## Reporting a Vulnerability
 
-Please report security vulnerabilities to samuel.parkinson@hey.com.
+Please report security vulnerabilities at https://github.com/sjparkinson/isitup.org/security/advisories.
