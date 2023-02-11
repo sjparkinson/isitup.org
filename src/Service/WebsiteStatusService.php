@@ -23,7 +23,7 @@ final class WebsiteStatusService implements WebsiteStatusServiceInterface
     public function getStatus(string $website): WebsiteStatus
     {
         if (!self::isValidWebsite($website)) {
-            throw new InvalidWebsiteException("${website} is not a valid website");
+            throw new InvalidWebsiteException("{$website} is not a valid website");
         }
 
         try {

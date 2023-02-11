@@ -3,47 +3,51 @@
 {
 	"name": "PHP",
 	"runArgs": ["--init"],
-	"image": "mcr.microsoft.com/vscode/devcontainers/php:8.1-bullseye",
-	
-	// Set *default* container specific settings.json values on container create.
-	"settings": { 
-		"php.validate.executablePath": "/usr/local/bin/php",
-		"css.validate": false,
-		"less.validate": false,
-		"php.suggest.basic": false,
-		"scss.validate": false,
-		"git.enableCommitSigning": true,
-		"stylelint.validate": [
-			"css",
-			"html",
-			"less",
-			"markdown",
-			"postcss",
-			"sass",
-			"scss",
-			"source.css.styled",
-			"source.markdown.math",
-			"styled-css",
-			"sugarss",
-			"xml",
-			"xsl"
-		]
-	},
+	"image": "mcr.microsoft.com/vscode/devcontainers/php:8.2-bullseye",
 
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"bmewburn.vscode-intelephense-client",
-		"calebporzio.better-phpunit",
-		"dbaeumer.vscode-eslint",
-		"EditorConfig.EditorConfig",
-		"esbenp.prettier-vscode",
-		"felixfbecker.php-debug",
-		"getpsalm.psalm-vscode-plugin",
-		"mrmlnc.vscode-apache",
-		"redhat.vscode-yaml",
-		"stylelint.vscode-stylelint",
-		"visualstudioexptteam.vscodeintellicode"
-	],
+	"customizations": {
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+				"php.validate.executablePath": "/usr/local/bin/php",
+				"css.validate": false,
+				"less.validate": false,
+				"php.suggest.basic": false,
+				"scss.validate": false,
+				"git.enableCommitSigning": true,
+				"stylelint.validate": [
+					"css",
+					"html",
+					"less",
+					"markdown",
+					"postcss",
+					"sass",
+					"scss",
+					"source.css.styled",
+					"source.markdown.math",
+					"styled-css",
+					"sugarss",
+					"xml",
+					"xsl"
+				]
+			},
+
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"bmewburn.vscode-intelephense-client",
+				"calebporzio.better-phpunit",
+				"dbaeumer.vscode-eslint",
+				"EditorConfig.EditorConfig",
+				"esbenp.prettier-vscode",
+				"felixfbecker.php-debug",
+				"getpsalm.psalm-vscode-plugin",
+				"mrmlnc.vscode-apache",
+				"redhat.vscode-yaml",
+				"stylelint.vscode-stylelint",
+				"visualstudioexptteam.vscodeintellicode"
+			]
+		}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [8080],

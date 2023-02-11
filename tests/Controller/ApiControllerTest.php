@@ -14,7 +14,7 @@ class ApiControllerTest extends WebTestCase
     public function testJsonWithValidWebsite(string $website): void
     {
         $client = static::createClient();
-        $client->request('GET', "/${website}.json");
+        $client->request('GET', "/{$website}.json");
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseFormatSame('json');
@@ -32,7 +32,7 @@ class ApiControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', "/${website}.json");
+        $client->request('GET', "/{$website}.json");
 
         $this->assertResponseStatusCodeSame(400);
     }
@@ -43,7 +43,7 @@ class ApiControllerTest extends WebTestCase
     public function testTxtWithValidWebsite(string $website): void
     {
         $client = static::createClient();
-        $client->request('GET', "/${website}.txt");
+        $client->request('GET', "/{$website}.txt");
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseFormatSame('txt');
@@ -63,7 +63,7 @@ class ApiControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', "/${website}.txt");
+        $client->request('GET', "/{$website}.txt");
 
         $this->assertResponseStatusCodeSame(400);
     }
