@@ -41,7 +41,7 @@ class AppControllerTest extends WebTestCase
             'form[website]' => $website,
         ]);
 
-        $this->assertResponseRedirects("/${expectedWebsite}", 303);
+        $this->assertResponseRedirects("/{$expectedWebsite}", 303);
     }
 
     /**
@@ -57,7 +57,7 @@ class AppControllerTest extends WebTestCase
             'form[website]' => $website,
         ]);
 
-        $this->assertResponseRedirects("/${website}", 303);
+        $this->assertResponseRedirects("/{$website}", 303);
     }
 
     /**
@@ -67,7 +67,7 @@ class AppControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', "/${website}");
+        $client->request('GET', "/{$website}");
 
         $this->assertResponseIsSuccessful();
     }
@@ -79,7 +79,7 @@ class AppControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', "/${website}");
+        $client->request('GET', "/{$website}");
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('html #container p', 'We need a valid domain to check!');
