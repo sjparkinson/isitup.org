@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install doctl
-        uses: digitalocean/action-doctl@2486534218b8a45a41645d4fdcf0108880d12b50
+        uses: digitalocean/action-doctl@ba7726ed64a9c5eb774152b1ea03bf67ee81ad6e
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
