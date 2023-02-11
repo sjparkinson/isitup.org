@@ -18,11 +18,11 @@ jobs:
       contents: read
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
         with:
           persist-credentials: false
 
-      - uses: actions/dependency-review-action@23d1ffffb6fa5401173051ec21eba8c35242733f
+      - uses: actions/dependency-review-action@c090f4e553673e6e505ea70d6a95362ee12adb94
 
   psalm:
     name: Psalm
@@ -30,12 +30,12 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
         with:
           persist-credentials: false
 
       - name: Setup PHP with Composer and extensions
-        uses: shivammathur/setup-php@e04e1d97f0c0481c6e1ba40f8a538454fe5d7709
+        uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
@@ -45,7 +45,7 @@ jobs:
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: Cache Composer packages
-        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77
+        uses: actions/cache@6998d139ddd3e68c71e9e398d8e40b71a2f39812
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
@@ -60,6 +60,6 @@ jobs:
         run: php vendor/bin/psalm --taint-analysis --output-format=github --long-progress --report=psalm-results.sarif
 
       - name: Upload Psalm security analysis to GitHub
-        uses: github/codeql-action/upload-sarif@7fee4ca032ac341c12486c4c06822c5221c76533
+        uses: github/codeql-action/upload-sarif@8775e868027fa230df8586bdf502bbd9b618a477
         with:
           sarif_file: psalm-results.sarif
