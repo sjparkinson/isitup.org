@@ -7,6 +7,9 @@ updates:
 
   - package-ecosystem: composer
     directory: /
+    ignore:
+      - dependency-name: "symfony/*"
+        update-types: ["version-update:semver-patch"]
     schedule:
       interval: daily
     open-pull-requests-limit: 15
