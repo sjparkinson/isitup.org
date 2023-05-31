@@ -6727,16 +6727,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v6.2.5",
+            "version": "v6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "bf1b9d4ad8b1cf0dbde8b08e0135a2f6259b9ba1"
+                "reference": "88453e64cd86c5b60e8d2fb2c6f953bbc353ffbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/bf1b9d4ad8b1cf0dbde8b08e0135a2f6259b9ba1",
-                "reference": "bf1b9d4ad8b1cf0dbde8b08e0135a2f6259b9ba1",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/88453e64cd86c5b60e8d2fb2c6f953bbc353ffbf",
+                "reference": "88453e64cd86c5b60e8d2fb2c6f953bbc353ffbf",
                 "shasum": ""
             },
             "require": {
@@ -6772,7 +6772,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/css-selector/tree/v6.2.5"
+                "source": "https://github.com/symfony/css-selector/tree/v6.3.0"
             },
             "funding": [
                 {
@@ -6788,7 +6788,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-01T08:38:09+00:00"
+            "time": "2023-03-20T16:43:42+00:00"
         },
         {
             "name": "symfony/debug-bundle",
