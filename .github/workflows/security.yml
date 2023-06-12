@@ -35,7 +35,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup PHP with Composer and extensions
-        uses: shivammathur/setup-php@d30ad8b1843ace22e6698ab99bbafaa747b6bd0d
+        uses: shivammathur/setup-php@8cac79fdb158907c5fbc74b91c90342b86f9bdf5
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
