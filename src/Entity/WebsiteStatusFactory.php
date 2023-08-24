@@ -9,9 +9,9 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 final class WebsiteStatusFactory
 {
-    public static function createFromResponse(string $website, ResponseInterface $response): WebsiteStatus
+    public static function createFromResponse(ResponseInterface $response): WebsiteStatus
     {
-        $status = new WebsiteStatus($website);
+        $status = new WebsiteStatus();
 
         $status->setTotalTime((float) $response->getInfo('total_time'));
         $status->setStatusCode($response->getStatusCode());
@@ -20,9 +20,9 @@ final class WebsiteStatusFactory
         return $status;
     }
 
-    public static function createFromRedirectionException(string $website, RedirectionException $e): WebsiteStatus
+    public static function createFromRedirectionException(RedirectionException $e): WebsiteStatus
     {
-        $status = new WebsiteStatus($website);
+        $status = new WebsiteStatus();
 
         $response = $e->getResponse();
 

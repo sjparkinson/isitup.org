@@ -33,11 +33,11 @@ final class WebsiteStatusService implements WebsiteStatusServiceInterface
             // raise an exception if there are any issues with the network request.
             $response->getHeaders();
 
-            return WebsiteStatusFactory::createFromResponse($website, $response);
+            return WebsiteStatusFactory::createFromResponse($response);
         } catch (RedirectionException $e) {
-            return WebsiteStatusFactory::createFromRedirectionException($website, $e);
+            return WebsiteStatusFactory::createFromRedirectionException($e);
         } catch (HttpExceptionInterface|TransportExceptionInterface) {
-            return new WebSiteStatus($website);
+            return new WebSiteStatus();
         }
     }
 

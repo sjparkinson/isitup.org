@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @psalm-api
+ */
 final class AppController extends AbstractController
 {
     private const DEFAULT_WEBSITE = 'duckduckgo.com';
@@ -49,7 +52,7 @@ final class AppController extends AbstractController
     }
 
     #[Route('/{website}', name: 'app_check', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'])]
-    public function check(WebsiteStatusService $websiteStatusService, Request $request, string $website): Response
+    public function check(WebsiteStatusService $websiteStatusService, Request $_request, string $website): Response
     {
         try {
             $status = $websiteStatusService->getStatus($website);
@@ -72,7 +75,7 @@ final class AppController extends AbstractController
     }
 
     #[Route('/isitup.org', name: 'app_really', methods: ['GET', 'HEAD'], priority: 1)]
-    public function really(Request $request): Response
+    public function really(Request $_request): Response
     {
         return $this->render('website-really.html.twig');
     }

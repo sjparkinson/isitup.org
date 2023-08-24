@@ -41,7 +41,7 @@ final class WebsiteStatusServiceTest extends TestCase
     }
 
     /**
-     * @return list<list<string>>
+     * @return string[][]
      */
     public function validWebsites(): array
     {
@@ -56,7 +56,7 @@ final class WebsiteStatusServiceTest extends TestCase
     }
 
     /**
-     * @return list<list<string>>
+     * @return string[][]
      */
     public function invalidWebsites(): array
     {

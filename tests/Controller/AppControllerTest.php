@@ -96,7 +96,7 @@ class AppControllerTest extends WebTestCase
     }
 
     /**
-     * @return list<list<string>>
+     * @return string[][]
      */
     public function validIndexWebsites(): array
     {
@@ -113,7 +113,7 @@ class AppControllerTest extends WebTestCase
     }
 
     /**
-     * @return list<list<string>>
+     * @return string[][]
      */
     public function validWebsites(): array
     {
@@ -125,7 +125,7 @@ class AppControllerTest extends WebTestCase
     }
 
     /**
-     * @return list<list<string>>
+     * @return string[][]
      */
     public function invalidWebsites(): array
     {
