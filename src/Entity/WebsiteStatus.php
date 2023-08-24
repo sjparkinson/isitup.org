@@ -6,18 +6,11 @@ namespace App\Entity;
 
 final class WebsiteStatus
 {
-    private string $website;
-
     private float $totalTime = 0.0;
 
     private ?int $statusCode = null;
 
     private ?string $ipAddress = null;
-
-    public function __construct(string $website)
-    {
-        $this->website = $website;
-    }
 
     public function getTotalTime(): float
     {

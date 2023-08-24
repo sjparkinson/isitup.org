@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @psalm-api
+ */
 final class ApiController extends AbstractController
 {
     #[Route('/{website}.json', name: 'app_api_json', requirements: ['website' => '[^/]+'], methods: ['GET', 'HEAD'], priority: 1)]
