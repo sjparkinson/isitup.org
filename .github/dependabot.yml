@@ -6,7 +6,8 @@ updates:
       interval: daily
     groups:
       actions:
-        patterns: "*"
+        patterns:
+          - "*"
 
   - package-ecosystem: composer
     directory: /
