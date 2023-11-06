@@ -15,12 +15,12 @@ jobs:
     name: PHPUnit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           persist-credentials: false
 
       - name: Setup PHP, with Composer and extensions
-        uses: shivammathur/setup-php@7fdd3ece872ec7ec4c098ae5ab7637d5e0a96067
+        uses: shivammathur/setup-php@81cd5ae0920b34eef300e1775313071038a53429
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
@@ -48,12 +48,12 @@ jobs:
     name: Psalm
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           persist-credentials: false
 
       - name: Setup PHP with Composer and extensions
-        uses: shivammathur/setup-php@7fdd3ece872ec7ec4c098ae5ab7637d5e0a96067
+        uses: shivammathur/setup-php@81cd5ae0920b34eef300e1775313071038a53429
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install doctl
-        uses: digitalocean/action-doctl@cf10ddb4467f6fb84c01f7cc5f099cec71eabc93
+        uses: digitalocean/action-doctl@e5cb5b0cde9789f79c5115c2c4d902f38a708804
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
