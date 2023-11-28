@@ -18,11 +18,11 @@ jobs:
       contents: read
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           persist-credentials: false
 
-      - uses: actions/dependency-review-action@6c5ccdad469c9f8a2996bfecaec55a631a347034
+      - uses: actions/dependency-review-action@01bc87099ba56df1e897b6874784491ea6309bc4
 
   psalm:
     name: Psalm
@@ -30,12 +30,12 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
         with:
           persist-credentials: false
 
       - name: Setup PHP with Composer and extensions
-        uses: shivammathur/setup-php@7fdd3ece872ec7ec4c098ae5ab7637d5e0a96067
+        uses: shivammathur/setup-php@e6f75134d35752277f093989e72e140eaa222f35
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
@@ -60,6 +60,6 @@ jobs:
         run: php vendor/bin/psalm --taint-analysis --output-format=github --long-progress --report=psalm-results.sarif
 
       - name: Upload Psalm security analysis to GitHub
-        uses: github/codeql-action/upload-sarif@2cb752a87e96af96708ab57187ab6372ee1973ab
+        uses: github/codeql-action/upload-sarif@407ffafae6a767df3e0230c3df91b6443ae8df75
         with:
           sarif_file: psalm-results.sarif
