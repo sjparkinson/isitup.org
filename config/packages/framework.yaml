@@ -1,8 +1,10 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
-    secret: '%env(string:APP_SECRET)%'
+    secret: "%env(string:APP_SECRET)%"
     csrf_protection: true
+    annotations: false
     http_method_override: false
+    handle_all_throwables: true
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
@@ -12,8 +14,14 @@ framework:
         cookie_samesite: strict
         storage_factory_id: session.storage.factory.native
 
-    trusted_proxies: '%env(string:TRUSTED_PROXIES)%'
-    trusted_headers: ['x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port']
+    trusted_proxies: "%env(string:TRUSTED_PROXIES)%"
+    trusted_headers:
+        [
+            "x-forwarded-for",
+            "x-forwarded-host",
+            "x-forwarded-proto",
+            "x-forwarded-port",
+        ]
 
     #esi: true
     #fragments: true
@@ -22,9 +30,9 @@ framework:
 
     http_client:
         default_options:
-            max_duration: '%env(float:HTTP_CLIENT_TIMEOUT)%'
-            max_redirects: '%env(int:HTTP_CLIENT_MAX_REDIRECTS)%'
-            headers: { 'User-Agent': 'Is is up? (+https://isitup.org)' }
+            max_duration: "%env(float:HTTP_CLIENT_TIMEOUT)%"
+            max_redirects: "%env(int:HTTP_CLIENT_MAX_REDIRECTS)%"
+            headers: { "User-Agent": "Is is up? (+https://isitup.org)" }
 
 when@test:
     framework:
