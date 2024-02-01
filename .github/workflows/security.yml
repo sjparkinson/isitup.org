@@ -22,7 +22,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/dependency-review-action@c74b580d73376b7750d3d2a50bfb8adc2c937507
+      - uses: actions/dependency-review-action@4901385134134e04cec5fbe5ddfe3b2c5bd5d976
 
   psalm:
     name: Psalm
@@ -35,7 +35,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup PHP with Composer and extensions
-        uses: shivammathur/setup-php@e6f75134d35752277f093989e72e140eaa222f35
+        uses: shivammathur/setup-php@6d7209f44a25a59e904b1ee9f3b0c33ab2cd888d
         with:
           php-version: ${{ env.php-version }}
           extensions: ${{ env.php-extensions }}
@@ -45,7 +45,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Composer packages
-        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
         with:
           path: |
             ${{ steps.composer-cache.outputs.dir }}
@@ -60,6 +60,6 @@ jobs:
         run: php vendor/bin/psalm --taint-analysis --output-format=github --long-progress --report=psalm-results.sarif
 
       - name: Upload Psalm security analysis to GitHub
-        uses: github/codeql-action/upload-sarif@012739e5082ff0c22ca6d6ab32e07c36df03c4a4
+        uses: github/codeql-action/upload-sarif@b7bf0a3ed3ecfa44160715d7c442788f65f0f923
         with:
           sarif_file: psalm-results.sarif
